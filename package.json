@@ -12,6 +12,7 @@
     "express": "~4.15.5",
     "morgan": "~1.9.0",
     "mysql2": "^1.5.1",
+    "nodemailer": "^4.4.1",
     "qrcode": "^1.2.0",
     "sequelize": "^4.31.0",
     "serve-favicon": "~2.4.5"
