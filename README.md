@@ -11,3 +11,4 @@ lorem ipsum sit amen
 * [Passport](http://www.passportjs.org/) Auth Library
 * [QRcode](https://github.com/soldair/node-qrcode) QR Code Generation Code
 * [NodeMailer](https://nodemailer.com/about/) Mail Sender Library
+* [Materialize](http://next.materializecss.com/) CSS Framework
