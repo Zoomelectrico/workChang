@@ -30,3 +30,5 @@ const User = sequelize.define('user', {
     allowNull: false
   },
 });
+
+module.exports = User;
