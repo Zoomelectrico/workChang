@@ -7,16 +7,7 @@ const passport = require('passport');
 const Sequelize = require('sequelize');
 const dbconfig = require('./config/database');
 
-const sequelize = new Sequelize(dbconfig.database, dbconfig.username, dbconfig.password, {
-  host: 'localhost',
-  dialect: 'mysql',
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
-});
+const sequelize = dbconfig;
 
 sequelize
   .authenticate()

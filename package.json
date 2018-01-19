@@ -16,7 +16,13 @@
     "jsonwebtoken": "*",
     "body-parser": "*",
     "passport": "*",
-    "passport-jwt": "*"    
+    "passport-jwt": "*",
+    "nodemailer": "*",
+    "cookie-parser": "*",
+    "debug": "*",
+    "morgan": "*",
+    "qrcode": "*",
+    "serve-favicon": "*"
   },
   "repository": {
     "type": "git",
