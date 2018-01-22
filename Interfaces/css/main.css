@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
+* {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+}
+#home {
+  background: url(../img/background1.jpeg) no-repeat center center fixed;
+  height: 100vh;
+  background-size: cover;
+  padding: 100px 0px;
+}
+#about {
+  padding: 50px 0px 100px 0px;
+}
+#contact {
+  background: url(../img/background4.jpeg) no-repeat center center fixed;
+  height: 100vh;
+  background-size: cover;
+  padding: 150px 0px 100px 0px;
+}
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+  height: 100%;
+}
+.box-titulo {
+  background: rgba(0,0,0, 0.25);
+  color: #ffffff;
+  padding: 20px;
+  margin: auto;
+}
+.form-container {
+  margin: 0 auto;
+}
+/* label color */
+.input-field label {
+  color: #333333;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+  color: #000000;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+}
+/* valid color */
+.input-field input[type=text].valid {
+  border-bottom: 1px solid rgb(52, 177, 14);
+  box-shadow: 0 1px 0 0 rgb(52, 177, 14);
+}
+/* invalid color */
+.input-field input[type=text].invalid {
+  border-bottom: 1px solid rgb(214, 18, 18);
+  box-shadow: 0 1px 0 0 rgb(214, 18, 18);
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #000;
+}
