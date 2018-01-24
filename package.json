@@ -41,5 +41,8 @@
   "bugs": {
     "url": "https://github.com/Zoomelectrico/workChang/issues"
   },
-  "homepage": "https://github.com/Zoomelectrico/workChang#readme"
+  "homepage": "https://github.com/Zoomelectrico/workChang#readme",
+  "devDependencies": {
+    "@angular/cli": "^1.6.5"
+  }
 }
