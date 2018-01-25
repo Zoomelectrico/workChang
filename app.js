@@ -25,6 +25,15 @@ const users = require('./routes/users');
 //Port
 const port = 3000;
 
+//set static Folder
+app.use(express.static(path.join(__dirname, 'angular-src/src')));
+
+
+app.get('/', (req, res) => {
+  res.send('Invalid Endpoint');
+})
+
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
