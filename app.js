@@ -26,7 +26,7 @@ const users = require('./routes/users');
 const port = 3000;
 
 //set static Folder
-app.use(express.static(path.join(__dirname, 'angular-src/src')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.get('/', (req, res) => {
