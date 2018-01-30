@@ -15,7 +15,6 @@
     "debug": "*",
     "express": "*",
     "jsonwebtoken": "*",
-    "materialize-css": "^1.0.0-alpha.3",
     "morgan": "*",
     "mysql2": "*",
     "nodemailer": "*",

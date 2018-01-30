@@ -1,8 +1,9 @@
 var Sequelize = require('sequelize');
 
-module.exports = new Sequelize('database', 'username', 'password', {
+module.exports = new Sequelize('workchang', 'root', 'Paty1998', {
   host: 'localhost',
   dialect: 'mysql',
+  port: 3307,
   pool: {
     max: 5,
     min: 0,
