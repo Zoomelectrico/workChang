@@ -5,7 +5,7 @@ const sequelize = dbconfig;
 
 const Automovil = sequelize.define('Automovil', {
   ID: {
-    type: Sequelize.INT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true
@@ -39,7 +39,7 @@ const Automovil = sequelize.define('Automovil', {
     allowNull: false
   },
   Duenio: {
-    type: Sequelize.INT,
+    type: Sequelize.INTEGER,
     references: {
       model: Cliente,
       key: 'ID',

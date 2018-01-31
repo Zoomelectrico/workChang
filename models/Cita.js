@@ -5,13 +5,13 @@ const sequelize = dbconfig;
 
 const Cita = sequelize.define('Cita', {
   ID: {
-    type: Sequelize.INT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true
   },
   Automovil_ID: {
-    type: Sequelize.INT,
+    type: Sequelize.INTEGER,
     references: {
       model: Automovil,
       key: 'ID',

@@ -5,13 +5,13 @@ const sequelize = dbconfig;
 
 const Administrador = sequelize.define('Administrador', {
   ID: {
-    type: Sequelize.INT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true
   },
   Usuario_ID: {
-    type: Sequelize.INT,
+    type: Sequelize.INTEGER,
     references: {
       model: Usuario,
       key: 'ID',

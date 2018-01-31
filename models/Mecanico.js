@@ -5,13 +5,13 @@ const sequelize = dbconfig;
 
 const Mecanico = sequelize.define('Mecanico', {
   ID: {
-    type: Sequelize.INT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true
   },
   Usuario_ID: {
-    type: Sequelize.INT,
+    type: Sequelize.INTEGER,
     references: {
       model: Usuario,
       key: 'ID',

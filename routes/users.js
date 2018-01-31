@@ -1,20 +1,38 @@
 const express = require('express');
+const passport = require('passport');
+const  jwt = require('jsonwebtoken');
 const router = express.Router();
+const Usuario = require('../models/Usuario');
 
-router.get('/registro', (req, res, next) => {
-  res.send('REGISTRO');
+router.post('/registro', (req, res, next) => {
+  console.log(req.body);
+  let user = {
+    cedula: req.body.cedula,
+    nombre: req.body.nombre,
+    apellido: req.body.apellido,
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password,
+    aptoCasa: req.body.aptoCasa,
+    calle: req.body.calle,
+    ciudad: req.body.ciudad,
+    estado: req.body.estado
+  };
+  Usuario.addUser(user, (err, user) => {
+    if (err) {
+      res.json({success: false, msg: 'Failed'});
+    } else {
+      res.json({success: true, msg: 'Fine'});
+    }
+  });
 });
 
-router.get('/autenticacion', (req, res, next) => {
+router.post('/autenticacion', (req, res, next) => {
   res.send('Autenticacion');
 });
 
 router.get('/perfil', (req, res, next) => {
   res.send('perfil');
-});
-
-router.get('/validacion', (req, res, next) => {
-  res.send('Validacion');
 });
 
 module.exports = router;

@@ -5,7 +5,7 @@ const sequelize = dbconfig;
 
 const OrdenReparacion = sequelize.define('OrdenReparacion', {
   ID: {
-    type: Sequelize.INT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true
@@ -19,14 +19,14 @@ const OrdenReparacion = sequelize.define('OrdenReparacion', {
     allowNull: true
   },
   Cita_ID: {
-    type: Sequelize.INT,
+    type: Sequelize.INTEGER,
     references: {
       model: Cita,
       key: 'ID',
     }
   },
   Mecanico_ID:{
-    type: Sequelize.INT,
+    type: Sequelize.INTEGER,
     references: {
       model: Mecanico,
       key: 'ID',
