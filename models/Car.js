@@ -38,6 +38,10 @@ const Car = sequelize.define('Cars', {
     type: Sequelize.INTEGER,
     allowNull: false
   },
+  active: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
+  },
   Owner: {
     type: Sequelize.INTEGER,
     references: {

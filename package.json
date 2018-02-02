@@ -15,6 +15,7 @@
     "debug": "*",
     "express": "*",
     "jsonwebtoken": "*",
+    "moment": "^2.20.1",
     "morgan": "*",
     "mysql2": "*",
     "nodemailer": "*",

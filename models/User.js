@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-const bcrypt = require('bcryptjs');
 const dbconfig = require('../config/database');
 
 const sequelize = dbconfig;
@@ -58,21 +57,3 @@ const User = sequelize.define('Users', {
 }, { timestamps: false, freezeTableName: true });
 
 module.exports = User;
-
-module.exports.addUser = function(user, callback) {
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) { console.error(err); }
-    bcrypt.hash(user.password, salt, (err, hash) => {
-      if (err) { console.error(err) }
-      user.password = hash;
-      User.create(user).then((user) => {console.log(user)});    
-    });
-  });
-};  
-
-module.exports.comparePassword = function (password, hash, callback) {
-  bcrypt.compare(password, hash, (err, isMatch) => {
-    if (err) throw err;
-    callback(null, isMatch);
-  });
-};

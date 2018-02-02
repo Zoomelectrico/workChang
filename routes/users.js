@@ -3,22 +3,21 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/User');
+const UserController = require('../controllers/UserController');
 
 router.post('/registro', (req, res, next) => {
-  console.log(req.body);
   let user = {
-    cedula: req.body.cedula,
-    nombre: req.body.nombre,
-    apellido: req.body.apellido,
-    email: req.body.email,
-    username: req.body.username,
-    password: req.body.password,
-    aptoCasa: req.body.aptoCasa,
-    calle: req.body.calle,
-    ciudad: req.body.ciudad,
-    estado: req.body.estado
+    "nationalID": req.body.nationalID,
+    "firstName": req.body.firstName,
+    "lastName": req.body.lastName,
+    "email": req.body.email,
+    "username": req.body.username,
+    "password": req.body.password,
+    "addressLine1": req.body.addressLine1,
+    "addressLine2": req.body.addressLine2,
+    "city": req.body.city
   };
-  User.addUser(user, (err, user) => {
+  UserController.registerUser(user, (err, user) => {
     if (err) {
       res.json({success: false, msg: 'Failed'});
     } else {
@@ -36,7 +35,7 @@ router.post('/autenticacion', (req, res, next) => {
       username: username
     }
   }).then((user) => {
-    User.comparePassword(password, user.password, (err, isMatch) => {
+    UserController.comparePassword(password, user.password, (err, isMatch) => {
       if (err) throw err;
       if (isMatch) {
         const token = jwt.sign({data: user}, 'yoursecret', {
@@ -59,8 +58,8 @@ router.post('/autenticacion', (req, res, next) => {
   });
 });
 
-router.get('/perfil', (req, res, next) => {
-  res.send('perfil');
+router.get('/perfil', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+  res.json({user: req.user});
 });
 
 module.exports = router;
