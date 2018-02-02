@@ -3,35 +3,35 @@ const dbconfig = require('../config/database');
 
 const sequelize = dbconfig;
 
-const OrdenReparacion = sequelize.define('OrdenReparacion', {
+const RepairOrder = sequelize.define('RepairOrders', {
   ID: {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true
   },
-  fechaEntrada: {
+  entryDate: {
     type: Sequelize.DATEONLY,
     allowNull: false
   },
-  fechaSalida: {
+  exitDate: {
     type: Sequelize.DATEONLY,
     allowNull: true
   },
-  Cita_ID: {
+  Appointment: {
     type: Sequelize.INTEGER,
     references: {
-      model: Cita,
+      model: Appointment,
       key: 'ID',
     }
   },
-  Mecanico_ID:{
+  Mechanic:{
     type: Sequelize.INTEGER,
     references: {
-      model: Mecanico,
+      model: Mechanic,
       key: 'ID',
     }
   }
 }, { timestamps: false, freezeTableName: true });
 
-module.exports = OrdenReparacion;
+module.exports = RepairOrder;

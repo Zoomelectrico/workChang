@@ -3,30 +3,30 @@ const dbconfig = require('../config/database');
 
 const sequelize = dbconfig;
 
-const Respuesto = sequelize.define('Repuesto', {
+const Replacement = sequelize.define('Replacements', {
   ID: {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true
   },
-  numeroParte: {
+  partNumber: {
     type: Sequelize.INTEGER,
     allowNull: false,
     unique: true
   },
-  nombre: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  marca: {
+  brand: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  existencia: {
+  inStock: {
     type: Sequelize.INTEGER,
     allowNull: false,
   }
 }, { timestamps: false, freezeTableName: true });
 
-module.exports = Respuesto;
+module.exports = Replacement;

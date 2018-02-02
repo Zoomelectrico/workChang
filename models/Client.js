@@ -3,20 +3,20 @@ const dbconfig = require('../config/database');
 
 const sequelize = dbconfig;
 
-const Gerente = sequelize.define('Gerente', {
+const Client = sequelize.define('Clients', {
   ID: {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true
   },
-  Usuario_ID: {
+  user: {
     type: Sequelize.INTEGER,
     references: {
-      model: Usuario,
+      model: User,
       key: 'ID',
     }
   }
 }, { timestamps: false, freezeTableName: true });
 
-module.exports = Gerente;
+module.exports = Client;

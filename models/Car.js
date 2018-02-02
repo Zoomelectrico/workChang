@@ -3,7 +3,7 @@ const dbconfig = require('../config/database');
 
 const sequelize = dbconfig;
 
-const Automovil = sequelize.define('Automovil', {
+const Car = sequelize.define('Cars', {
   ID: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -18,7 +18,7 @@ const Automovil = sequelize.define('Automovil', {
       isAlphanumeric: true
     }
   },
-  placa: {
+  licensePlate: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true,
@@ -26,25 +26,25 @@ const Automovil = sequelize.define('Automovil', {
       isAlphanumeric: true
     }
   },
-  modelo: {
+  model: {
     type: Sequelize.STRING,
     allowNull: false
   }, 
-  marca: {
+  brand: {
     type: Sequelize.STRING,
     allowNull: false
   }, 
-  anio: {
+  year: {
     type: Sequelize.INTEGER,
     allowNull: false
   },
-  Duenio: {
+  Owner: {
     type: Sequelize.INTEGER,
     references: {
-      model: Cliente,
+      model: Client,
       key: 'ID',
     }
   }
 }, { timestamps: false, freezeTableName: true });
 
-module.exports = Automovil;
+module.exports = Car;

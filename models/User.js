@@ -4,23 +4,23 @@ const dbconfig = require('../config/database');
 
 const sequelize = dbconfig;
 
-const Usuario = sequelize.define('Usuario', {
+const User = sequelize.define('Users', {
   ID: {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true
   },
-  cedula: {
+  nationalID: {
     type: Sequelize.INTEGER,
     allowNull: true,
     unique: true
   },
-  nombre: {
+  firstName: {
     type: Sequelize.STRING,
     allowNull: true
   },
-  apellido: {
+  lastName: {
     type: Sequelize.STRING,
     allowNull: true
   },
@@ -43,25 +43,21 @@ const Usuario = sequelize.define('Usuario', {
     type: Sequelize.STRING,
     allowNull: true
   },
-  aptoCasa: {
+  addressLine1: {
     type: Sequelize.STRING,
     allowNull: true
   },
-  calle: {
+  addressLine2: {
     type: Sequelize.STRING,
     allowNull: true
   },
-  ciudad: {
-    type: Sequelize.STRING,
-    allowNull: true
-  },
-  estado: {
+  city: {
     type: Sequelize.STRING,
     allowNull: true
   }
 }, { timestamps: false, freezeTableName: true });
 
-module.exports = Usuario;
+module.exports = User;
 
 module.exports.addUser = function(user, callback) {
   bcrypt.genSalt(10, (err, salt) => {
@@ -69,7 +65,14 @@ module.exports.addUser = function(user, callback) {
     bcrypt.hash(user.password, salt, (err, hash) => {
       if (err) { console.error(err) }
       user.password = hash;
-      Usuario.create(user).then((user) => {console.log(user)});    
+      User.create(user).then((user) => {console.log(user)});    
     });
   });
 };  
+
+module.exports.comparePassword = function (password, hash, callback) {
+  bcrypt.compare(password, hash, (err, isMatch) => {
+    if (err) throw err;
+    callback(null, isMatch);
+  });
+};

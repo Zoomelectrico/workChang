@@ -20,28 +20,26 @@ sequelize
 
 // App Creation
 const app = express();
-
 const users = require('./routes/users'); 
-//Port
 const port = 3000;
-
 //set static Folder
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 app.get('/', (req, res) => {
   res.send('Invalid Endpoint');
 })
 
-
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-// Archivos estaticos
-app.use(express.static(path.join(__dirname, 'public')));
 //Router
 app.use('/users', users);
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
 
+
+// App Running
 app.listen(port, function (req, res) {
 	console.log('Running ');
 });

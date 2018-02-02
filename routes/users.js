@@ -1,8 +1,8 @@
 const express = require('express');
 const passport = require('passport');
-const  jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
-const Usuario = require('../models/Usuario');
+const User = require('../models/User');
 
 router.post('/registro', (req, res, next) => {
   console.log(req.body);
@@ -18,7 +18,7 @@ router.post('/registro', (req, res, next) => {
     ciudad: req.body.ciudad,
     estado: req.body.estado
   };
-  Usuario.addUser(user, (err, user) => {
+  User.addUser(user, (err, user) => {
     if (err) {
       res.json({success: false, msg: 'Failed'});
     } else {
@@ -28,7 +28,35 @@ router.post('/registro', (req, res, next) => {
 });
 
 router.post('/autenticacion', (req, res, next) => {
-  res.send('Autenticacion');
+  const username = req.body.username;
+  const password = req.body.password;
+
+  User.findOne({
+    where: {
+      username: username
+    }
+  }).then((user) => {
+    User.comparePassword(password, user.password, (err, isMatch) => {
+      if (err) throw err;
+      if (isMatch) {
+        const token = jwt.sign({data: user}, 'yoursecret', {
+          expiresIn: 604800
+        });
+        res.json({
+          success: true,
+          token: `Bearer ${token}`,
+          user: {
+            id: user.ID,
+            nombre: `${user.nombre} ${user.apellido}`,
+            username: user.username,
+            email: user.email
+          }
+        });
+      } else {
+        return res.json({success: false, msg: 'Wrong Password'});
+      }
+    });
+  });
 });
 
 router.get('/perfil', (req, res, next) => {
