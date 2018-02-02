@@ -14,7 +14,7 @@
     "cors": "*",
     "debug": "*",
     "express": "*",
-    "jsonwebtoken": "*",
+    "jsonwebtoken": "^8.1.1",
     "moment": "^2.20.1",
     "morgan": "*",
     "mysql2": "*",
@@ -22,7 +22,7 @@
     "passport": "*",
     "passport-jwt": "*",
     "qrcode": "*",
-    "sequelize": "^4.32.1",
+    "sequelize": "^4.32.3",
     "serve-favicon": "*"
   },
   "repository": {
@@ -30,10 +30,10 @@
     "url": "git+https://github.com/Zoomelectrico/workChang.git"
   },
   "keywords": [
-    "javascript",
-    "angular",
-    "express",
-    "node",
+    "JavaScript",
+    "Angular",
+    "Express",
+    "Node.js",
     "MySQL"
   ],
   "author": "Chang, Quevedo y Rojas",
@@ -43,6 +43,6 @@
   },
   "homepage": "https://github.com/Zoomelectrico/workChang#readme",
   "devDependencies": {
-    "@angular/cli": "^1.6.5"
+    "@angular/cli": "^1.6.7"
   }
 }
