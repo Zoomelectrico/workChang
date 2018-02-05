@@ -2,10 +2,9 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
-const User = require('../models/User');
 const UserController = require('../controllers/UserController');
 
-router.post('/registro', (req, res, next) => {
+router.post('/register', (req, res, next) => {
   let user = {
     "nationalID": req.body.nationalID,
     "firstName": req.body.firstName,
@@ -26,7 +25,7 @@ router.post('/registro', (req, res, next) => {
   });
 });
 
-router.post('/autenticacion', (req, res, next) => {
+router.post('/auth', (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -58,7 +57,7 @@ router.post('/autenticacion', (req, res, next) => {
   });
 });
 
-router.get('/perfil', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
   res.json({user: req.user});
 });
 

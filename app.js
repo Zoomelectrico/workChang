@@ -7,8 +7,8 @@ const passport = require('passport');
 const Sequelize = require('sequelize');
 const dbconfig = require('./config/database');
 
+// Sequelize Configuration
 const sequelize = dbconfig;
-
 sequelize
   .authenticate()
   .then(() => {
@@ -32,12 +32,11 @@ app.get('/', (req, res) => {
 app.use(cors());
 app.use(bodyParser.json());
 //Router
-app.use('/users', users);
+app.use('/User', users);
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
-
 
 // App Running
 app.listen(port, function (req, res) {

@@ -8,7 +8,7 @@ const Appointment = require('../models/Appointment');
 const RepairOrder = require('../models/RepairOrder');
 
 const QueryInterface = {
-  clientHistorical: function (nationalID) {
+  clientHistorical: function (nationalID, callback) {
     let data = [];
     User.findOne({ // Busco al carajo por cedula
       where: {
@@ -47,7 +47,7 @@ const QueryInterface = {
             car.repairs = repairs; // creo en el objeto carro una reparacion
             data.push(car); // haces push en la data 
           });
-          return data;
+          callback(data);
         });
       })
     });
