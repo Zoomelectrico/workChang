@@ -1,6 +1,5 @@
 # workChang
 Proyecto de Sistemas de Información realizado por Abraham Chang, Germano Rojas y josé Quevedo
-***
 ## Funcionalidad
 lorem ipsum sit amen
 ## Tecnologías Utilizadas
@@ -11,4 +10,5 @@ lorem ipsum sit amen
 * [Passport](http://www.passportjs.org/) Auth Library
 * [QRcode](https://github.com/soldair/node-qrcode) QR Code Generation Code
 * [NodeMailer](https://nodemailer.com/about/) Mail Sender Library
-* [ng2-materialize](https://sherweb.github.io/ng2-materialize/home) CSS Framework
+* [Bootstrap](https://getbootstrap.com) CSS Framework
+* [ng-bootstrap](https://ng-bootstrap.github.io) Bootstrap wrapper for angular

@@ -9,7 +9,7 @@
       "outDir": "../public",
       "assets": [
         "assets",
-        "favicon.png"
+        "favicon.ico"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -20,11 +20,9 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "../node_modules/material-design-icons/iconfont/material-icons.css",
-        "../node_modules/materialize-css/dist/css/materialize.css"
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css"
       ],
       "scripts": [
-        "../node_modules/materialize-css/dist/js/materialize.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

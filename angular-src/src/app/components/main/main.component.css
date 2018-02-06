@@ -1,0 +1,17 @@
+#welcome {
+  padding-top: 2rem;
+  height: 20rem;
+  color: #000000;
+  background-color: #eeeeee;
+  display: flex;
+}
+#about {
+  padding: 3rem;
+}
+h2 {
+  margin-bottom: 1rem;
+}
+#contact {
+  background-color: #dddddd;
+  padding: 1.5rem;
+}

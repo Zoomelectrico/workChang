@@ -46,7 +46,7 @@ const Car = sequelize.define('Cars', {
     type: Sequelize.INTEGER,
     references: {
       model: Client,
-      key: 'ID',
+      key: 'ID'
     }
   }
 }, { timestamps: false, freezeTableName: true });
