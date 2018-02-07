@@ -1,12 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { MainComponent } from './components/main/main.component';
+import { HomeComponent } from './components/home/home.component';
 import { ClientDashboardComponent } from './components/client-dashboard/client-dashboard.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -14,13 +16,13 @@ import { ClientDashboardComponent } from './components/client-dashboard/client-d
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    MainComponent,
-    ClientDashboardComponent
+    HomeComponent,
+    ClientDashboardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    NgbModule.forRoot()
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
