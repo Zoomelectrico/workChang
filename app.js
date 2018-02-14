@@ -20,7 +20,9 @@ sequelize
 
 // App Creation
 const app = express();
-const users = require('./routes/users'); 
+const users = require('./routes/users');
+const query = require('./routes/reports');
+const client = require('./routes/clients'); 
 const port = 3000;
 //set static Folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -33,6 +35,8 @@ app.use(cors());
 app.use(bodyParser.json());
 //Router
 app.use('/User', users);
+app.use('/Client', client);
+app.use('/Query', query);
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
