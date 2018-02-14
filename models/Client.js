@@ -13,7 +13,7 @@ const Client = sequelize.define('Clients', {
   user: {
     type: Sequelize.INTEGER,
     references: {
-      model: User,
+      model: Users,
       key: 'ID',
     }
   }

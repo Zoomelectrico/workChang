@@ -13,7 +13,7 @@ const Mechanic = sequelize.define('Mechanics', {
   User: {
     type: Sequelize.INTEGER,
     references: {
-      model: User,
+      model: Users,
       key: 'ID',
     }
   }

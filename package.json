@@ -23,7 +23,7 @@
     "passport": "*",
     "passport-jwt": "*",
     "qrcode": "*",
-    "sequelize": "^4.33.0",
+    "sequelize": "^4.33.4",
     "serve-favicon": "*"
   },
   "repository": {
@@ -44,7 +44,7 @@
   },
   "homepage": "https://github.com/Zoomelectrico/workChang#readme",
   "devDependencies": {
-    "@angular/cli": "^1.6.7",
+    "@angular/cli": "^1.6.8",
     "eslint": "^4.17.0"
   }
 }

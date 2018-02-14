@@ -13,7 +13,7 @@ const Manager = sequelize.define('Managers', {
   User: {
     type: Sequelize.INTEGER,
     references: {
-      model: User,
+      model: Users,
       key: 'ID',
     }
   }

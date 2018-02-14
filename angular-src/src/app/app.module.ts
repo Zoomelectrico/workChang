@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { JwtModule } from '@auth0/angular-jwt';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -10,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ClientDashboardComponent } from './components/client-dashboard/client-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 
+import { AuthService } from './services/auth.service'
 
 @NgModule({
   declarations: [
@@ -22,9 +25,18 @@ import { LoginComponent } from './components/login/login.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('access_token');
+        },
+        whitelistedDomains: ['localhost:3000']
+      }
+    })
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
