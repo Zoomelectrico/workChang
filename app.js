@@ -32,7 +32,7 @@ app.use(cors());
 app.use(bodyParser.json());
 //Router
 app.use('/User', users);
-//app.use('/Client', client);
+app.use('/Client', client);
 //app.use('/Query', query);
 // Passport
 app.use(passport.initialize());

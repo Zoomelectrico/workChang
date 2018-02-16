@@ -1,4 +1,5 @@
 const Client = require('../models/Client');
+const Car = require('../models/Car');
 const Appoiment = require('../models/Appointment');
 
 const ClientController = {
@@ -23,7 +24,17 @@ const ClientController = {
           User: UserID
         }
       }).then(client => callback(null, client))
-      .catch(err => callback(err, null));
+        .catch(err => callback(err, null));
+    });
+  }, 
+  carRegister(car, callback) {
+    Car.create(car).then(() => {  
+      Car.findOne({
+        where: {
+          serial: car.serial
+        }
+      }).then(car => callback(null, car))
+        .catch(err => (err, null));
     });
   }
 };
