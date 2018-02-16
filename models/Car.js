@@ -42,6 +42,10 @@ const Car = sequelize.define('Cars', {
     type: Sequelize.BOOLEAN,
     allowNull: false
   },
+  photoLink: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   OwnerID: {
     type: Sequelize.INTEGER,
     allowNull: true

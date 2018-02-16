@@ -57,6 +57,10 @@ const User = sequelize.define('Users', {
   type: {
     type: Sequelize.INTEGER,
     allowNull: true
+  },
+  photoLink: {
+    type: Sequelize.STRING,
+    allowNull: true
   }
 }, { timestamps: false, freezeTableName: true });
 

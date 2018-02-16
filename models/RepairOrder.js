@@ -25,6 +25,10 @@ const RepairOrder = sequelize.define('RepairOrders', {
   AppointmentID: {
     type: Sequelize.INTEGER,
     allowNull: true 
+  },
+  QRCode: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 }, { timestamps: false, freezeTableName: true });
 
