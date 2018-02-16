@@ -29,4 +29,5 @@ const Replacement = sequelize.define('Replacements', {
   }
 }, { timestamps: false, freezeTableName: true });
 
+
 module.exports = Replacement;

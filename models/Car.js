@@ -42,12 +42,9 @@ const Car = sequelize.define('Cars', {
     type: Sequelize.BOOLEAN,
     allowNull: false
   },
-  Owner: {
+  OwnerID: {
     type: Sequelize.INTEGER,
-    references: {
-      model: Client,
-      key: 'ID'
-    }
+    allowNull: true
   }
 }, { timestamps: false, freezeTableName: true });
 

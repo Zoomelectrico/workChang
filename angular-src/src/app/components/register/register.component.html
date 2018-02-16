@@ -1,0 +1,93 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2 class="text-center">Registro</h2>
+      </div>
+    </div>
+    <div class="row justify-content-around">
+      <div class="col-sm-12 col-lg-8">
+        <div class="row">
+          <form #registerForm="ngForm" (submit)="registrar()" class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group">
+                  <label for="firstName">Nombres</label>
+                  <input type="text" class="form-control" id="firstName" [(ngModel)]="firstName" name="firstName" placeholder="John Jose">
+                </div>
+              </div>  
+              <div class="col-sm-12 col-lg-6">  
+                <div class="form-group">
+                  <label for="lastName">Apellidos</label>
+                  <input type="text" class="form-control" id="lastName" [(ngModel)]="lastName" name="lastName" placeholder="Doe Matienzo">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username" placeholder="JohnDoe">
+                </div>
+              </div>
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group">
+                  <label for="email">Correo Eléctronico</label>
+                  <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" placeholder="johndoe@example.com">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group">
+                  <label for="password">Contraseña</label>
+                  <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" placeholder="Password">
+                </div>
+              </div>
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group">
+                  <label for="password2">Confirmar Contraseña</label>
+                  <input type="password" class="form-control" id="password2" [(ngModel)]="password2" name="password2" placeholder="Password">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group">
+                  <label for="addressLine1">Dirección 1</label>
+                  <input type="text" class="form-control" id="addressLine1" [(ngModel)]="addressLine1" name="addressLine1" placeholder="Edif. La Vida, Apto 00">
+                </div>
+              </div>
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group">
+                  <label for="addressLine2">Dirección 2</label>
+                  <input type="text" class="form-control" id="addressLine2" [(ngModel)]="addressLine2" name="addressLine2" placeholder="Calle principal, el paraiso">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group">
+                  <label for="city">Ciudad</label>
+                  <input type="text" class="form-control" id="city" [(ngModel)]="city" name="city" placeholder="Caracas">
+                </div>
+              </div>
+              <div class="col-sm-12 col-lg-6">               
+                <div class="form-group">
+                  <label for="nationalID">Cedula de identidad</label>
+                  <input type="text" class="form-control" id="nationalID" [(ngModel)]="nationalID" name="nationalID" placeholder="12345678">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Registrar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

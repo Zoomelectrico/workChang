@@ -9,12 +9,9 @@ const dbconfig = require('./config/database');
 
 // Sequelize Configuration
 const sequelize = dbconfig;
-sequelize
-  .authenticate()
-  .then(() => {
+sequelize.authenticate().then(() => {
     console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
+  }).catch(err => {
     console.error('Unable to connect to the database:', err);
   });
 
@@ -35,8 +32,8 @@ app.use(cors());
 app.use(bodyParser.json());
 //Router
 app.use('/User', users);
-app.use('/Client', client);
-app.use('/Query', query);
+//app.use('/Client', client);
+//app.use('/Query', query);
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());

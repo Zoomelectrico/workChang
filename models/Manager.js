@@ -10,12 +10,9 @@ const Manager = sequelize.define('Managers', {
     primaryKey: true,
     autoIncrement: true
   },
-  User: {
+  UserID: {
     type: Sequelize.INTEGER,
-    references: {
-      model: Users,
-      key: 'ID',
-    }
+    allowNull: true
   }
 }, { timestamps: false, freezeTableName: true });
 

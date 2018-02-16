@@ -4,9 +4,9 @@ const bcrypt = require('bcryptjs');
 const UserController = {
   registerUser: function (user, callback) {
     bcrypt.genSalt(10, (err, salt) => {
-      if (err) { console.error(err); }
+      if (err) { throw err; }
       bcrypt.hash(user.password, salt, (err, hash) => {
-        if (err) { callback(err, null) }
+        if (err) { throw err; }
         user.password = hash;
         User.create(user).then(user => { callback(null, user) });    
       });

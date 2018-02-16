@@ -5,7 +5,7 @@ const router = express.Router();
 const UserController = require('../controllers/UserController');
 
 router.post('/register', (req, res, next) => {
-  let user = {
+  const user = {
     "nationalID": req.body.nationalID,
     "firstName": req.body.firstName,
     "lastName": req.body.lastName,
@@ -14,11 +14,13 @@ router.post('/register', (req, res, next) => {
     "password": req.body.password,
     "addressLine1": req.body.addressLine1,
     "addressLine2": req.body.addressLine2,
-    "city": req.body.city
+    "city": req.body.city,
+    "type": req.body.type 
   };
   UserController.registerUser(user, (err, user) => {
     if (err) {
       res.json({success: false, msg: 'Failed'});
+      console.error(err);
     } else {
       res.json({success: true, msg: 'Fine'});
     }

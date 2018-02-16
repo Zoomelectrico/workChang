@@ -11,10 +11,11 @@ export class AuthService {
 
   constructor(private http: Http) { }
 
-  registerUser(user) {
-    const headers = new Headers();
+  registerUser(credential) {
+    let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/users/register', user, { headers: headers }).map(res => res.json());
+    return this.http.post('http://localhost:3000/User/register', credential, { headers: headers })
+      .map(res => res.json());
   }
 
 

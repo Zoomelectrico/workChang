@@ -18,19 +18,13 @@ const RepairOrder = sequelize.define('RepairOrders', {
     type: Sequelize.DATEONLY,
     allowNull: true
   },
-  Appointment: {
+  MechanicID: {
     type: Sequelize.INTEGER,
-    references: {
-      model: Appointment,
-      key: 'ID',
-    }
+    allowNull: false
   },
-  Mechanic:{
+  AppointmentID: {
     type: Sequelize.INTEGER,
-    references: {
-      model: Mechanic,
-      key: 'ID',
-    }
+    allowNull: true 
   }
 }, { timestamps: false, freezeTableName: true });
 

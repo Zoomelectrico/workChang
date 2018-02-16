@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const dbconfig = require('../config/database');
-const Users = require('./User');
 const sequelize = dbconfig;
 
 const Administrator = sequelize.define('Administrators', {
@@ -10,12 +9,9 @@ const Administrator = sequelize.define('Administrators', {
     primaryKey: true,
     autoIncrement: true
   },
-  User: {
+  UserID: {
     type: Sequelize.INTEGER,
-    references: {
-      model: Users,
-      key: 'ID',
-    }
+    allowNull: true
   }
 }, { timestamps: false, freezeTableName: true });
 

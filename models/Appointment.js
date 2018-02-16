@@ -10,12 +10,9 @@ const Appointment = sequelize.define('Appointments', {
     primaryKey: true,
     autoIncrement: true
   },
-  Car: {
+  CarID: {
     type: Sequelize.INTEGER,
-    references: {
-      model: Car,
-      key: 'ID',
-    }
+    allowNull: false
   }
 }, { timestamps: false, freezeTableName: true });
 

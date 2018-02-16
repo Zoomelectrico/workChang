@@ -1,19 +1,20 @@
 const Sequelize = require('sequelize');
 const dbconfig = require('../config/database');
-
 const sequelize = dbconfig;
 
-const Mechanic = sequelize.define('Mechanics', {
-  ID: {
+const RepairsReplacement = sequelize.define('RepairsReplacements', {
+  RepairOrder: {
     type: Sequelize.INTEGER,
-    allowNull: false,
     primaryKey: true,
-    autoIncrement: true
-  },
-  UserID: {
+    allowNull: false
+  }, 
+  Replacement : {
     type: Sequelize.INTEGER,
-    allowNull: true
+    primaryKey: true,
+    allowNull: false
   }
 }, { timestamps: false, freezeTableName: true });
 
-module.exports = Mechanic;
+RepairsReplacement.removeAttribute('id');
+
+module.exports = Administrator;

@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const dbconfig = require('../config/database');
-
 const sequelize = dbconfig;
 
 const Client = sequelize.define('Clients', {
@@ -10,12 +9,9 @@ const Client = sequelize.define('Clients', {
     primaryKey: true,
     autoIncrement: true
   },
-  user: {
+  UserID: {
     type: Sequelize.INTEGER,
-    references: {
-      model: Users,
-      key: 'ID',
-    }
+    allowNull: true
   }
 }, { timestamps: false, freezeTableName: true });
 

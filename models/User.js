@@ -53,6 +53,10 @@ const User = sequelize.define('Users', {
   city: {
     type: Sequelize.STRING,
     allowNull: true
+  },
+  type: {
+    type: Sequelize.INTEGER,
+    allowNull: true
   }
 }, { timestamps: false, freezeTableName: true });
 
