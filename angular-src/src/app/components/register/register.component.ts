@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+   
   registrar() {
     if (this.password === this.password2) {
       const user = {
@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
         if (data.success) {
           this.router.navigate(['/login']);
         } else {
-          this.router.navigate(['/client/register']);
+          this.router.navigate(['/client']);
         }
       });
     } else {

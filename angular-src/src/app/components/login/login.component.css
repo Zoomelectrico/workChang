@@ -3,9 +3,3 @@ section {
   min-height: 80vh;
   flex-direction: column;
 }
-div#main {
-  flex: 1 0 auto;
-}
-div.center-helper {
-  margin: auto 0px;
-}

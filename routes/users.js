@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+const User = require('../models/User');
 const UserController = require('../controllers/UserController');
 
 router.post('/register', (req, res, next) => {
@@ -44,7 +45,7 @@ router.post('/auth', (req, res, next) => {
         });
         res.json({
           success: true,
-          token: `Bearer ${token}`,
+          token: token,
           user: {
             id: user.ID,
             nombre: `${user.nombre} ${user.apellido}`,
