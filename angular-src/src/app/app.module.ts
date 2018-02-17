@@ -17,7 +17,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { ClientDashboardComponent } from './components/client-dashboard/client-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component'
+import { RegisterComponent } from './components/register/register.component';
+import { GerenteDashboardComponent } from './components/gerente-dashboard/gerente-dashboard.component'
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { RegisterComponent } from './components/register/register.component'
     HomeComponent,
     ClientDashboardComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    GerenteDashboardComponent
   ],
   imports: [
     NgbModule.forRoot(),
