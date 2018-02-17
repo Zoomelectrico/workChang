@@ -1,0 +1,19 @@
+#dashboard {
+    background-color: #eeeeee;
+    height: 100%;
+    width: 100%;
+  }
+  #sidenav {
+    background-color: #333333;
+    color: #ffffff;
+  }
+  #panel {
+    padding: 2rem;
+  }
+.body {
+    background-color: #FFFFFF;
+}
+
+.thicker {
+    font-weight: 900;
+  }
