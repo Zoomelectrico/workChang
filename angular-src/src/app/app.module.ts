@@ -18,7 +18,9 @@ import { HomeComponent } from './components/home/home.component';
 import { ClientDashboardComponent } from './components/client-dashboard/client-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { GerenteDashboardComponent } from './components/gerente-dashboard/gerente-dashboard.component'
+import { GerenteDashboardComponent } from './components/gerente-dashboard/gerente-dashboard.component';
+import { OrdenReparacionComponent } from './components/orden-reparacion/orden-reparacion.component';
+import { VehiculoComponent } from './components/vehiculo/vehiculo.component'
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { GerenteDashboardComponent } from './components/gerente-dashboard/gerent
     ClientDashboardComponent,
     LoginComponent,
     RegisterComponent,
-    GerenteDashboardComponent
+    GerenteDashboardComponent,
+    OrdenReparacionComponent,
+    VehiculoComponent
   ],
   imports: [
     NgbModule.forRoot(),

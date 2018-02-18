@@ -1,0 +1,67 @@
+<ngb-accordion [closeOthers]="true" activeIds="static-1">
+  <ngb-panel type="dark" id="static-1">
+    <ng-template ngbPanelTitle>
+      <div class="text-dark">
+        <h4><b>Orden #: </b>00001</h4>
+      </div>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <div class="row">
+        <div class="col-md-6">
+          <p><b>Cliente: </b>Pepito Perez</p>
+          <p><b>Cedula: </b>26666666</p>
+        </div>
+        <div class="col-md-6">
+          <p><b>Marca: </b>Audi</p>
+          <p><b>Modelo: </b>TT</p>
+          <p><b>Año: </b>2016</p>
+          <p><b>Placa: </b>AA000AA</p>
+          <p><b>Serial: </b>1G1YY25R695700001</p>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="row">
+        <div class="col-md-6">
+          <p><b>Estado: </b>Revisión</p>
+          <p><b>Mecánico: </b>Juan Pérez</p>
+          <p><b>Fecha de ingreso: </b>16/02/2018</p>
+        </div>
+        <div class="col-md-6 align-self-center">
+          <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Presione para cerrar la orden">Cerrar orden</button>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="row">
+        <div class="col-md-6">
+          <p><b>Accesorios: </b>-</p>          
+        </div>
+        <div class="col-md-6">
+          <p><b>Repuestos: </b>-</p>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="row">
+        <div class="col-md-12">
+          <p><b>Razón de visita: </b><i>Sonido inusual al cambiar a la 3era velocidad</i></p>
+          <p><b>Diagnóstico: </b><i>-</i></p>
+          <p><b>Procedimiento: </b><i>-</i></p>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-7 align-self-center">
+            <ngb-carousel>
+              <ng-template ngbSlide>
+                <img src="../../../assets/escalade.jpg" width="400"  height="300" alt="Random first slide" align="middle">                
+              </ng-template>
+              <ng-template ngbSlide>
+                <img src="../../../assets/escalade.jpg" width="400" height="300" alt="Random second slide">
+              </ng-template>
+              <ng-template ngbSlide>
+                <img src="../../../assets/escalade.jpg" width="400" height="300" alt="Random third slide">
+              </ng-template>
+            </ngb-carousel>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

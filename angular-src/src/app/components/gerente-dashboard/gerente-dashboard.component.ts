@@ -12,4 +12,6 @@ export class GerenteDashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  model;
+
 }

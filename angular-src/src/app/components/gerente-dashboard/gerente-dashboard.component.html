@@ -16,105 +16,99 @@
   <div class="container">
     <div class="col-md-12">
       <ngb-tabset>
+          <ngb-tab>
+              <ng-template ngbTabTitle><b class="text-dark thicker background">Solicitudes</b></ng-template>
+              <ng-template ngbTabContent>
+                <div class="container">
+                  <div class="row justify-content-around body">
+                    <div class="col-md-8">
+                        <ngb-accordion [closeOthers]="true" activeIds="static-1">
+                            <ngb-panel type="dark" id="static-1">
+                              <ng-template ngbPanelTitle>
+                                <div class="col-md-6 text-dark">
+                                  <h4><b>Solicitud #: </b>00001</h4>
+                                </div>
+                              </ng-template>
+                              <ng-template ngbPanelContent>
+                                <div class="col-md-11">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <p><b>Cliente: </b>Pepe</p>
+                                      <p><b>Cédula: </b>26666666</p>
+                                      <form class="form-inline">
+                                        <div class="form-group">
+                                          <div class="input-group">
+                                            <input class="form-control" placeholder="yyyy-mm-dd"
+                                                    name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                                            <div class="input-group-append">
+                                              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                                <img src="../../../assets/ic_today_black_24dp_1x.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </form>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <p><b>Fecha solicitada: </b>26/02/2018</p>
+                                      <p><b>Motivo: </b>Sonido al frenar</p>
+                                      <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Otorgue la cita a la fecha indicada">Otorgar cita</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <hr class="my-4">
+                                <app-vehiculo></app-vehiculo>
+                              </ng-template>
+                            </ngb-panel>
+                          </ngb-accordion>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
         <ngb-tab>
           <ng-template ngbTabTitle><b class="text-dark thicker background">Clientes</b></ng-template>
           <ng-template ngbTabContent>
-            <div class="row justify-content-around body">
-              <div class="col-md-11">
-                <div class="card">
-                  <div class="card-header">
-                    <b class="thicker"><h3>Pepito Pérez</h3></b>
-                  </div>
-                  <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <p><b>Nombre: </b>Pepito Pérez</p>
-                          <p><b>Cédula: </b>26666666</p>
-                          <p><b>Sexo: </b>masculino</p>
+            <div class="col-md-11">
+              <div class="row justify-content-around body">
+                <div class="col-md-11">
+                  <div class="card">
+                    <div class="card-header">
+                      <b class="thicker"><h3>Pepito Pérez</h3></b>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <p><b>Nombre: </b>Pepito Pérez</p>
+                            <p><b>Cédula: </b>26666666</p>
+                            <p><b>Sexo: </b>masculino</p>
+                          </div>
+                          <div class="col-md-6">
+                            <p><b>Teléfono: </b>0424 555.55.55</p>
+                            <p><b>Dirección: </b>Av. Lecuna, Caracas, Venezuela</p>
+                            <p><b>Correo: </b>elpepitodepepitos@pepe.ito</p>
+                          </div>
                         </div>
-                        <div class="col-md-6">
-                          <p><b>Teléfono: </b>0424 555.55.55</p>
-                          <p><b>Dirección: </b>Av. Lecuna, Caracas, Venezuela</p>
-                          <p><b>Correo: </b>elpepitodepepitos@pepe.ito</p>
+                        <hr class="my-4">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <p><b>Vehículos registrados: </b>3</p>
+                          </div>
+                          <div class="col-md-12">
+                            <p><b>Vehículos en el taller: </b>1</p>
+                          </div>
                         </div>
-                      </div>
-                      <hr class="my-4">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <p><b>Vehículos registrados: </b>3</p>
-                        </div>
-                        <div class="col-md-12">
-                          <p><b>Vehículos en el taller: </b>1</p>
-                        </div>
-                      </div>
-                      <hr class="my-4">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <p class="thicker"><b>Órdenes de reparación</b></p>
-                          <div class="row justify-content-center">
-                            <div class="col-md-11">
-                              <ngb-accordion [closeOthers]="true" activeIds="static-1">
-                                <ngb-panel type="dark" id="static-1">
-                                  <ng-template ngbPanelTitle>
-                                    <div class="text-dark">
-                                      <h4><b>Orden #: </b>00001</h4>
-                                    </div>
-                                  </ng-template>
-                                  <ng-template ngbPanelContent>
-                                    <div class="row">
-                                      <div class="col-md-6">
-                                        <p><b>Cliente: </b>Pepito Perez</p>
-                                        <p><b>Cedula: </b>26666666</p>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <p><b>Vehículo: </b>Cadillac Escalade</p>
-                                        <p><b>Placa: </b>AA000AA</p>
-                                      </div>
-                                    </div>
-                                    <hr class="my-4">
-                                    <div class="row">
-                                      <div class="col-md-6">
-                                        <p><b>Estado: </b>Revisión</p>
-                                        <p><b>Mecánico: </b>Juan Pérez</p>
-                                        <p><b>Fecha de ingreso: </b>16/02/2018</p>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <p><b>Vehículo: </b>Audi TT 2016</p>
-                                        <p><b>Repuestos: </b>-</p>
-                                      </div>
-                                    </div>
-                                    <hr class="my-4">
-                                    <div class="row">
-                                      <div class="col-md-12">
-                                        <p><b>Accesorios: </b>-</p>
-                                        <p><b>Repuestos: </b>-</p>
-                                        <p><b>Razón de visita: </b><i>Sonido inusual al cambiar a la 3era velocidad</i></p>
-                                        <p><b>Diagnóstico: </b><i>-</i></p>
-                                        <p><b>Procedimiento: </b><i>-</i></p>
-                                      </div>
-                                    </div>
-                                    <div class="row justify-content-center">
-                                      <div class="col-md-12">
-                                          <ngb-carousel>
-                                            <ng-template ngbSlide>
-                                              <img src="../../../assets/escalade.jpg" width="400"  height="300" alt="Random first slide">
-                                            </ng-template>
-                                            <ng-template ngbSlide>
-                                              <img src="../../../assets/escalade.jpg" width="400" height="300" alt="Random second slide">
-                                            </ng-template>
-                                            <ng-template ngbSlide>
-                                              <img src="../../../assets/escalade.jpg" width="400" height="300" alt="Random third slide">
-                                            </ng-template>
-                                          </ngb-carousel>
-                                      </div>
-                                    </div>
-                                  </ng-template>
-                                </ngb-panel>
-                              </ngb-accordion>
+                        <hr class="my-4">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="row justify-content-center">
+                              <div class="col-md-11">
+                                <app-orden-reparacion></app-orden-reparacion>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -124,209 +118,98 @@
         <ngb-tab>
           <ng-template ngbTabTitle><b class="text-dark thicker">Vehículos</b></ng-template>
           <ng-template ngbTabContent>
-              <div class="row justify-content-around body">
-                <div class="col-md-11">
-                  <div class="card">
-                    <div class="card-header">
-                      <b class="thicker"><h3><b>Cadillac Escalade: </b>AA000AA</h3></b>
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-between">
-                          <div class="col-md-6">
-                            <p><b>Dueño: </b>Pepito Pérez</p>
-                            <p><b>Marca: </b>Cadillac</p>
-                            <p><b>Modelo: </b>Escalade</p>
-                            <p><b>Año: </b>2016</p>
-                            <p><b>Color: </b>Plata</p>
+              <div class="col-md-11">
+                  <div class="row justify-content-around body">
+                      <div class="col-md-11">
+                        <div class="card">
+                          <div class="card-header">
+                            <b class="thicker"><h3><b>Cadillac Escalade: </b>AA000AA</h3></b>
                           </div>
-                          <div class="col-md-6">
-                            <p><b>Placa: </b>AM000JK</p>
-                            <p><b>Serial: </b>1G1YY25R695700001</p>
-                          </div>
-                        </div>
-                        <hr class="my-4">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <p class="thicker"><b>Órdenes de reparación</b></p>
-                            <div class="row justify-content-center">
-                              <div class="col-md-11">
-                                <ngb-accordion [closeOthers]="true" activeIds="static-1">
-                                  <ngb-panel type="dark" id="static-1">
-                                    <ng-template ngbPanelTitle>
-                                      <div class="text-dark">
-                                        <h4><b>Orden #: </b>00001</h4>
-                                      </div>
-                                    </ng-template>
-                                    <ng-template ngbPanelContent>
-                                      <div class="row">
-                                        <div class="col-md-6">
-                                          <p><b>Cliente: </b>Pepito Perez</p>
-                                          <p><b>Cedula: </b>26666666</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                          <p><b>Vehículo: </b>Cadillac Escalade</p>
-                                          <p><b>Placa: </b>AA000AA</p>
-                                        </div>
-                                      </div>
-                                      <hr class="my-4">
-                                      <div class="row">
-                                        <div class="col-md-6">
-                                          <p><b>Estado: </b>Revisión</p>
-                                          <p><b>Mecánico: </b>Juan Pérez</p>
-                                          <p><b>Fecha de ingreso: </b>16/02/2018</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                          <p><b>Vehículo: </b>Audi TT 2016</p>
-                                          <p><b>Repuestos: </b>-</p>
-                                        </div>
-                                      </div>
-                                      <hr class="my-4">
-                                      <div class="row">
-                                        <div class="col-md-12">
-                                          <p><b>Accesorios: </b>-</p>
-                                          <p><b>Repuestos: </b>-</p>
-                                          <p><b>Razón de visita: </b><i>Sonido inusual al cambiar a la 3era velocidad</i></p>
-                                          <p><b>Diagnóstico: </b><i>-</i></p>
-                                          <p><b>Procedimiento: </b><i>-</i></p>
-                                        </div>
-                                      </div>
-                                      <div class="row justify-content-center">
-                                        <div class="col-md-12">
-                                            <ngb-carousel>
-                                              <ng-template ngbSlide>
-                                                <img src="../../../assets/escalade.jpg" width="400"  height="300" alt="Random first slide">
-                                              </ng-template>
-                                              <ng-template ngbSlide>
-                                                <img src="../../../assets/escalade.jpg" width="400" height="300" alt="Random second slide">
-                                              </ng-template>
-                                              <ng-template ngbSlide>
-                                                <img src="../../../assets/escalade.jpg" width="400" height="300" alt="Random third slide">
-                                              </ng-template>
-                                            </ngb-carousel>
-                                        </div>
-                                      </div>
-                                    </ng-template>
-                                  </ngb-panel>
-                                </ngb-accordion>
+                          <div class="card-body">
+                              <div class="row justify-content-between">
+                                <div class="col-md-6">
+                                  <p><b>Dueño: </b>Pepito Pérez</p>
+                                  <p><b>Marca: </b>Cadillac</p>
+                                  <p><b>Modelo: </b>Escalade</p>
+                                  <p><b>Año: </b>2016</p>
+                                  <p><b>Color: </b>Plata</p>
+                                </div>
+                                <div class="col-md-6">
+                                  <p><b>Placa: </b>AM000JK</p>
+                                  <p><b>Serial: </b>1G1YY25R695700001</p>
+                                </div>
                               </div>
-                            </div>
+                              <hr class="my-4">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="row justify-content-center">
+                                    <div class="col-md-11">
+                                      <app-orden-reparacion></app-orden-reparacion>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                           </div>
                         </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
               </div>
           </ng-template>
         </ngb-tab>
         <ngb-tab>
           <ng-template ngbTabTitle><b class="text-dark thicker">Mecánico</b></ng-template>
           <ng-template ngbTabContent>
-              <div class="row justify-content-around body">
-                  <div class="col-md-11">
-                    <div class="card">
-                      <div class="card-header">
-                        <h3><b class="thicker">Mecánico: </b>Juan Pérez</h3>
-                      </div>
-                      <div class="card-body">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <p><b>Nombre: </b>Juan Pérez</p>
-                              <p><b>Cédula: </b>26666666</p>
-                              <p><b>Sexo: </b>masculino</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p><b>Teléfono: </b>0424 555.55.55</p>
-                              <p><b>Dirección: </b>Av. Lecuna, Caracas, Venezuela</p>
-                              <p><b>Correo: </b>elpepitodepepitos@pepe.ito</p>
-                            </div>
+              <div class="col-md-11">
+                  <div class="row justify-content-around body">
+                      <div class="col-md-11">
+                        <div class="card">
+                          <div class="card-header">
+                            <h3><b class="thicker">Mecánico: </b>Juan Pérez</h3>
                           </div>
-                          <hr class="my-4">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <p><b>Especialidad: </b>Tren delantero</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p><b>Fecha de contrato: </b>19/02/2016</p>
-                            </div>
-                          </div>
-                          <hr class="my-4">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <p class="thicker"><b>Órdenes de reparación</b></p>
-                              <div class="row justify-content-center">
-                                <div class="col-md-11">
-                                  <ngb-accordion [closeOthers]="true" activeIds="static-1">
-                                    <ngb-panel type="dark" id="static-1">
-                                      <ng-template ngbPanelTitle>
-                                        <div class="text-dark">
-                                          <h4><b>Orden #: </b>00001</h4>
-                                        </div>
-                                      </ng-template>
-                                      <ng-template ngbPanelContent>
-                                        <div class="row">
-                                          <div class="col-md-6">
-                                            <p><b>Cliente: </b>Pepito Perez</p>
-                                            <p><b>Cedula: </b>26666666</p>
-                                          </div>
-                                          <div class="col-md-6">
-                                            <p><b>Vehículo: </b>Cadillac Escalade</p>
-                                            <p><b>Placa: </b>AA000AA</p>
-                                          </div>
-                                        </div>
-                                        <hr class="my-4">
-                                        <div class="row">
-                                          <div class="col-md-6">
-                                            <p><b>Estado: </b>Revisión</p>
-                                            <p><b>Mecánico: </b>Juan Pérez</p>
-                                            <p><b>Fecha de ingreso: </b>16/02/2018</p>
-                                          </div>
-                                          <div class="col-md-6">
-                                            <p><b>Vehículo: </b>Audi TT 2016</p>
-                                            <p><b>Repuestos: </b>-</p>
-                                          </div>
-                                        </div>
-                                        <hr class="my-4">
-                                        <div class="row">
-                                          <div class="col-md-12">
-                                            <p><b>Accesorios: </b>-</p>
-                                            <p><b>Repuestos: </b>-</p>
-                                            <p><b>Razón de visita: </b><i>Sonido inusual al cambiar a la 3era velocidad</i></p>
-                                            <p><b>Diagnóstico: </b><i>-</i></p>
-                                            <p><b>Procedimiento: </b><i>-</i></p>
-                                          </div>
-                                        </div>
-                                        <div class="row justify-content-center">
-                                          <div class="col-md-12">
-                                              <ngb-carousel>
-                                                <ng-template ngbSlide>
-                                                  <img src="../../../assets/escalade.jpg" width="400"  height="300" alt="Random first slide">
-                                                </ng-template>
-                                                <ng-template ngbSlide>
-                                                  <img src="../../../assets/escalade.jpg" width="400" height="300" alt="Random second slide">
-                                                </ng-template>
-                                                <ng-template ngbSlide>
-                                                  <img src="../../../assets/escalade.jpg" width="400" height="300" alt="Random third slide">
-                                                </ng-template>
-                                              </ngb-carousel>
-                                          </div>
-                                        </div>
-                                      </ng-template>
-                                    </ngb-panel>
-                                  </ngb-accordion>
+                          <div class="card-body">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <p><b>Nombre: </b>Juan Pérez</p>
+                                  <p><b>Cédula: </b>26666666</p>
+                                  <p><b>Sexo: </b>masculino</p>
+                                </div>
+                                <div class="col-md-6">
+                                  <p><b>Teléfono: </b>0424 555.55.55</p>
+                                  <p><b>Dirección: </b>Av. Lecuna, Caracas, Venezuela</p>
+                                  <p><b>Correo: </b>elpepitodepepitos@pepe.ito</p>
                                 </div>
                               </div>
-                            </div>
+                              <hr class="my-4">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <p><b>Especialidad: </b>Tren delantero</p>
+                                </div>
+                                <div class="col-md-6">
+                                  <p><b>Fecha de contrato: </b>19/02/2016</p>
+                                </div>
+                              </div>
+                              <hr class="my-4">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="row justify-content-center">
+                                    <div class="col-md-11">
+                                      <app-orden-reparacion></app-orden-reparacion>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                           </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+              </div>
           </ng-template>
         </ngb-tab> 
         <ngb-tab>
-            <ng-template ngbTabTitle><b class="text-dark thicker">Modelo de vehículo</b></ng-template>
-            <ng-template ngbTabContent>
-                <div class="row justify-content-around body">
+          <ng-template ngbTabTitle><b class="text-dark thicker">Modelo de vehículo</b></ng-template>
+          <ng-template ngbTabContent>
+            <div class="col-md-11">
+              <div class="row justify-content-around body">
                   <div class="col-md-11">
                     <div class="card">
                       <div class="card-header">
@@ -344,67 +227,9 @@
                           <hr class="my-4">
                           <div class="row">
                             <div class="col-md-12">
-                              <p class="thicker"><b>Órdenes de reparación</b></p>
                               <div class="row justify-content-center">
                                 <div class="col-md-11">
-                                  <ngb-accordion [closeOthers]="true" activeIds="static-1">
-                                    <ngb-panel type="dark" id="static-1">
-                                      <ng-template ngbPanelTitle>
-                                        <div class="text-dark">
-                                          <h4><b>Orden #: </b>00001</h4>
-                                        </div>
-                                      </ng-template>
-                                      <ng-template ngbPanelContent>
-                                        <div class="row">
-                                          <div class="col-md-6">
-                                            <p><b>Cliente: </b>Pepito Perez</p>
-                                            <p><b>Cedula: </b>26666666</p>
-                                          </div>
-                                          <div class="col-md-6">
-                                            <p><b>Vehículo: </b>Cadillac Escalade</p>
-                                            <p><b>Placa: </b>AA000AA</p>
-                                          </div>
-                                        </div>
-                                        <hr class="my-4">
-                                        <div class="row">
-                                          <div class="col-md-6">
-                                            <p><b>Estado: </b>Revisión</p>
-                                            <p><b>Mecánico: </b>Juan Pérez</p>
-                                            <p><b>Fecha de ingreso: </b>16/02/2018</p>
-                                          </div>
-                                          <div class="col-md-6">
-                                            <p><b>Vehículo: </b>Audi TT 2016</p>
-                                            <p><b>Repuestos: </b>-</p>
-                                          </div>
-                                        </div>
-                                        <hr class="my-4">
-                                        <div class="row">
-                                          <div class="col-md-12">
-                                            <p><b>Accesorios: </b>-</p>
-                                            <p><b>Repuestos: </b>-</p>
-                                            <p><b>Razón de visita: </b><i>Sonido inusual al cambiar a la 3era velocidad</i></p>
-                                            <p><b>Diagnóstico: </b><i>-</i></p>
-                                            <p><b>Procedimiento: </b><i>-</i></p>
-                                          </div>
-                                        </div>
-                                        <div class="row justify-content-center">
-                                          <div class="col-md-12">
-                                              <ngb-carousel>
-                                                <ng-template ngbSlide>
-                                                  <img src="../../../assets/escalade.jpg" width="400"  height="300" alt="Random first slide">
-                                                </ng-template>
-                                                <ng-template ngbSlide>
-                                                  <img src="../../../assets/escalade.jpg" width="400" height="300" alt="Random second slide">
-                                                </ng-template>
-                                                <ng-template ngbSlide>
-                                                  <img src="../../../assets/escalade.jpg" width="400" height="300" alt="Random third slide">
-                                                </ng-template>
-                                              </ngb-carousel>
-                                          </div>
-                                        </div>
-                                      </ng-template>
-                                    </ngb-panel>
-                                  </ngb-accordion>
+                                  <app-orden-reparacion></app-orden-reparacion>
                                 </div>
                               </div>
                             </div>
@@ -413,8 +238,21 @@
                     </div>
                   </div>
                 </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+            <ng-template ngbTabTitle><b class="text-dark thicker">Órdenes actuales</b></ng-template>
+            <ng-template ngbTabContent>
+              <div class="col-md-11">
+                <div class="row justify-content-around body">
+                  <div class="col-md-10">
+                      <app-orden-reparacion></app-orden-reparacion>
+                  </div>
+                </div>
+              </div>
             </ng-template>
-          </ngb-tab>   
+          </ngb-tab>     
       </ngb-tabset>
     </div>
   </div>
