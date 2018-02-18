@@ -2,6 +2,7 @@
     background-color: #eeeeee;
     height: 100%;
     width: 100%;
+    padding-bottom:50px;
   }
   #sidenav {
     background-color: #333333;
@@ -15,5 +16,5 @@
 }
 
 .thicker {
-    font-weight: 900;
+    font-weight: 1200;
   }
