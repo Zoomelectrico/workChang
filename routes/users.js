@@ -21,7 +21,6 @@ router.post('/register', (req, res, next) => {
   UserController.registerUser(user, (err, user) => {
     if (err) {
       res.json({success: false, msg: 'Failed'});
-      console.error(err);
     } else {
       res.json({success: true, msg: 'Fine'});
     }
@@ -46,12 +45,7 @@ router.post('/auth', (req, res, next) => {
         res.json({
           success: true,
           token: token,
-          user: {
-            id: user.ID,
-            nombre: `${user.nombre} ${user.apellido}`,
-            username: user.username,
-            email: user.email
-          }
+          user: user
         });
       } else {
         return res.json({success: false, msg: 'Wrong Password'});

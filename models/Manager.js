@@ -12,7 +12,7 @@ const Manager = sequelize.define('Managers', {
   },
   UserID: {
     type: Sequelize.INTEGER,
-    allowNull: true
+    allowNull: false
   }
 }, { timestamps: false, freezeTableName: true });
 

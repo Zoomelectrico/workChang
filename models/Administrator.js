@@ -11,7 +11,7 @@ const Administrator = sequelize.define('Administrators', {
   },
   UserID: {
     type: Sequelize.INTEGER,
-    allowNull: true
+    allowNull: false
   }
 }, { timestamps: false, freezeTableName: true });
 

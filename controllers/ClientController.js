@@ -3,16 +3,25 @@ const Car = require('../models/Car');
 const Appoiment = require('../models/Appointment');
 
 const ClientController = {
-  askAppoiment: function (carID, callbackS) {
-    Appoiment.create({ // Crea la Cita
-      Car: CarID
-    }).then(() => {
-      Appoiment.findOne({ //Luego la busca
+  askAppoiment: function (serial, callback) {
+    Car.findOne({
+      where: {
+        serial: serial
+      }
+    }).then(car => {
+      Appoiment.findOne({
         where: {
-          Car: CarID
+          CarID: car.ID
         }
-      }).then(appoiment => callback(null, appoiment)) // LLama al callback del usuario
-      .catch(err => callback(err, null)); // Si hubo un error lo devuelve
+      }).then(appoiment => {
+        if (appoiment) {
+          callback(new Error('This Car already have an appoiment'), null);
+        } else {
+          Appoiment.create({
+            CarID: car.ID
+          }).then(appoiment2 => callback(null, appoiment2)).catch(err => callback(err, null));
+        }
+      })
     });
   },
   register: function (userID, callback) {
@@ -20,22 +29,31 @@ const ClientController = {
       User: UserID
     }).then(() => {
       Client.findOne({
-        where: {
-          User: UserID
-        }
-      }).then(client => callback(null, client))
+          where: {
+            User: UserID
+          }
+        }).then(client => callback(null, client))
         .catch(err => callback(err, null));
     });
-  }, 
-  carRegister(car, callback) {
-    Car.create(car).then(() => {  
+  },
+  carRegister: function (car, callback) {
+    Car.create(car).then(() => {
       Car.findOne({
-        where: {
-          serial: car.serial
-        }
-      }).then(car => callback(null, car))
+          where: {
+            serial: car.serial
+          }
+        }).then(car => callback(null, car))
         .catch(err => (err, null));
     });
+  },
+  getCars: function (ClientID, callback) {
+    Car.findAll({
+      where: {
+        OwnerID: ClientID
+      }
+    }).then(cars => {
+      callback(null, cars);
+    }).catch(err => callback(err, null));
   }
 };
 

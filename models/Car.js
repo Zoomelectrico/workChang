@@ -48,7 +48,7 @@ const Car = sequelize.define('Cars', {
   },
   OwnerID: {
     type: Sequelize.INTEGER,
-    allowNull: true
+    allowNull: false
   }
 }, { timestamps: false, freezeTableName: true });
 

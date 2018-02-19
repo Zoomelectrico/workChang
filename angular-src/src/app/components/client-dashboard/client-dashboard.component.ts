@@ -8,6 +8,8 @@ import { ApiService } from '../../services/api.service';
 })
 export class ClientDashboardComponent implements OnInit {
 
+  private cars:Array<any>; 
+  
   private brand: string;
   private model: string;
   private year: number;
@@ -20,8 +22,9 @@ export class ClientDashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-  
+    
   }
+
   // Metodo asincrono_
   async registrarCarro() {
     // Subir la foto a un proovedor y recibir el link
@@ -32,11 +35,13 @@ export class ClientDashboardComponent implements OnInit {
       year: this.year,
       licensePlate: this.licensePlate,
       serial: this.serial,
-      photoLink: this.photoLink
+      photoLink: this.photoLink,
+      active: true,
+      OwnerID: 1 // Traerse el ID del LocalStorage
     };
     this.api.registrarCarro(car).subscribe(data => {
       if (data.success) {
-        // actualizar la lista de carros
+        this.cars.push(data.car);
       } else {
         // mano fallo
       }

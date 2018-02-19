@@ -24,7 +24,7 @@ const RepairOrder = sequelize.define('RepairOrders', {
   },
   AppointmentID: {
     type: Sequelize.INTEGER,
-    allowNull: true 
+    allowNull: false 
   },
   QRCode: {
     type: Sequelize.STRING,

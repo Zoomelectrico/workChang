@@ -4,13 +4,12 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
-
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// Servicios
 import { AuthService } from './services/auth.service';
 import { ApiService } from './services/api.service';
 import { AppRoutingModule } from './app-routing.module';
-
+//Componentes
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -21,7 +20,6 @@ import { RegisterComponent } from './components/register/register.component';
 import { GerenteDashboardComponent } from './components/gerente-dashboard/gerente-dashboard.component';
 import { OrdenReparacionComponent } from './components/orden-reparacion/orden-reparacion.component';
 import { VehiculoComponent } from './components/vehiculo/vehiculo.component'
-
 
 @NgModule({
   declarations: [

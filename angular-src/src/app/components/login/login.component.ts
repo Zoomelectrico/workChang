@@ -29,9 +29,23 @@ export class LoginComponent implements OnInit {
 
     this.auth.login(credentials).subscribe(data => {
       if (data.success) {
-        console.log(data.token);
-        console.log(data.user);
-        this.router.navigate(['/client']);
+        switch(data.user.type) {
+          case 1:
+            this.router.navigate(['/client']);
+            break;
+          case 2:
+            this.router.navigate(['/gerente']);
+            break;
+          case 3:
+            this.router.navigate(['/']); //Mecanico
+            break;
+          case 4:
+            this.router.navigate(['/']); // Administrador
+            break;
+          default:
+            this.router.navigate(['/']);
+        }
+        
       } else {
         this.router.navigate(['/login']);
       } 
@@ -39,4 +53,4 @@ export class LoginComponent implements OnInit {
   }
 
 }
- 
+  

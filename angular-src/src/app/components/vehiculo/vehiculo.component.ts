@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-vehiculo',
@@ -7,14 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VehiculoComponent implements OnInit {
 
-  constructor() {
-    
-   }
+  public vehiculos:Array<any>;
 
-  ngOnInit() {
+  constructor(
+    private api: ApiService,
+    private elRef:ElementRef
+  ) {  
   }
 
-  vehiculos: Object = [
+  ngOnInit() {
+    this.api.buscarCarros({
+      ClientID: 1
+    }).subscribe(data => {
+      this.vehiculos = data.cars;
+      console.log(this.vehiculos);
+    });
+  }
+
+  pedirCita(serial) {
+    console.log(serial);
+    this.api.pedirCita({
+      serial: serial
+    }).subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  /*vehiculos: Object = [
     {
       marca: "Audi",
       modelo: "TT",
@@ -43,7 +63,7 @@ export class VehiculoComponent implements OnInit {
       imagen: "../../../assets/audiTT.JPG"
     }
   ]
-
+  */
 }
 
 

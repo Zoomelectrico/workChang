@@ -11,7 +11,7 @@ const Client = sequelize.define('Clients', {
   },
   UserID: {
     type: Sequelize.INTEGER,
-    allowNull: true
+    allowNull: false
   }
 }, { timestamps: false, freezeTableName: true });
 

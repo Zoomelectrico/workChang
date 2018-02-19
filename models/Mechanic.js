@@ -12,7 +12,7 @@ const Mechanic = sequelize.define('Mechanics', {
   },
   UserID: {
     type: Sequelize.INTEGER,
-    allowNull: true
+    allowNull: false
   }
 }, { timestamps: false, freezeTableName: true });
 

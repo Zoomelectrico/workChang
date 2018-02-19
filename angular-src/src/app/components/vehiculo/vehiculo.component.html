@@ -1,15 +1,16 @@
-<div *ngFor="let vehiculo of vehiculos">
+<div *ngFor="let vehiculo of vehiculos" >
   <div class="card">
-    <img class="card-img-top" src={{vehiculo.imagen}} alt="Card image cap">
+    <img class="card-img-top" src="../../../assets/audiTT.JPG" alt="Card image cap">
     <div class="card-body">
       <div class="row align-items-center card-header">
         <div class="col-sm-8">
-          <h5 class="card-title">{{vehiculo.marca}} {{vehiculo.modelo}} {{vehiculo.anio}}</h5>
+          <h5 class="card-title">{{vehiculo.brand}} {{vehiculo.model}} {{vehiculo.year}}</h5>
+          <span class="invisible" #serial>{{vehiculo.serial}}</span>  
         </div>
         <div class="col-sm-4">
           <p>
             <button type="button" class="btn btn-outline-secondary" placement="top" ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-              popoverTitle="Popover on top">Programa cita</button>
+              popoverTitle="Popover on top" (click)="pedirCita(serial.textContent)">Programa cita</button>
           </p>
         </div>
       </div>
@@ -17,9 +18,9 @@
         <div class="row">
           <div class="col-sm-8">
             <p>
-              <b>Placa: </b>{{vehiculo.placa}}</p>
+              <b>Placa: </b>{{vehiculo.licensePlate}}</p>
             <p>
-              <b>Color: </b>{{vehiculo.color}}</p>
+              <b>Color: </b>Negro</p>
             <p>
               <b>Serial: </b>{{vehiculo.serial}}1G1YY25R695700001</p>
           </div>

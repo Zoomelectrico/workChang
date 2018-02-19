@@ -25,5 +25,12 @@ export class AuthService {
       .map(res => res.json());
   }
 
+  getProfile() {
+    let headers = new Headers();
+    const token = localStorage.getItem('id_token');
+    this.token = token;
+    headers.append('Authorization', this.token);
+    headers.append('Content-Type', 'application/json');
+  }
   
 }

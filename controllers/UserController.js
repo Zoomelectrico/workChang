@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Client = require('../models/Client');
 const bcrypt = require('bcryptjs');
 
 const UserController = {
@@ -8,7 +9,15 @@ const UserController = {
       bcrypt.hash(user.password, salt, (err, hash) => {
         if (err) { throw err; }
         user.password = hash;
-        User.create(user).then(user => { callback(null, user) });    
+        User.create(user).then(user => { 
+          if (user) {
+            Client.create({
+              UserID: user.ID
+            }).then(client => callback(null, user));
+          } else {
+            throw new Error('No lo se Rick');
+          }
+        }).catch(err => callback(err, null));    
       });
     });
   },
