@@ -17,76 +17,85 @@
     <div class="col-md-12">
       <ngb-tabset>
         <ngb-tab>
-          <ng-template ngbTabTitle><b class="text-dark thicker background">Solicitudes</b></ng-template>
+          <ng-template ngbTabTitle>
+            <b class="text-dark thicker background">Solicitudes</b>
+          </ng-template>
           <ng-template ngbTabContent>
             <div class="container">
               <div class="row justify-content-around body">
                 <div class="col-md-8">
-                    <ngb-accordion [closeOthers]="true" activeIds="static-1">
-                      <li *ngFor="let solicitud of solicitudes">
-                        <ngb-panel type="dark" id="static-1">
-                          <ng-template ngbPanelTitle>
-                            <div class="col-md-6 text-dark">
-                              <h4><b>Solicitud #: </b>{{solicitud.numSol}}</h4>
-                            </div>
-                          </ng-template>
-                          <ng-template ngbPanelContent>
-                            <div class="col-md-11">
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <p><b>Cliente: </b>{{solicitud.nombre}}</p>
-                                  <p><b>Cédula: </b>{{solicitud.cedula}}</p>
-                                  <form class="form-inline">
-                                    <div class="form-group">
-                                      <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd"
-                                                name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                                        <div class="input-group-append">
-                                          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-                                            <img src="../../../assets/ic_today_black_24dp_1x.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-                                          </button>
-                                        </div>
+                  <ngb-accordion [closeOthers]="true" activeIds="static-1">
+                    <div *ngFor="let solicitud of solicitudes">
+                      <ngb-panel type="dark" id="static-1">
+                        <ng-template ngbPanelTitle>
+                          <div class="col-md-6 text-dark">
+                            <h4>
+                              <b>Solicitud #: </b>{{solicitud.numSol}}</h4>
+                          </div>
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                          <div class="col-md-11">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <p>
+                                  <b>Cliente: </b>{{solicitud.nombre}}</p>
+                                <p>
+                                  <b>Cédula: </b>{{solicitud.cedula}}</p>
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+                                      <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                                      <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                          <img src="../../../assets/ic_today_black_24dp_1x.png" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                                        </button>
                                       </div>
                                     </div>
-                                  </form>
-                                </div>
-                                <div class="col-md-6">
-                                  <p><b>Fecha solicitada: </b>{{solicitud.fechaSol}}</p>
-                                  <p><b>Fecha esperada: </b>{{solicitud.fechaEsp}}</p>
-                                  <p><b>Motivo: </b>{{solicitud.motivo}}</p>
-                                  <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Otorgue la cita a la fecha indicada">Otorgar cita</button>
-                                </div>
+                                  </div>
+                                </form>
+                              </div>
+                              <div class="col-md-6">
+                                <p>
+                                  <b>Fecha solicitada: </b>{{solicitud.fechaSol}}</p>
+                                <p>
+                                  <b>Fecha esperada: </b>{{solicitud.fechaEsp}}</p>
+                                <p>
+                                  <b>Motivo: </b>{{solicitud.motivo}}</p>
+                                <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Otorgue la cita a la fecha indicada">Otorgar cita</button>
                               </div>
                             </div>
-                            <hr class="my-4">
-                            <app-vehiculo></app-vehiculo>
-                          </ng-template>
-                        </ngb-panel>
-                      </li>
-                    </ngb-accordion>
+                          </div>
+                          <hr class="my-4">
+                          <app-vehiculo></app-vehiculo>
+                        </ng-template>
+                      </ngb-panel>
+                    </div>
+                  </ngb-accordion>
                 </div>
               </div>
             </div>
           </ng-template>
         </ngb-tab>
         <ngb-tab>
-          <ng-template ngbTabTitle><b class="text-dark thicker background">Clientes</b></ng-template>
+          <ng-template ngbTabTitle>
+            <b class="text-dark thicker background">Clientes</b>
+          </ng-template>
 
           <ng-template ngbTabContent>
-            
-<br>
-<div class="row text-center">
-    <div class="col-md-3">
-      <h1 class="h4 mb-1 font-weight-normal">Buscar por cliente:</h1>
-    </div>
-    <div class="col-md-6">
-      <input type="text" class="form-control" id="cedulaCliente" placeholder="Cedula del cliente">
-    </div>
-    <div class="col-md-3">
-      <button type="button" class="mb-2 btn btn-dark">Buscar</button>
-    </div> 
 
-</div>      
+            <br>
+            <div class="row text-center">
+              <div class="col-md-3">
+                <h1 class="h4 mb-1 font-weight-normal">Buscar por cliente:</h1>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="cedulaCliente" placeholder="Cedula del cliente">
+              </div>
+              <div class="col-md-3">
+                <button type="button" class="mb-2 btn btn-dark">Buscar</button>
+              </div>
+
+            </div>
 
 
 
@@ -97,251 +106,294 @@
             <div class="col-md-11">
               <div class="row justify-content-around body">
                 <div class="col-md-11">
-                  <li *ngFor="let cliente of clientes">
+                  <div *ngFor="let cliente of clientes">
                     <div class="card">
                       <div class="card-header">
-                        <b class="thicker"><h3>Pepito Pérez</h3></b>
+                        <b class="thicker">
+                          <h3>Pepito Pérez</h3>
+                        </b>
                       </div>
                       <div class="card-body">
-                          <div class="row">
-                            <div class="col-md-6">
-                              <p><b>Nombre: </b>{{cliente.nombre}}</p>
-                              <p><b>Cédula: </b>{{cliente.cedula}}</p>
-                              <p><b>Sexo: </b>{{cliente.sexo}}</p>
-                            </div>
-                            <div class="col-md-6">
-                              <p><b>Teléfono: </b>{{cliente.telefono}}</p>
-                              <p><b>Dirección: </b>{{cliente.direccion}}</p>
-                              <p><b>Correo: </b>{{cliente.correo}}</p>
-                            </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <p>
+                              <b>Nombre: </b>{{cliente.nombre}}</p>
+                            <p>
+                              <b>Cédula: </b>{{cliente.cedula}}</p>
+                            <p>
+                              <b>Sexo: </b>{{cliente.sexo}}</p>
                           </div>
-                          <hr class="my-4">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <p><b>Vehículos registrados: </b>{{cliente.registrados}}</p>
-                            </div>
-                            <div class="col-md-12">
-                              <p><b>Vehículos en el taller: </b>{{cliente.taller}}</p>
-                            </div>
+                          <div class="col-md-6">
+                            <p>
+                              <b>Teléfono: </b>{{cliente.telefono}}</p>
+                            <p>
+                              <b>Dirección: </b>{{cliente.direccion}}</p>
+                            <p>
+                              <b>Correo: </b>{{cliente.correo}}</p>
                           </div>
-                          <hr class="my-4">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="row justify-content-center">
-                                <div class="col-md-11">
-                                  <app-orden-reparacion></app-orden-reparacion>
-                                </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <p>
+                              <b>Vehículos registrados: </b>{{cliente.registrados}}</p>
+                          </div>
+                          <div class="col-md-12">
+                            <p>
+                              <b>Vehículos en el taller: </b>{{cliente.taller}}</p>
+                          </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="row justify-content-center">
+                              <div class="col-md-11">
+                                <app-orden-reparacion></app-orden-reparacion>
                               </div>
                             </div>
                           </div>
+                        </div>
                       </div>
                     </div>
-                  </li>
+                  </div>
                 </div>
               </div>
             </div>
           </ng-template>
         </ngb-tab>
         <ngb-tab>
-          <ng-template ngbTabTitle><b class="text-dark thicker">Vehículos</b></ng-template>
+          <ng-template ngbTabTitle>
+            <b class="text-dark thicker">Vehículos</b>
+          </ng-template>
           <ng-template ngbTabContent>
             <br>
-<div class="row text-center">
-    <div class="col-md-3">
-      <h1 class="h4 mb-1 font-weight-normal">Buscar por vehiculo:</h1>
-    </div>
-    <div class="col-md-6">
-      <input type="text" class="form-control" id="placaVehiculo" placeholder="
+            <div class="row text-center">
+              <div class="col-md-3">
+                <h1 class="h4 mb-1 font-weight-normal">Buscar por vehiculo:</h1>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="placaVehiculo" placeholder="
       Placa del vehiculo">
-    </div>
-    <div class="col-md-3">
-      <button type="button" class="mb-2 btn btn-dark">Buscar</button>
-    </div> 
-
-</div>   
-              <div class="col-md-11">
-                  <div class="row justify-content-around body">
-                      <div class="col-md-11">
-                        <li *ngFor="let vehiculo of vehiculos">
-                            <div class="card">
-                                <div class="card-header">
-                                  <b class="thicker"><h3><b>{{vehiculo.marca}} {{vehiculo.modelo}} {{vehiculo.anio}}: </b>{{vehiculo.placa}}</h3></b>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row justify-content-between">
-                                      <div class="col-md-6">
-                                        <p><b>Dueño: </b>{{vehiculo.duenio}}</p>
-                                        <p><b>Marca: </b>{{vehiculo.marca}}</p>
-                                        <p><b>Modelo: </b>{{vehiculo.modelo}}</p>
-                                        <p><b>Año: </b>{{vehiculo.anio}}</p>
-                                        <p><b>Color: </b>{{vehiculo.color}}</p>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <p><b>Placa: </b>{{vehiculo.placa}}</p>
-                                        <p><b>Serial: </b>{{vehiculo.serial}}</p>
-                                      </div>
-                                    </div>
-                                    <hr class="my-4">
-                                    <div class="row">
-                                      <div class="col-md-12">
-                                        <div class="row justify-content-center">
-                                          <div class="col-md-11">
-                                            <app-orden-reparacion></app-orden-reparacion>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                </div>
-                              </div>
-                        </li>
-                      </div>
-                    </div>
               </div>
-          </ng-template>
-        </ngb-tab>
-        <ngb-tab>
-          <ng-template ngbTabTitle><b class="text-dark thicker">Mecánico</b></ng-template>
-          <ng-template ngbTabContent>
-            <br>
-<div class="row text-center">
-    <div class="col-md-3">
-      <h1 class="h4 mb-1 font-weight-normal">Buscar por Mecánico:</h1>
-    </div>
-    <div class="col-md-6">
-      <input type="text" class="form-control" id="cedulaMecanico" placeholder="Cedula del mecánico">
-    </div>
-    <div class="col-md-3">
-      <button type="button" class="mb-2 btn btn-dark">Buscar</button>
-    </div> 
-
-</div>   
-              <div class="col-md-11">
-                  <div class="row justify-content-around body">
-                      <div class="col-md-11">
-                        <li *ngFor="let mecanico of mecanicos">
-                          <div class="card">
-                            <div class="card-header">
-                              <h3><b class="thicker">Mecánico: </b>{{mecanico.nombre}}</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    <p><b>Nombre: </b>{{mecanico.nombre}}</p>
-                                    <p><b>Cédula: </b>{{mecanico.cedula}}</p>
-                                    <p><b>Sexo: </b>{{mecaico.sexo}}</p>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <p><b>Teléfono: </b>{{mecanico.telefono}}</p>
-                                    <p><b>Dirección: </b>{{mecanico.direccion}}</p>
-                                    <p><b>Correo: </b>{{mecanico.correo}}</p>
-                                  </div>
-                                </div>
-                                <hr class="my-4">
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    <p><b>Especialidad: </b>{{mecanico.especialidad}}</p>
-                                  </div>
-                                  <div class="col-md-6">
-                                    <p><b>Fecha de contrato: </b>{{mecanico.fechaContrato}}</p>
-                                  </div>
-                                </div>
-                                <hr class="my-4">
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <div class="row justify-content-center">
-                                      <div class="col-md-11">
-                                        <app-orden-reparacion></app-orden-reparacion>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                          </div>
-                        </li>
-                      </div>
-                    </div>
+              <div class="col-md-3">
+                <button type="button" class="mb-2 btn btn-dark">Buscar</button>
               </div>
-          </ng-template>
-        </ngb-tab> 
-        <ngb-tab>
-          <ng-template ngbTabTitle><b class="text-dark thicker">Modelo de vehículo</b></ng-template>
-          <ng-template ngbTabContent>
-            <br>
-<div class="row text-center">
-    <div class="col-md-3">
-      <h1 class="h4 mb-1 font-weight-normal">Buscar por vehículo:</h1>
-    </div>
-    <div class="col-md-6">
-      <input type="text" class="form-control" id="placaVehiculo" placeholder="Placa del vehículo">
-    </div>
-    <div class="col-md-3">
-      <button type="button" class="mb-2 btn btn-dark">Buscar</button>
-    </div> 
 
-</div>   
+            </div>
             <div class="col-md-11">
               <div class="row justify-content-around body">
-                  <div class="col-md-11">
-                    <li *ngFor="let vehiculo of vehiculos">
-                      <div class="card">
-                        <div class="card-header">
-                          <b class="thicker"><h3><b>{{vehiculo.marca}} {{vehiculo.modelo}} {{vehiculo.anio}} </b>{{vehiculo.placa}}</h3></b>
+                <div class="col-md-11">
+                  <div *ngFor="let vehiculo of vehiculos">
+                    <div class="card">
+                      <div class="card-header">
+                        <b class="thicker">
+                          <h3>
+                            <b>{{vehiculo.marca}} {{vehiculo.modelo}} {{vehiculo.anio}}: </b>{{vehiculo.placa}}</h3>
+                        </b>
+                      </div>
+                      <div class="card-body">
+                        <div class="row justify-content-between">
+                          <div class="col-md-6">
+                            <p>
+                              <b>Dueño: </b>{{vehiculo.duenio}}</p>
+                            <p>
+                              <b>Marca: </b>{{vehiculo.marca}}</p>
+                            <p>
+                              <b>Modelo: </b>{{vehiculo.modelo}}</p>
+                            <p>
+                              <b>Año: </b>{{vehiculo.anio}}</p>
+                            <p>
+                              <b>Color: </b>{{vehiculo.color}}</p>
+                          </div>
+                          <div class="col-md-6">
+                            <p>
+                              <b>Placa: </b>{{vehiculo.placa}}</p>
+                            <p>
+                              <b>Serial: </b>{{vehiculo.serial}}</p>
+                          </div>
                         </div>
-                        <div class="card-body">
-                            <div class="row justify-content-between">
-                              <div class="col-md-6">
-                                <p><b>Marca: </b>{{vehiculo.marca}}</p>
-                                <p><b>Modelo: </b>{{vehiculo.modelo}}</p>
-                                <p><b>Año: </b>{{vehiculo.anio}}</p>
-                                <p><b>Color: </b>{{vehiculo.color}}</p>
+                        <hr class="my-4">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="row justify-content-center">
+                              <div class="col-md-11">
+                                <app-orden-reparacion></app-orden-reparacion>
                               </div>
                             </div>
-                            <hr class="my-4">
-                            <div class="row">
-                              <div class="col-md-12">
-                                <div class="row justify-content-center">
-                                  <div class="col-md-11">
-                                    <app-orden-reparacion></app-orden-reparacion>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                          </div>
                         </div>
                       </div>
-                    </li>
+                    </div>
                   </div>
                 </div>
+              </div>
             </div>
           </ng-template>
         </ngb-tab>
         <ngb-tab>
-            <ng-template ngbTabTitle><b class="text-dark thicker">Órdenes actuales</b></ng-template>
-            <ng-template ngbTabContent>
-              <br>
-<div class="row text-center">
-    <div class="col-md-3">
-      <h1 class="h4 mb-1 font-weight-normal">Buscar por cliente:</h1>
-    </div>
-    <div class="col-md-6">
-      <input type="text" class="form-control" id="cedulaCliente" placeholder="Cedula del cliente">
-    </div>
-    <div class="col-md-3">
-      <button type="button" class="mb-2 btn btn-dark">Buscar</button>
-    </div> 
+          <ng-template ngbTabTitle>
+            <b class="text-dark thicker">Mecánico</b>
+          </ng-template>
+          <ng-template ngbTabContent>
+            <br>
+            <div class="row text-center">
+              <div class="col-md-3">
+                <h1 class="h4 mb-1 font-weight-normal">Buscar por Mecánico:</h1>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="cedulaMecanico" placeholder="Cedula del mecánico">
+              </div>
+              <div class="col-md-3">
+                <button type="button" class="mb-2 btn btn-dark">Buscar</button>
+              </div>
 
-</div>   
-              <div class="col-md-11">
-                <div class="row justify-content-around body">
-                  <div class="col-md-10">
-                      <app-orden-reparacion></app-orden-reparacion>
+            </div>
+            <div class="col-md-11">
+              <div class="row justify-content-around body">
+                <div class="col-md-11">
+                  <div *ngFor="let mecanico of mecanicos">
+                    <div class="card">
+                      <div class="card-header">
+                        <h3>
+                          <b class="thicker">Mecánico: </b>{{mecanico.nombre}}</h3>
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <p>
+                              <b>Nombre: </b>{{mecanico.nombre}}</p>
+                            <p>
+                              <b>Cédula: </b>{{mecanico.cedula}}</p>
+                            <p>
+                              <b>Sexo: </b>{{mecanico.sexo}}</p>
+                          </div>
+                          <div class="col-md-6">
+                            <p>
+                              <b>Teléfono: </b>{{mecanico.telefono}}</p>
+                            <p>
+                              <b>Dirección: </b>{{mecanico.direccion}}</p>
+                            <p>
+                              <b>Correo: </b>{{mecanico.correo}}</p>
+                          </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <p>
+                              <b>Especialidad: </b>{{mecanico.especialidad}}</p>
+                          </div>
+                          <div class="col-md-6">
+                            <p>
+                              <b>Fecha de contrato: </b>{{mecanico.fechaContrato}}</p>
+                          </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="row justify-content-center">
+                              <div class="col-md-11">
+                                <app-orden-reparacion></app-orden-reparacion>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </ng-template>
-          </ngb-tab>     
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle>
+            <b class="text-dark thicker">Modelo de vehículo</b>
+          </ng-template>
+          <ng-template ngbTabContent>
+            <br>
+            <div class="row text-center">
+              <div class="col-md-3">
+                <h1 class="h4 mb-1 font-weight-normal">Buscar por vehículo:</h1>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="placaVehiculo" placeholder="Placa del vehículo">
+              </div>
+              <div class="col-md-3">
+                <button type="button" class="mb-2 btn btn-dark">Buscar</button>
+              </div>
+
+            </div>
+            <div class="col-md-11">
+              <div class="row justify-content-around body">
+                <div class="col-md-11">
+                  <div *ngFor="let vehiculo of vehiculos">
+                    <div class="card">
+                      <div class="card-header">
+                        <b class="thicker">
+                          <h3>
+                            <b>{{vehiculo.marca}} {{vehiculo.modelo}} {{vehiculo.anio}} </b>{{vehiculo.placa}}</h3>
+                        </b>
+                      </div>
+                      <div class="card-body">
+                        <div class="row justify-content-between">
+                          <div class="col-md-6">
+                            <p>
+                              <b>Marca: </b>{{vehiculo.marca}}</p>
+                            <p>
+                              <b>Modelo: </b>{{vehiculo.modelo}}</p>
+                            <p>
+                              <b>Año: </b>{{vehiculo.anio}}</p>
+                            <p>
+                              <b>Color: </b>{{vehiculo.color}}</p>
+                          </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="row justify-content-center">
+                              <div class="col-md-11">
+                                <app-orden-reparacion></app-orden-reparacion>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle>
+            <b class="text-dark thicker">Órdenes actuales</b>
+          </ng-template>
+          <ng-template ngbTabContent>
+            <br>
+            <div class="row text-center">
+              <div class="col-md-3">
+                <h1 class="h4 mb-1 font-weight-normal">Buscar por cliente:</h1>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="cedulaCliente" placeholder="Cedula del cliente">
+              </div>
+              <div class="col-md-3">
+                <button type="button" class="mb-2 btn btn-dark">Buscar</button>
+              </div>
+
+            </div>
+            <div class="col-md-11">
+              <div class="row justify-content-around body">
+                <div class="col-md-10">
+                  <app-orden-reparacion></app-orden-reparacion>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
       </ngb-tabset>
     </div>
   </div>
 
 </section>
-
