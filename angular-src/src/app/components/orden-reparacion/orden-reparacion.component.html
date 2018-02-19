@@ -1,67 +1,70 @@
-<ngb-accordion [closeOthers]="true" activeIds="static-1">
-  <ngb-panel type="dark" id="static-1">
-    <ng-template ngbPanelTitle>
-      <div class="text-dark">
-        <h4><b>Orden #: </b>00001</h4>
-      </div>
-    </ng-template>
-    <ng-template ngbPanelContent>
-      <div class="row">
-        <div class="col-md-6">
-          <p><b>Cliente: </b>Pepito Perez</p>
-          <p><b>Cedula: </b>26666666</p>
+<ngb-accordion [closeOthers]="true">
+  <li *ngFor="let orden of ordenes">
+    <ngb-panel type="dark" >
+      <ng-template ngbPanelTitle>
+        <div class="text-dark">
+          <h4><b>Orden #: </b>{{orden.numeroOrden}}</h4>
         </div>
-        <div class="col-md-6">
-          <p><b>Marca: </b>Audi</p>
-          <p><b>Modelo: </b>TT</p>
-          <p><b>Año: </b>2016</p>
-          <p><b>Placa: </b>AA000AA</p>
-          <p><b>Serial: </b>1G1YY25R695700001</p>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <div class="row">
+          <div class="col-md-6">
+            <p><b>Cliente: </b>{{orden.cliente}}</p>
+            <p><b>Cedula: </b>{{orden.cedula}}</p>
+          </div>
+          <div class="col-md-6">
+            <p><b>Marca: </b>{{orden.marca}}</p>
+            <p><b>Modelo: </b>{{orden.modelo}}</p>
+            <p><b>Año: </b>{{orden.anio}}</p>
+            <p><b>Placa: </b>{{orden.placa}}</p>
+            <p><b>Serial: </b>{{orden.serial}}</p>
+          </div>
         </div>
-      </div>
-      <hr class="my-4">
-      <div class="row">
-        <div class="col-md-6">
-          <p><b>Estado: </b>Revisión</p>
-          <p><b>Mecánico: </b>Juan Pérez</p>
-          <p><b>Fecha de ingreso: </b>16/02/2018</p>
+        <hr class="my-4">
+        <div class="row">
+          <div class="col-md-6">
+            <p><b>Estado: </b>{{orden.estado}}</p>
+            <p><b>Mecánico: </b>{{orden.mecanico}}</p>
+            <p><b>Fecha de ingreso: </b>{{orden.fecha}}</p>
+          </div>
+          <div class="col-md-6 align-self-center">
+            <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Presione para cerrar la orden">Cerrar orden</button>
+          </div>
         </div>
-        <div class="col-md-6 align-self-center">
-          <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Presione para cerrar la orden">Cerrar orden</button>
+        <hr class="my-4">
+        <div class="row">
+          <div class="col-md-6">
+            <p><b>Accesorios: </b>{{orden.accesorios}}</p>          
+          </div>
+          <div class="col-md-6">
+            <p><b>Repuestos: </b>{{orden.repuestos}}</p>
+          </div>
         </div>
-      </div>
-      <hr class="my-4">
-      <div class="row">
-        <div class="col-md-6">
-          <p><b>Accesorios: </b>-</p>          
+        <hr class="my-4">
+        <div class="row">
+          <div class="col-md-12">
+            <p><b>Razón de visita: </b><i>{{orden.razon}}</i></p>
+            <p><b>Diagnóstico: </b><i>{{orden.diagnostico}}</i></p>
+            <p><b>Procedimiento: </b><i>{{orden.procedimiento}}</i></p>
+          </div>
         </div>
-        <div class="col-md-6">
-          <p><b>Repuestos: </b>-</p>
+        <div class="row justify-content-center">
+          <div class="col-md-7 align-self-center">
+              <ngb-carousel>
+                <ng-template ngbSlide>
+                  <img src={{orden.img1}} width="400"  height="300" alt="Random first slide" align="middle">                
+                </ng-template>
+                <ng-template ngbSlide>
+                  <img src={{orden.img2}} width="400" height="300" alt="Random second slide">
+                </ng-template>
+                <ng-template ngbSlide>
+                  <img src={{orden.img3}} width="400" height="300" alt="Random third slide">
+                </ng-template>
+              </ngb-carousel>
+          </div>
         </div>
-      </div>
-      <hr class="my-4">
-      <div class="row">
-        <div class="col-md-12">
-          <p><b>Razón de visita: </b><i>Sonido inusual al cambiar a la 3era velocidad</i></p>
-          <p><b>Diagnóstico: </b><i>-</i></p>
-          <p><b>Procedimiento: </b><i>-</i></p>
-        </div>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-md-7 align-self-center">
-            <ngb-carousel>
-              <ng-template ngbSlide>
-                <img src="../../../assets/escalade.jpg" width="400"  height="300" alt="Random first slide" align="middle">                
-              </ng-template>
-              <ng-template ngbSlide>
-                <img src="../../../assets/escalade.jpg" width="400" height="300" alt="Random second slide">
-              </ng-template>
-              <ng-template ngbSlide>
-                <img src="../../../assets/escalade.jpg" width="400" height="300" alt="Random third slide">
-              </ng-template>
-            </ngb-carousel>
-        </div>
-      </div>
-    </ng-template>
-  </ngb-panel>
+      </ng-template>
+    </ngb-panel>
+  </li>
 </ngb-accordion>
+

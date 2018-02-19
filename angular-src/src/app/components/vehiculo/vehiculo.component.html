@@ -1,46 +1,10 @@
-<div class="card">
-    <img class="card-img-top" src="../../../assets/audiTT.JPG" alt="Card image cap">
-    <div class="card-body">
-      <div class="row align-items-center card-header">
-        <div class="col-sm-8">
-          <h5 class="card-title">Audi TT 2017</h5>
-        </div>
-        <div class="col-sm-4">
-          <p>
-            <button type="button" class="btn btn-outline-secondary" placement="top" ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-              popoverTitle="Popover on top">Programa cita</button>
-          </p>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-8">
-            <p>
-              <b>Placa: </b>AM000JK</p>
-            <p>
-              <b>Color: </b>Plata</p>
-            <p>
-              <b>Serial: </b>1G1YY25R695700001</p>
-          </div>
-          <div class="col-sm-4">
-            <p>
-              <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Visualice el historial de reparaciones del vehículo">Ver historial</button>
-            </p>
-            <p>
-              <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Desactive el vehículo en caso de dejar de ser el dueño">Desactivar</button>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+<li *ngFor="let vehiculo of vehiculos">
   <div class="card">
-    <img class="card-img-top" src="../../../assets/CRUZE2015.jpg" alt="Card image cap">
+    <img class="card-img-top" src={{vehiculo.imagen}} alt="Card image cap">
     <div class="card-body">
       <div class="row align-items-center card-header">
         <div class="col-sm-8">
-          <h5 class="card-title">Chevrolet Cruze 2015</h5>
+          <h5 class="card-title">{{vehiculo.marca}} {{vehiculo.modelo}} {{vehiculo.anio}}</h5>
         </div>
         <div class="col-sm-4">
           <p>
@@ -53,11 +17,11 @@
         <div class="row">
           <div class="col-sm-8">
             <p>
-              <b>Placa: </b>AM000JK</p>
+              <b>Placa: </b>{{vehiculo.placa}}</p>
             <p>
-              <b>Color: </b>Blanco</p>
+              <b>Color: </b>{{vehiculo.color}}</p>
             <p>
-              <b>Serial: </b>1G1YY25R695700001</p>
+              <b>Serial: </b>{{vehiculo.serial}}1G1YY25R695700001</p>
           </div>
           <div class="col-sm-4">
             <p>
@@ -71,40 +35,4 @@
       </div>
     </div>
   </div>
-
-  <div class="card">
-    <img class="card-img-top" src="../../../assets/escalade.jpg" alt="Card image cap">
-    <div class="card-body">
-      <div class="row align-items-center card-header">
-        <div class="col-sm-8">
-          <h5 class="card-title">Cadillac Escalade 2016</h5>
-        </div>
-        <div class="col-sm-4">
-          <p>
-            <button type="button" class="btn btn-outline-secondary" placement="top" ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-              popoverTitle="Popover on top">Programa cita</button>
-          </p>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-8">
-            <p>
-              <b>Placa: </b>AM000JK</p>
-            <p>
-              <b>Color: </b>Plata</p>
-            <p>
-              <b>Serial: </b>1G1YY25R695700001</p>
-          </div>
-          <div class="col-sm-4">
-            <p>
-              <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Visualice el historial de reparaciones del vehículo">Ver historial</button>
-            </p>
-            <p>
-              <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Desactive el vehículo en caso de dejar de ser el dueño">Desactivar</button>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+</li>

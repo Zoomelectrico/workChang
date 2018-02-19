@@ -16,212 +16,90 @@
   <div class="container">
     <div class="col-md-12">
       <ngb-tabset>
-          <ngb-tab>
-              <ng-template ngbTabTitle><b class="text-dark thicker background">Solicitudes</b></ng-template>
-              <ng-template ngbTabContent>
-                <div class="container">
-                  <div class="row justify-content-around body">
-                    <div class="col-md-8">
-                        <ngb-accordion [closeOthers]="true" activeIds="static-1">
-                            <ngb-panel type="dark" id="static-1">
-                              <ng-template ngbPanelTitle>
-                                <div class="col-md-6 text-dark">
-                                  <h4><b>Solicitud #: </b>00001</h4>
-                                </div>
-                              </ng-template>
-                              <ng-template ngbPanelContent>
-                                <div class="col-md-11">
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <p><b>Cliente: </b>Pepe</p>
-                                      <p><b>Cédula: </b>26666666</p>
-                                      <form class="form-inline">
-                                        <div class="form-group">
-                                          <div class="input-group">
-                                            <input class="form-control" placeholder="yyyy-mm-dd"
-                                                    name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                                            <div class="input-group-append">
-                                              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-                                                <img src="../../../assets/ic_today_black_24dp_1x.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-                                              </button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </form>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <p><b>Fecha solicitada: </b>26/02/2018</p>
-                                      <p><b>Motivo: </b>Sonido al frenar</p>
-                                      <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Otorgue la cita a la fecha indicada">Otorgar cita</button>
-                                    </div>
-                                  </div>
-                                </div>
-                                <hr class="my-4">
-                                <app-vehiculo></app-vehiculo>
-                              </ng-template>
-                            </ngb-panel>
-                          </ngb-accordion>
-                    </div>
-                  </div>
-                </div>
-              </ng-template>
-            </ngb-tab>
         <ngb-tab>
-          <ng-template ngbTabTitle><b class="text-dark thicker background">Clientes</b></ng-template>
+          <ng-template ngbTabTitle><b class="text-dark thicker background">Solicitudes</b></ng-template>
           <ng-template ngbTabContent>
-            <div class="col-md-11">
+            <div class="container">
               <div class="row justify-content-around body">
-                <div class="col-md-11">
-                  <div class="card">
-                    <div class="card-header">
-                      <b class="thicker"><h3>Pepito Pérez</h3></b>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <p><b>Nombre: </b>Pepito Pérez</p>
-                            <p><b>Cédula: </b>26666666</p>
-                            <p><b>Sexo: </b>masculino</p>
-                          </div>
-                          <div class="col-md-6">
-                            <p><b>Teléfono: </b>0424 555.55.55</p>
-                            <p><b>Dirección: </b>Av. Lecuna, Caracas, Venezuela</p>
-                            <p><b>Correo: </b>elpepitodepepitos@pepe.ito</p>
-                          </div>
-                        </div>
-                        <hr class="my-4">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <p><b>Vehículos registrados: </b>3</p>
-                          </div>
-                          <div class="col-md-12">
-                            <p><b>Vehículos en el taller: </b>1</p>
-                          </div>
-                        </div>
-                        <hr class="my-4">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="row justify-content-center">
-                              <div class="col-md-11">
-                                <app-orden-reparacion></app-orden-reparacion>
+                <div class="col-md-8">
+                    <ngb-accordion [closeOthers]="true" activeIds="static-1">
+                      <li *ngFor="let solicitud of solicitudes">
+                        <ngb-panel type="dark" id="static-1">
+                          <ng-template ngbPanelTitle>
+                            <div class="col-md-6 text-dark">
+                              <h4><b>Solicitud #: </b>{{solicitud.numSol}}</h4>
+                            </div>
+                          </ng-template>
+                          <ng-template ngbPanelContent>
+                            <div class="col-md-11">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <p><b>Cliente: </b>{{solicitud.nombre}}</p>
+                                  <p><b>Cédula: </b>{{solicitud.cedula}}</p>
+                                  <form class="form-inline">
+                                    <div class="form-group">
+                                      <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd"
+                                                name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                                        <div class="input-group-append">
+                                          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                            <img src="../../../assets/ic_today_black_24dp_1x.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                                <div class="col-md-6">
+                                  <p><b>Fecha solicitada: </b>{{solicitud.fechaSol}}</p>
+                                  <p><b>Fecha esperada: </b>{{solicitud.fechaEsp}}</p>
+                                  <p><b>Motivo: </b>{{solicitud.motivo}}</p>
+                                  <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Otorgue la cita a la fecha indicada">Otorgar cita</button>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                    </div>
-                  </div>
+                            <hr class="my-4">
+                            <app-vehiculo></app-vehiculo>
+                          </ng-template>
+                        </ngb-panel>
+                      </li>
+                    </ngb-accordion>
                 </div>
               </div>
             </div>
           </ng-template>
         </ngb-tab>
         <ngb-tab>
-          <ng-template ngbTabTitle><b class="text-dark thicker">Vehículos</b></ng-template>
-          <ng-template ngbTabContent>
-              <div class="col-md-11">
-                  <div class="row justify-content-around body">
-                      <div class="col-md-11">
-                        <div class="card">
-                          <div class="card-header">
-                            <b class="thicker"><h3><b>Cadillac Escalade: </b>AA000AA</h3></b>
-                          </div>
-                          <div class="card-body">
-                              <div class="row justify-content-between">
-                                <div class="col-md-6">
-                                  <p><b>Dueño: </b>Pepito Pérez</p>
-                                  <p><b>Marca: </b>Cadillac</p>
-                                  <p><b>Modelo: </b>Escalade</p>
-                                  <p><b>Año: </b>2016</p>
-                                  <p><b>Color: </b>Plata</p>
-                                </div>
-                                <div class="col-md-6">
-                                  <p><b>Placa: </b>AM000JK</p>
-                                  <p><b>Serial: </b>1G1YY25R695700001</p>
-                                </div>
-                              </div>
-                              <hr class="my-4">
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="row justify-content-center">
-                                    <div class="col-md-11">
-                                      <app-orden-reparacion></app-orden-reparacion>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-              </div>
-          </ng-template>
-        </ngb-tab>
-        <ngb-tab>
-          <ng-template ngbTabTitle><b class="text-dark thicker">Mecánico</b></ng-template>
-          <ng-template ngbTabContent>
-              <div class="col-md-11">
-                  <div class="row justify-content-around body">
-                      <div class="col-md-11">
-                        <div class="card">
-                          <div class="card-header">
-                            <h3><b class="thicker">Mecánico: </b>Juan Pérez</h3>
-                          </div>
-                          <div class="card-body">
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <p><b>Nombre: </b>Juan Pérez</p>
-                                  <p><b>Cédula: </b>26666666</p>
-                                  <p><b>Sexo: </b>masculino</p>
-                                </div>
-                                <div class="col-md-6">
-                                  <p><b>Teléfono: </b>0424 555.55.55</p>
-                                  <p><b>Dirección: </b>Av. Lecuna, Caracas, Venezuela</p>
-                                  <p><b>Correo: </b>elpepitodepepitos@pepe.ito</p>
-                                </div>
-                              </div>
-                              <hr class="my-4">
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <p><b>Especialidad: </b>Tren delantero</p>
-                                </div>
-                                <div class="col-md-6">
-                                  <p><b>Fecha de contrato: </b>19/02/2016</p>
-                                </div>
-                              </div>
-                              <hr class="my-4">
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <div class="row justify-content-center">
-                                    <div class="col-md-11">
-                                      <app-orden-reparacion></app-orden-reparacion>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-              </div>
-          </ng-template>
-        </ngb-tab> 
-        <ngb-tab>
-          <ng-template ngbTabTitle><b class="text-dark thicker">Modelo de vehículo</b></ng-template>
+          <ng-template ngbTabTitle><b class="text-dark thicker background">Clientes</b></ng-template>
           <ng-template ngbTabContent>
             <div class="col-md-11">
               <div class="row justify-content-around body">
-                  <div class="col-md-11">
+                <div class="col-md-11">
+                  <li *ngFor="let cliente of clientes">
                     <div class="card">
                       <div class="card-header">
-                        <b class="thicker"><h3><b>Cadillac Escalade: </b>AA000AA</h3></b>
+                        <b class="thicker"><h3>Pepito Pérez</h3></b>
                       </div>
                       <div class="card-body">
-                          <div class="row justify-content-between">
+                          <div class="row">
                             <div class="col-md-6">
-                              <p><b>Marca: </b>Cadillac</p>
-                              <p><b>Modelo: </b>Escalade</p>
-                              <p><b>Año: </b>2016</p>
-                              <p><b>Color: </b>Plata</p>
+                              <p><b>Nombre: </b>{{cliente.nombre}}</p>
+                              <p><b>Cédula: </b>{{cliente.cedula}}</p>
+                              <p><b>Sexo: </b>{{cliente.sexo}}</p>
+                            </div>
+                            <div class="col-md-6">
+                              <p><b>Teléfono: </b>{{cliente.telefono}}</p>
+                              <p><b>Dirección: </b>{{cliente.direccion}}</p>
+                              <p><b>Correo: </b>{{cliente.correo}}</p>
+                            </div>
+                          </div>
+                          <hr class="my-4">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <p><b>Vehículos registrados: </b>{{cliente.registrados}}</p>
+                            </div>
+                            <div class="col-md-12">
+                              <p><b>Vehículos en el taller: </b>{{cliente.taller}}</p>
                             </div>
                           </div>
                           <hr class="my-4">
@@ -236,6 +114,139 @@
                           </div>
                       </div>
                     </div>
+                  </li>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle><b class="text-dark thicker">Vehículos</b></ng-template>
+          <ng-template ngbTabContent>
+              <div class="col-md-11">
+                  <div class="row justify-content-around body">
+                      <div class="col-md-11">
+                        <li *ngFor="let vehiculo of vehiculos">
+                            <div class="card">
+                                <div class="card-header">
+                                  <b class="thicker"><h3><b>{{vehiculo.marca}} {{vehiculo.modelo}} {{vehiculo.anio}}: </b>{{vehiculo.placa}}</h3></b>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row justify-content-between">
+                                      <div class="col-md-6">
+                                        <p><b>Dueño: </b>{{vehiculo.duenio}}</p>
+                                        <p><b>Marca: </b>{{vehiculo.marca}}</p>
+                                        <p><b>Modelo: </b>{{vehiculo.modelo}}</p>
+                                        <p><b>Año: </b>{{vehiculo.anio}}</p>
+                                        <p><b>Color: </b>{{vehiculo.color}}</p>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <p><b>Placa: </b>{{vehiculo.placa}}</p>
+                                        <p><b>Serial: </b>{{vehiculo.serial}}</p>
+                                      </div>
+                                    </div>
+                                    <hr class="my-4">
+                                    <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="row justify-content-center">
+                                          <div class="col-md-11">
+                                            <app-orden-reparacion></app-orden-reparacion>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                              </div>
+                        </li>
+                      </div>
+                    </div>
+              </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle><b class="text-dark thicker">Mecánico</b></ng-template>
+          <ng-template ngbTabContent>
+              <div class="col-md-11">
+                  <div class="row justify-content-around body">
+                      <div class="col-md-11">
+                        <li *ngFor="let mecanico of mecanicos">
+                          <div class="card">
+                            <div class="card-header">
+                              <h3><b class="thicker">Mecánico: </b>{{mecanico.nombre}}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <p><b>Nombre: </b>{{mecanico.nombre}}</p>
+                                    <p><b>Cédula: </b>{{mecanico.cedula}}</p>
+                                    <p><b>Sexo: </b>{{mecaico.sexo}}</p>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <p><b>Teléfono: </b>{{mecanico.telefono}}</p>
+                                    <p><b>Dirección: </b>{{mecanico.direccion}}</p>
+                                    <p><b>Correo: </b>{{mecanico.correo}}</p>
+                                  </div>
+                                </div>
+                                <hr class="my-4">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <p><b>Especialidad: </b>{{mecanico.especialidad}}</p>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <p><b>Fecha de contrato: </b>{{mecanico.fechaContrato}}</p>
+                                  </div>
+                                </div>
+                                <hr class="my-4">
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="row justify-content-center">
+                                      <div class="col-md-11">
+                                        <app-orden-reparacion></app-orden-reparacion>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                        </li>
+                      </div>
+                    </div>
+              </div>
+          </ng-template>
+        </ngb-tab> 
+        <ngb-tab>
+          <ng-template ngbTabTitle><b class="text-dark thicker">Modelo de vehículo</b></ng-template>
+          <ng-template ngbTabContent>
+            <div class="col-md-11">
+              <div class="row justify-content-around body">
+                  <div class="col-md-11">
+                    <li *ngFor="let vehiculo of vehiculos">
+                      <div class="card">
+                        <div class="card-header">
+                          <b class="thicker"><h3><b>{{vehiculo.marca}} {{vehiculo.modelo}} {{vehiculo.anio}} </b>{{vehiculo.placa}}</h3></b>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-between">
+                              <div class="col-md-6">
+                                <p><b>Marca: </b>{{vehiculo.marca}}</p>
+                                <p><b>Modelo: </b>{{vehiculo.modelo}}</p>
+                                <p><b>Año: </b>{{vehiculo.anio}}</p>
+                                <p><b>Color: </b>{{vehiculo.color}}</p>
+                              </div>
+                            </div>
+                            <hr class="my-4">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="row justify-content-center">
+                                  <div class="col-md-11">
+                                    <app-orden-reparacion></app-orden-reparacion>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                    </li>
                   </div>
                 </div>
             </div>
