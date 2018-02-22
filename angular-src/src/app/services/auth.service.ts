@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
 
-  token: any;
-  user: any;
+  private token: any;
+  private user: any;
 
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+    public jwtHelper: JwtHelperService
+  ) { }
 
   registerUser(user) {
     let headers = new Headers();
@@ -21,7 +25,7 @@ export class AuthService {
   login(credentials) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/User/auth', credentials , { headers: headers })
+    return this.http.post('http://localhost:3000/User/auth', credentials, { headers: headers })
       .map(res => res.json());
   }
 
@@ -32,5 +36,26 @@ export class AuthService {
     headers.append('Authorization', this.token);
     headers.append('Content-Type', 'application/json');
   }
-  
+
+  isLogged() {
+    if (!localStorage.getItem('token')) {
+      return false;
+    } else {
+      return !(this.jwtHelper.isTokenExpired(localStorage.getItem('token')));
+    }
+  }
+
+  logOut() {
+    this.user = null;
+    this.token = null;
+    localStorage.clear();
+  }
+
+  storeUserData(token, user) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.token = token;
+    this.user = user;
+  }
+
 }

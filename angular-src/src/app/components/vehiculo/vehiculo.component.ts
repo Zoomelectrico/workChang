@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ApiService } from '../../services/api.service';
 
 @Component({
@@ -8,20 +9,22 @@ import { ApiService } from '../../services/api.service';
 })
 export class VehiculoComponent implements OnInit {
 
-  public vehiculos:Array<any>;
+  public vehiculos:Observable<any[]>;
+
+  private user: any;
 
   constructor(
-    private api: ApiService,
-    private elRef:ElementRef
+    private api: ApiService
   ) {  
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.user = await JSON.parse(localStorage.getItem('user'));
+    const clientID = await this.api.buscarCliente(this.user.ID); 
     this.api.buscarCarros({
-      ClientID: 1
+      ClientID: clientID
     }).subscribe(data => {
       this.vehiculos = data.cars;
-      console.log(this.vehiculos);
     });
   }
 
@@ -34,36 +37,6 @@ export class VehiculoComponent implements OnInit {
     });
   }
 
-  /*vehiculos: Object = [
-    {
-      marca: "Audi",
-      modelo: "TT",
-      anio: "2016",
-      duenio: "Pepe",
-      placa: "AA000AA",
-      color: "plata",
-      imagen: "../../../assets/audiTT.JPG"
-    },
-    {
-      marca: "Audi",
-      modelo: "TT",
-      anio: "2016",
-      duenio: "Pepe",
-      placa: "AA000AA",
-      color: "plata",
-      imagen: "../../../assets/audiTT.JPG"
-    },
-    {
-      marca: "Audi",
-      modelo: "TT",
-      anio: "2016",
-      duenio: "Pepe",
-      placa: "AA000AA",
-      color: "plata",
-      imagen: "../../../assets/audiTT.JPG"
-    }
-  ]
-  */
 }
 
 

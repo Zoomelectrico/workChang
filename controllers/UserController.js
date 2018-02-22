@@ -1,6 +1,10 @@
+const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const Client = require('../models/Client');
-const bcrypt = require('bcryptjs');
+const Manager = require('../models/Manager');
+const Mechanic = require('../models/Mechanic');
+const Administrator = require('../models/Administrator');
+
 
 const UserController = {
   registerUser: function (user, callback) {
@@ -11,11 +15,36 @@ const UserController = {
         user.password = hash;
         User.create(user).then(user => { 
           if (user) {
-            Client.create({
-              UserID: user.ID
-            }).then(client => callback(null, user));
+            switch(user.type) {
+              case 1:
+                Client.create({
+                  UserID: user.ID
+                }).then(client => callback(null, user))
+                  .catch(err => callback(err, null));
+                break;
+              case 2:
+                Manager.create({
+                  UserID: user.ID
+                }).then(client => callback(null, user))
+                  .catch(err => callback(err, null));
+                break;
+              case 3:
+                Mechanic.create({
+                  UserID: user.ID
+                }).then(client => callback(null, user))
+                  .catch(err => callback(err, null));
+                break;
+              case 4:
+                Administrator.create({
+                  UserID: user.ID
+                }).then(client => callback(null, user))
+                  .catch(err => callback(err, null));
+                break;
+              default:
+                callback(new Error('ERROR PAPI'), null);
+            }
           } else {
-            throw new Error('No lo se Rick');
+            callback(new Error('No lo se Rick'), null);
           }
         }).catch(err => callback(err, null));    
       });
@@ -40,11 +69,43 @@ const UserController = {
             if (err) console.error(err);
             user.update({
               password: hash
-            }).then(() => {console.log('Sirve')});
+            }).then(() => {console.log('All good')});
           })
         });  
-      });
+      }).catch(err => console.error(err));
     }
+  },
+  searchClient: function(userID, callback) {
+    Client.findOne({
+      where: {
+        userID: userID
+      }
+    }).then(client => callback(null, client))
+      .catch(err => callback(err, null));
+  },
+  searchManager: function(userID, callback) {
+    Manager.findOne({
+      where: {
+        userID: userID
+      }
+    }).then(manager => callback(null, manager))
+      .catch(err => callback(err, null));
+  },
+  searchMechanic: function(userID, callback) {
+    Mechanic.findOne({
+      where: {
+        userID: userID
+      }
+    }).then(mechanic => callback(null, mechanic))
+      .catch(err => callback(err, null));
+  },
+  searchAdministrator: function(userID, callback) {
+    Administrator.findOne({
+      where: {
+        userID: userID
+      }
+    }).then(administrator => callback(null, administrator))
+      .catch(err => callback(err, null));
   }
 };
 

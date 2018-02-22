@@ -43,7 +43,7 @@ import { VehiculoComponent } from './components/vehiculo/vehiculo.component'
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
-          return localStorage.getItem('access_token');
+          return localStorage.getItem('token');
         },
         whitelistedDomains: ['localhost:3000']
       }

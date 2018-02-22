@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 
     this.auth.login(credentials).subscribe(data => {
       if (data.success) {
+        this.auth.storeUserData(data.token, data.user);
         switch(data.user.type) {
           case 1:
             this.router.navigate(['/client']);

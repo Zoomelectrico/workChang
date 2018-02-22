@@ -54,6 +54,20 @@ router.post('/auth', (req, res, next) => {
   });
 });
 
+router.get('/searchClient', (req, res, next) => {
+  UserController.searchClient(req.body.userID, (err, client) => {
+    if (err) {
+      res.send({ success: false, msg: err });
+    } else {
+      res.send({
+        success: true,
+        msg: 'Client finded',
+        client: client
+      });
+    }     
+  });
+});
+
 router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
   res.json({user: req.user});
 });

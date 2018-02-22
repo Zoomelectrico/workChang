@@ -46,9 +46,10 @@ export class RegisterComponent implements OnInit {
       console.log(user);
       this.auth.registerUser(user).subscribe(data => {
         if (data.success) {
+          this.auth.storeUserData(data.token, data.user);
           this.router.navigate(['/login']);
         } else {
-          this.router.navigate(['/client']);
+          this.router.navigate(['/client/register']);
         }
       });
     } else {
