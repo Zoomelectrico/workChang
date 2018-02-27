@@ -43,12 +43,13 @@ export class RegisterComponent implements OnInit {
         city: this.city,
         type: 1
       }
-      console.log(user);
       this.auth.registerUser(user).subscribe(data => {
         if (data.success) {
+          this.auth.storeUserData(data.token, data.user);
           this.router.navigate(['/login']);
         } else {
-          this.router.navigate(['/client']);
+          console.log(data.msg);
+          this.router.navigate(['/client/register']);
         }
       });
     } else {

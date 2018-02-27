@@ -5,9 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 // Servicios
 import { AuthService } from './services/auth.service';
 import { ApiService } from './services/api.service';
+import { AuthGuard } from './services/guard.service';
+// Navegación
 import { AppRoutingModule } from './app-routing.module';
 //Componentes
 import { AppComponent } from './app.component';
@@ -19,7 +22,9 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { GerenteDashboardComponent } from './components/gerente-dashboard/gerente-dashboard.component';
 import { OrdenReparacionComponent } from './components/orden-reparacion/orden-reparacion.component';
-import { VehiculoComponent } from './components/vehiculo/vehiculo.component'
+import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
+import { MechanicDashboardComponent } from './components/mechanic-dashboard/mechanic-dashboard.component';
+import { AdministratorDashboardComponent } from './components/administrator-dashboard/administrator-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -32,27 +37,31 @@ import { VehiculoComponent } from './components/vehiculo/vehiculo.component'
     RegisterComponent,
     GerenteDashboardComponent,
     OrdenReparacionComponent,
-    VehiculoComponent
+    VehiculoComponent,
+    MechanicDashboardComponent,
+    AdministratorDashboardComponent
   ],
   imports: [
-    NgbModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     HttpModule,
     HttpClientModule,
+    NgbModule.forRoot(),
+    FlashMessagesModule.forRoot(),
+    FormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
-          return localStorage.getItem('access_token');
+          return localStorage.getItem('token');
         },
         whitelistedDomains: ['localhost:3000']
       }
-    }),
-    FormsModule
+    })  
   ],
   providers: [
     AuthService,
-    ApiService
+    ApiService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

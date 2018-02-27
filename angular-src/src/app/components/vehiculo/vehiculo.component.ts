@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ApiService } from '../../services/api.service';
 
 @Component({
@@ -8,20 +9,29 @@ import { ApiService } from '../../services/api.service';
 })
 export class VehiculoComponent implements OnInit {
 
-  public vehiculos:Array<any>;
+  public vehiculos:Observable<any[]>;
+
+  private user: any;
 
   constructor(
-    private api: ApiService,
-    private elRef:ElementRef
+    private api: ApiService
   ) {  
   }
-
-  ngOnInit() {
-    this.api.buscarCarros({
-      ClientID: 1
-    }).subscribe(data => {
-      this.vehiculos = data.cars;
-      console.log(this.vehiculos);
+ 
+  async ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('user')); // Guardo los datos del usuario
+    this.api.buscarCliente({
+      userID: this.user.ID
+    }).subscribe(clientData => { // Busco al cliente 
+      if (clientData.success) { // Pregunto si tuve exito
+        this.api.buscarCarros({
+          OwnerID: clientData.client.ID
+        }).subscribe(cars => { // Si lo tuve busco los carros de eso cliente
+          this.vehiculos = cars; // Como es un observable asigno directamente
+        });
+      } else {
+        console.log(clientData.msg); // sino averiguo que fallo
+      }
     });
   }
 
@@ -30,40 +40,14 @@ export class VehiculoComponent implements OnInit {
     this.api.pedirCita({
       serial: serial
     }).subscribe(data => {
-      console.log(data);
+      if(data.success) {
+        // Flash Message de todo cool
+      } else {
+        // Flash Message de todo mal 
+      }
     });
   }
 
-  /*vehiculos: Object = [
-    {
-      marca: "Audi",
-      modelo: "TT",
-      anio: "2016",
-      duenio: "Pepe",
-      placa: "AA000AA",
-      color: "plata",
-      imagen: "../../../assets/audiTT.JPG"
-    },
-    {
-      marca: "Audi",
-      modelo: "TT",
-      anio: "2016",
-      duenio: "Pepe",
-      placa: "AA000AA",
-      color: "plata",
-      imagen: "../../../assets/audiTT.JPG"
-    },
-    {
-      marca: "Audi",
-      modelo: "TT",
-      anio: "2016",
-      duenio: "Pepe",
-      placa: "AA000AA",
-      color: "plata",
-      imagen: "../../../assets/audiTT.JPG"
-    }
-  ]
-  */
 }
 
 

@@ -10,6 +10,14 @@ export class ApiService {
     private http: Http
   ) { }
 
+  buscarCliente(userID) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/User/searchClient', userID, { headers: headers })
+      .map(res => res.json());
+   
+  }
+
   registrarCarro(car) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -24,11 +32,24 @@ export class ApiService {
       .map(res => res.json());
   }
 
-  buscarCarros(clientID) {
+  buscarCarros(OwnerID) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Client/Cars', clientID, { headers: headers })
-      .map(res => res.json());
+    return this.http.post('http://localhost:3000/Client/Cars', OwnerID, { headers: headers })
+      .map(res => res.json().cars.map(car => {
+        if (car.active) {
+          return {
+            ID: car.ID,
+            serial: car.serial,
+            licensePlate: car.licensePlate,
+            model: car.model,
+            brand: car.brand,
+            year: car.year,
+            active: car.active,
+            photoLink: car.photoLink,
+            OwnerID: car.OwnerID
+          };
+        }
+      }));
   }
-
 }

@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col-s">
               <div class="col-sm-12">
-                <h2>Bienvenido </h2>
+                <h2>Bienvenido {{user.firstName}}</h2>
               </div>
             </div>
           </div>
@@ -23,7 +23,45 @@
             <h2 class="text-center"><b class="thicker">Lista de vehículos</b></h2>
           </div>
         </div>
-        <app-vehiculo></app-vehiculo>
+        <div *ngFor="let vehiculo of vehiculos" >
+  <div class="card">
+    <img class="card-img-top" src="../../../assets/audiTT.JPG" alt="Card image cap">
+    <div class="card-body">
+      <div class="row align-items-center card-header">
+        <div class="col-sm-8">
+          <h5 class="card-title">{{vehiculo.brand}} {{vehiculo.model}} {{vehiculo.year}}</h5>
+          <span class="invisible" #serial>{{vehiculo.serial}}</span>  
+        </div>
+        <div class="col-sm-4">
+          <p>
+            <button type="button" class="btn btn-outline-secondary" placement="top" ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+              popoverTitle="Popover on top" (click)="pedirCita(serial.textContent)">Programa cita</button>
+          </p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-8">
+            <p>
+              <b>Placa: </b>{{vehiculo.licensePlate}}</p>
+            <p>
+              <b>Color: </b>Negro</p>
+            <p>
+              <b>Serial: </b>{{vehiculo.serial}}1G1YY25R695700001</p>
+          </div>
+          <div class="col-sm-4">
+            <p>
+              <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Visualice el historial de reparaciones del vehículo">Ver historial</button>
+            </p>
+            <p>
+              <button type="button" class="btn btn-dark" placement="right" ngbTooltip="Desactive el vehículo en caso de dejar de ser el dueño">Desactivar</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       </div>   
       <div class="col-md-5 col-sm-12">
         <div class="row justify-content-around">
