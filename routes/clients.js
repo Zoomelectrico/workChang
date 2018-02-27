@@ -3,7 +3,7 @@ const router = express.Router();
 const ClientController = require('../controllers/ClientController');
 
 router.post('/CarRegister', (req, res, next) => {
-  const car = {
+  const carData = {
     "brand": req.body.brand,
     "model": req.body.model,
     "year": req.body.year,
@@ -13,7 +13,7 @@ router.post('/CarRegister', (req, res, next) => {
     "active": req.body.active,
     "OwnerID": req.body.OwnerID
   };
-  ClientController.carRegister(car, (err, car) => {
+  ClientController.carRegister(carData, (err, car) => {
     if (err) {
       res.json({ success: false, msg: 'Car Registration Fail' });
     } else {
@@ -41,7 +41,7 @@ router.post('/askAppoiment', (req, res, next) => {
 });
 
 router.post('/Cars', (req, res, next) => {
-  ClientController.getCars(req.body.ClientID, (err, cars) => {
+  ClientController.getCars(req.body.OwnerID, (err, cars) => {
     if (err) {
       res.json({ success: false, msg: err });
     } else {

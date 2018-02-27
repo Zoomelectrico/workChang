@@ -17,14 +17,21 @@ export class VehiculoComponent implements OnInit {
     private api: ApiService
   ) {  
   }
-
+ 
   async ngOnInit() {
-    this.user = await JSON.parse(localStorage.getItem('user'));
-    const clientID = await this.api.buscarCliente(this.user.ID); 
-    this.api.buscarCarros({
-      ClientID: clientID
-    }).subscribe(data => {
-      this.vehiculos = data.cars;
+    this.user = JSON.parse(localStorage.getItem('user')); // Guardo los datos del usuario
+    this.api.buscarCliente({
+      userID: this.user.ID
+    }).subscribe(clientData => { // Busco al cliente 
+      if (clientData.success) { // Pregunto si tuve exito
+        this.api.buscarCarros({
+          OwnerID: clientData.client.ID
+        }).subscribe(cars => { // Si lo tuve busco los carros de eso cliente
+          this.vehiculos = cars; // Como es un observable asigno directamente
+        });
+      } else {
+        console.log(clientData.msg); // sino averiguo que fallo
+      }
     });
   }
 
@@ -33,7 +40,11 @@ export class VehiculoComponent implements OnInit {
     this.api.pedirCita({
       serial: serial
     }).subscribe(data => {
-      console.log(data);
+      if(data.success) {
+        // Flash Message de todo cool
+      } else {
+        // Flash Message de todo mal 
+      }
     });
   }
 

@@ -44,7 +44,7 @@ const UserController = {
                 callback(new Error('ERROR PAPI'), null);
             }
           } else {
-            callback(new Error('No lo se Rick'), null);
+            callback(new Error('El usuario no ha sido creado'), null);
           }
         }).catch(err => callback(err, null));    
       });
@@ -78,7 +78,7 @@ const UserController = {
   searchClient: function(userID, callback) {
     Client.findOne({
       where: {
-        userID: userID
+        UserID: userID
       }
     }).then(client => callback(null, client))
       .catch(err => callback(err, null));

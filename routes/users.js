@@ -20,16 +20,16 @@ router.post('/register', (req, res, next) => {
   };
   UserController.registerUser(user, (err, user) => {
     if (err) {
-      res.json({success: false, msg: 'Failed'});
+      res.json({success: false, msg: 'Ese nombre de usuario ya ha sido usado'});
     } else {
-      res.json({success: true, msg: 'Fine'});
+      res.json({success: true, msg: 'El usuario ha sido creado de manera exitosa'});
     }
   });
 });
 
 router.post('/auth', (req, res, next) => {
   const username = req.body.username;
-  const password = req.body.password;
+  const password = req.body.password; 
 
   User.findOne({
     where: {
@@ -54,11 +54,12 @@ router.post('/auth', (req, res, next) => {
   });
 });
 
-router.get('/searchClient', (req, res, next) => {
+router.post('/searchClient', (req, res, next) => {
+  console.log(req.body.userID);
   UserController.searchClient(req.body.userID, (err, client) => {
     if (err) {
       res.send({ success: false, msg: err });
-    } else {
+    } else { 
       res.send({
         success: true,
         msg: 'Client finded',

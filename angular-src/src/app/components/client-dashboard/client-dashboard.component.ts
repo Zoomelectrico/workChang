@@ -7,9 +7,9 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./client-dashboard.component.css','./../../app.component.css']
 })
 export class ClientDashboardComponent implements OnInit {
-
-  private cars:Array<any>; 
-  
+  // The Client
+  private user: any;
+  // The ngModel for the Form
   private brand: string;
   private model: string;
   private year: number;
@@ -17,15 +17,30 @@ export class ClientDashboardComponent implements OnInit {
   private serial: string;
   private photoLink: string;
 
+  private vehiculos = [];
+
   constructor(
     private api: ApiService 
   ) { }
 
   ngOnInit() {
-    
+    this.user = JSON.parse(localStorage.getItem('user')); // Guardo los datos del usuario
+    this.api.buscarCliente({
+      userID: this.user.ID
+    }).subscribe(clientData => { // Busco al cliente 
+      if (clientData.success) { // Pregunto si tuve exito
+        this.api.buscarCarros({
+          OwnerID: clientData.client.ID
+        }).subscribe(cars => { // Si lo tuve busco los carros de eso cliente
+          this.vehiculos = cars; // Como es un observable asigno directamente
+        });
+      } else {
+        console.log(clientData.msg); // sino averiguo que fallo
+      }
+    });
   }
 
-  // Metodo asincrono_
+  // Metodo asincrono
   async registrarCarro() {
     // Subir la foto a un proovedor y recibir el link
     this.photoLink = ''; // await proovedor... 
@@ -36,14 +51,33 @@ export class ClientDashboardComponent implements OnInit {
       licensePlate: this.licensePlate,
       serial: this.serial,
       photoLink: this.photoLink,
-      active: true,
-      OwnerID: 1 // Traerse el ID del LocalStorage
+      active: true, 
+      OwnerID: 0
     };
-    this.api.registrarCarro(car).subscribe(data => {
-      if (data.success) {
-        this.cars.push(data.car);
+    this.api.buscarCliente({
+      userID: this.user.ID
+    }).subscribe(data => {
+      console.log(data);
+      if(data.success) {
+        car.OwnerID = data.client.ID;
+        this.api.registrarCarro(car).subscribe(dataCar => {
+          this.vehiculos.push(dataCar.car);
+        });
       } else {
-        // mano fallo
+        // Flash Message Pajita roja
+      }
+    });
+  }
+
+  pedirCita(serial) {
+    console.log(serial);
+    this.api.pedirCita({
+      serial: serial
+    }).subscribe(data => {
+      if(data.success) {
+        // Flash Message de todo cool
+      } else {
+        // Flash Message de todo mal 
       }
     });
   }
