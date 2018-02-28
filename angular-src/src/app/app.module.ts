@@ -20,11 +20,9 @@ import { HomeComponent } from './components/home/home.component';
 import { ClientDashboardComponent } from './components/client-dashboard/client-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { GerenteDashboardComponent } from './components/gerente-dashboard/gerente-dashboard.component';
-import { OrdenReparacionComponent } from './components/orden-reparacion/orden-reparacion.component';
-import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
 import { MechanicDashboardComponent } from './components/mechanic-dashboard/mechanic-dashboard.component';
 import { AdministratorDashboardComponent } from './components/administrator-dashboard/administrator-dashboard.component';
+import { ManagerDashboardComponent } from './components/manager-dashboard/manager-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -35,11 +33,9 @@ import { AdministratorDashboardComponent } from './components/administrator-dash
     ClientDashboardComponent,
     LoginComponent,
     RegisterComponent,
-    GerenteDashboardComponent,
-    OrdenReparacionComponent,
-    VehiculoComponent,
     MechanicDashboardComponent,
-    AdministratorDashboardComponent
+    AdministratorDashboardComponent,
+    ManagerDashboardComponent
   ],
   imports: [
     BrowserModule,

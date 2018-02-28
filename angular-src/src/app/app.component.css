@@ -1,20 +1,23 @@
 #dashboard {
-    background-color: #eeeeee;
-    height: 100%;
-    width: 100%;
-    padding-bottom:50px;
-  }
-  #sidenav {
-    background-color: #333333;
-    color: #ffffff;
-  }
-  #panel {
-    padding: 2rem;
-  }
+  background-color: #eeeeee;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+#sidenav {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+#panel {
+  padding: 2rem;
+}
+
 .body {
-    padding-top: 1cm;
+  padding-top: 1cm;
 }
 
 .thicker {
-    font-weight: 1200;
-  }
+  font-weight: 1200;
+}

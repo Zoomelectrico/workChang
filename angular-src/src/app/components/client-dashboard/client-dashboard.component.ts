@@ -16,8 +16,10 @@ export class ClientDashboardComponent implements OnInit {
   private licensePlate: string;
   private serial: string;
   private photoLink: string;
-
+  // Vector de Vehiculos
   private vehiculos = [];
+  // vector de citas
+  private citas = [];
 
   constructor(
     private api: ApiService 
@@ -38,6 +40,8 @@ export class ClientDashboardComponent implements OnInit {
         console.log(clientData.msg); // sino averiguo que fallo
       }
     });
+    // Buscar las citas
+    this.citas = [{licensePlate: 'aaa000aa', model: 'Aja1', brand: 'Aja2'}, {licensePlate: 'aaa000aa', model: 'Aja1', brand: 'Aja2'}, {licensePlate: 'aaa000aa', model: 'Aja1', brand: 'Aja2'}];
   }
 
   // Metodo asincrono
@@ -61,12 +65,24 @@ export class ClientDashboardComponent implements OnInit {
       if(data.success) {
         car.OwnerID = data.client.ID;
         this.api.registrarCarro(car).subscribe(dataCar => {
-          this.vehiculos.push(dataCar.car);
+          if (dataCar.success) {
+            this.vehiculos.push(dataCar.car);
+          } else {
+            // Flash Message
+          }
         });
       } else {
         // Flash Message Pajita roja
       }
     });
+  }
+
+  desactivar (serial) {
+
+  }
+
+  verHistorial (serial) {
+
   }
 
   pedirCita(serial) {

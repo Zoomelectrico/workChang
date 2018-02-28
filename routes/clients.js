@@ -54,4 +54,8 @@ router.post('/Cars', (req, res, next) => {
   })
 });
 
+router.get('/Appoiments/:id', (req,res, next) => {
+  // TODO: IMPLEMENTAR
+});
+
 module.exports = router;

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GerenteDashboardComponent } from './gerente-dashboard.component';
+import { ManagerDashboardComponent } from './manager-dashboard.component';
 
-describe('GerenteDashboardComponent', () => {
-  let component: GerenteDashboardComponent;
-  let fixture: ComponentFixture<GerenteDashboardComponent>;
+describe('ManagerDashboardComponent', () => {
+  let component: ManagerDashboardComponent;
+  let fixture: ComponentFixture<ManagerDashboardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GerenteDashboardComponent ]
+      declarations: [ ManagerDashboardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GerenteDashboardComponent);
+    fixture = TestBed.createComponent(ManagerDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
