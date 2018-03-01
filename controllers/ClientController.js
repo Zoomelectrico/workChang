@@ -18,6 +18,7 @@ const ClientController = {
           callback(new Error('This Car already have an appoiment'), null);
         } else {
           Appoiment.create({
+            checkout: 0,
             CarID: car.ID
           }).then(appoiment2 => callback(null, appoiment2)).catch(err => callback(err, null));
         }

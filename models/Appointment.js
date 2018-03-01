@@ -10,6 +10,10 @@ const Appointment = sequelize.define('Appointments', {
     primaryKey: true,
     autoIncrement: true
   },
+  checkout: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
+  },
   CarID: {
     type: Sequelize.INTEGER,
     allowNull: false

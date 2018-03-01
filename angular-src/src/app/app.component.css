@@ -5,19 +5,20 @@
   padding-bottom: 50px;
 }
 
-#sidenav {
-  background-color: #333333;
-  color: #ffffff;
-}
-
 #panel {
   padding: 2rem;
 }
 
-.body {
-  padding-top: 1cm;
-}
-
 .thicker {
   font-weight: 1200;
+}
+
+div.body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
