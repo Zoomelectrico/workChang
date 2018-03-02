@@ -48,7 +48,7 @@ router.post('/auth', (req, res, next) => {
           user: user
         });
       } else {
-        return res.json({success: false, msg: 'Wrong Password'});
+        return res.json({success: false, msg: 'Las contraseñas no coinciden'});
       }
     });
   });
@@ -62,7 +62,7 @@ router.post('/searchClient', (req, res, next) => {
     } else { 
       res.send({
         success: true,
-        msg: 'Client finded',
+        msg: 'Cliente encontrado',
         client: client
       });
     }     

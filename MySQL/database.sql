@@ -182,6 +182,7 @@ CREATE TABLE IF NOT EXISTS `workchang`.`replacements` (
   `name` VARCHAR(45) NOT NULL,
   `brand` VARCHAR(45) NOT NULL,
   `inStock` INT(11) NOT NULL,
+  `forModel` VARCHAR(225) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE INDEX `nParte_UNIQUE` (`partNumber` ASC))
 ENGINE = InnoDB
