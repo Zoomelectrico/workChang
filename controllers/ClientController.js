@@ -1,4 +1,5 @@
 const Client = require('../models/Client');
+const User = require('../models/User');
 const Car = require('../models/Car');
 const Appoiment = require('../models/Appointment');
 
@@ -54,6 +55,20 @@ const ClientController = {
       }
     }).then(cars => {
       callback(null, cars);
+    }).catch(err => callback(err, null));
+  },
+  findByNationalID: function(nationalID, callback) {
+    User.findOne({
+      where: {
+        nationalID: nationalID,
+        type: 1
+      }
+    }).then(user => {
+      if (user) {
+        callback(null, user)
+      } else {
+        callback(new Error('No existe ningun usuario registrado con ese numero de cedula'), null);
+      }
     }).catch(err => callback(err, null));
   }
 };

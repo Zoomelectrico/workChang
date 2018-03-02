@@ -54,6 +54,28 @@ router.post('/Cars', (req, res, next) => {
   })
 });
 
+router.post('/search-nationalID', (req, res, next) => {
+  ClientController.findByNationalID(req.body.nationalID, (err, user) => {
+    if(err) {
+      res.json({
+        success: false,
+        msg: err.message,
+        err: err
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'Usuario encontrado',
+        user: user
+      });
+    }
+  });
+});
+
+router.post('/modify', (req, res, next) => {
+  //  TODO: TERMINAR
+});
+
 router.get('/Appoiments/:id', (req,res, next) => {
   // TODO: IMPLEMENTAR
 });

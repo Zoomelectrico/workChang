@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms'; 
+import { NgForm } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 
 @Component({
@@ -24,12 +24,14 @@ export class ManagerDashboardComponent implements OnInit {
   private city: string;
   private photoURL: string;
 
+  private nationalIDSearch: string;
+
   constructor(
     private api: ApiService
   ) { }
 
   ngOnInit() {
-    
+
     // this.user = JSON.parse(localStorage.getItem('user'));
     this.user = {
       firstName: 'Jose'
@@ -50,30 +52,65 @@ export class ManagerDashboardComponent implements OnInit {
       {
         mechanicName: 'Germano Rojas',
         car: {
-         name: 'Jeep Cherokee',
-         licensePlate: 'AA00AA' 
+          name: 'Jeep Cherokee',
+          licensePlate: 'AA00AA'
         }
       },
       {
         mechanicName: 'Germano Rojas',
         car: {
-         name: 'Chevrolet Aveo',
-         licensePlate: 'AA00AA' 
+          name: 'Chevrolet Aveo',
+          licensePlate: 'AA00AA'
         }
       },
       {
         mechanicName: 'Germano Rojas',
         car: {
-         name: 'For Explorer',
-         licensePlate: 'AA00AA' 
+          name: 'For Explorer',
+          licensePlate: 'AA00AA'
         }
       }
     ];
   }
 
   buscarCedula() {
-    this.firstName = "Jose";
+    this.api.buscarClientePorCedula({
+      nationalID: this.nationalIDSearch
+    }).subscribe(data => {
+      console.log(data);
+      if (data.success) {
+        this.firstName = data.user.firstName;
+        this.lastName = data.user.lastName;
+        this.nationalID = data.user.nationalID;
+        this.email = data.user.email;
+        this.addressLine1 = data.user.addressLine1;
+        this.addressLine2 = data.user.addressLine2;
+        this.city = data.user.city;
+        this.photoURL = data.user.photoURL;
+      } else {
+        // Flash Message
+      }
+    });
   }
 
+  modificarDatosUsuario() {
+    const cliente = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      nationalID: this.nationalID,
+      email: this.email,
+      addressLine1: this.addressLine1,
+      addressLine2: this.addressLine2,
+      city: this.city,
+      photoURL: this.photoURL
+    };
+    this.api.modificarDatosCliente(cliente).subscribe(data => {
+      if (data.success) {
+        // Mensaje cool
+      } else {
+        // Mensaje no cool
+      }
+    });
+  }
 
 }
