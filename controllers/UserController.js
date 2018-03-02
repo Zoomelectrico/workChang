@@ -124,6 +124,17 @@ const UserController = {
         }
       }).then(administrator => callback(null, administrator))
       .catch(err => callback(err, null));
+  },
+  modifyData: function (user, callback) {
+    User.findOne({
+      where: {
+        username: user.username
+      }
+    }).then(userFin => {
+      userFin.firstName = user.firstName;
+      userFin.lastName = user.lastName;
+      userFin.nationalID = user.nationalID;
+    }).catch(err => callback(err, null));
   }
 };
 

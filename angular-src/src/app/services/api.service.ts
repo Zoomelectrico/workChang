@@ -52,4 +52,19 @@ export class ApiService {
         }
       }));
   }
+
+  buscarClientePorCedula(cedula) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/Client/search-nationalID', cedula, { headers: headers })
+    .map(res => res.json());
+  }
+
+  modificarDatosCliente(cliente) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/Client/modify', cliente, { headers: headers })
+    .map(res => res.json());
+  }
+
 }
