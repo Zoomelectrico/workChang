@@ -1,19 +1,18 @@
 section#welcome {
     padding: 2rem;
   }
+  .fondoBlanco{
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 1%;
+  }
 
-.pruebadiv1{
-  background-color: violet;
-}
+ ngb-tab{
+  background-color: rgb(255, 255, 255);
+  }
+  ngb-tabset{
+    background-color: rgb(255, 255, 255);
+  }
 
-.pruebadiv2{
-  background-color: blue;
-}
-.pruebadiv3{
-  background-color: red;
-}
 
-.baja{
-  padding: 1rem;
-}
 

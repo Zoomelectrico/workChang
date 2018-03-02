@@ -3,20 +3,21 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <h2 class="text-center">Bienvenido [[Chang]]</h2>
+          <h2 class="text-center text-white">Bienvenido [[Chang]]</h2>
         </div>
       </div>
     </div>
   </section>
-  <section class="container mb-3">
-    <ngb-tabset type="pills">
-
+<div class="container">
+  <div class="row justify-content-around">
+    <div class="col-lg-8 fondoBlanco">
+    <ngb-tabset type="pills" justify="fill">
       <!-- TAB USUARIOS -->
       <ngb-tab title="Usuario">
         <ng-template ngbTabContent>
-            <h2 class="text-center mb-2">Registrar Usuario</h2>
+            <h2 class="text-center mt-2">Registrar Usuario</h2>
           <div class="row justify-content-around mt-2">
-            <div class="col-sm-12 col-lg-10">
+            <div class="col-sm-12 col-lg-12">
               <form #formUpdate="ngForm">
                 <div class="row">
                   <div class="col-sm-12 col-lg-6 form-group">
@@ -75,8 +76,8 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm-12 form-group text-right">
-                    <button type="submit" class="btn btn-primary">Modificar</button>
+                  <div class="col-sm-12 form-group text-center">
+                    <button type="submit" class="btn btn-dark">Modificar</button>
                   </div>
                 </div>
               </form>
@@ -88,9 +89,9 @@
       <!-- TAB REPUESTOS -->
       <ngb-tab title="Repuestos">
         <ng-template ngbTabContent>
-          <h2 class="text-center mb-2">Añadir Repuesto</h2>
+          <h2 class="text-center mt-2">Añadir Repuesto</h2>
           <div class="row justify-content-around mt-2">
-            <div class="col-sm-12 col-lg-10">
+            <div class="col-sm-12 col-lg-12">
               <form>
                 <div class="row">
                   <div class="col-sm-12 col-lg-6 form-group">
@@ -120,8 +121,8 @@
 
                 </div>
                 <div class="row">
-                  <div class="col-sm-12 form-group text-right">
-                    <button type="submit" class="btn btn-primary">Añadir</button>
+                  <div class="col-sm-12 form-group text-center">
+                    <button type="submit" class="btn btn-dark">Añadir</button>
                   </div>
 
                 </div>
@@ -135,5 +136,11 @@
       </ngb-tab>
 
     </ngb-tabset>
-  </section>
+    </div>
+    </div>
+  </div>
 </section>
+<br>
+<br>
+<br>
+<br>

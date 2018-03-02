@@ -9,6 +9,7 @@
   padding: 2rem;
 }
 
+
 .thicker {
   font-weight: 1200;
 }
@@ -16,9 +17,19 @@
 div.body {
   display: flex;
   min-height: 100vh;
-  flex-direction: column;
+  flex-direction: column; 
 }
+
 
 main {
   flex: 1 0 auto;
+}
+
+.parallax { 
+  background-image: url("../assets/img_parallax.jpg");
+  height: 100%; 
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
