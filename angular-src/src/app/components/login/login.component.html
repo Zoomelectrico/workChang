@@ -12,15 +12,15 @@
         <form #loginForm="ngForm" (submit)="login()">
           <div class="row">
             <label for="username">Usuario</label>
-            <input type="email" class="form-control" id="username" [(ngModel)]="username" name="username" placeholder="johndoe">
+            <input type="email" class="form-control" id="username" [(ngModel)]="username" name="username" placeholder="Usuario...">
           </div>
           <div class="row pt-3">
             <label for="password">Contraseña</label>
-            <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" placeholder="Tu clave...">
           </div>
           <div class="row pt-3">
             <div class="col-sm-12 text-center">
-            <button type="submit" class="btn btn-dark">Iniciar Sesión</button>
+            <button type="submit" class="btn btn-dark">Ingresar</button>
           </div>
           </div>
         </form>

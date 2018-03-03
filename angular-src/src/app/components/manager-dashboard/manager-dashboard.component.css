@@ -6,3 +6,10 @@ section#welcome {
   padding: 20px;
   border-radius: 1%;
 }
+
+.invertirColor{
+  background-color: #36393E;
+  color: whitesmoke;
+  padding: 20px;
+  border-radius: 1%;
+}
