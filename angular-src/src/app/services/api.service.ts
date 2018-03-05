@@ -67,4 +67,19 @@ export class ApiService {
     .map(res => res.json());
   }
 
+  buscarMecanico(userID) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/User/searchMechanic', userID, { headers: headers })
+      .map(res => res.json());
+   
+  }
+
+  registrarRepuesto(replacement) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/Admin/new-Replacement', replacement, { headers: headers })
+      .map(res => res.json());
+  }
+
 }
