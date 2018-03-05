@@ -16,7 +16,7 @@ const ClientController = {
         }
       }).then(appoiment => {
         if (appoiment) {
-          callback(new Error('This Car already have an appoiment'), null);
+          callback(new Error('Este vehículo ya tiene un cita activa'), null);
         } else {
           Appoiment.create({
             checkout: 0,

@@ -11,7 +11,7 @@ const Appointment = sequelize.define('Appointments', {
     autoIncrement: true
   },
   checkout: {
-    type: Sequelize.BOOLEAN,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   CarID: {

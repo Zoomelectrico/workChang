@@ -25,7 +25,9 @@ const UserController = {
               user.password = hash;
               User.create(user).then(user => {
                 if (user) {
-                  switch (user.type) {
+                  console.log(user);
+                  const type = parseInt(user.type);
+                  switch (type) {
                     case 1:
                       Client.create({
                           UserID: user.ID
@@ -35,19 +37,19 @@ const UserController = {
                     case 2:
                       Manager.create({
                           UserID: user.ID
-                        }).then(client => callback(null, user))
+                        }).then(manager => callback(null, user))
                         .catch(err => callback(err, null));
                       break;
                     case 3:
                       Mechanic.create({
                           UserID: user.ID
-                        }).then(client => callback(null, user))
+                        }).then(mechanic => callback(null, user))
                         .catch(err => callback(err, null));
                       break;
                     case 4:
                       Administrator.create({
                           UserID: user.ID
-                        }).then(client => callback(null, user))
+                        }).then(administrator => callback(null, user))
                         .catch(err => callback(err, null));
                       break;
                     default:

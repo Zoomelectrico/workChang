@@ -12,9 +12,9 @@ export class ManagerDashboardComponent implements OnInit {
   private user: any;
   // Los datos de las citas pautadas
   private colaEspera = [];
-  //
+  // Ordenes de esperas activas
   private ordenesActivas = [];
-  // 
+  // Modificar Datos del cliente
   private firstName: string;
   private lastName: string;
   private nationalID: number;
@@ -23,20 +23,26 @@ export class ManagerDashboardComponent implements OnInit {
   private addressLine2: string;
   private city: string;
   private photoURL: string;
-
+  // Cedula para realizar la busqueda
   private nationalIDSearch: string;
+  // Datos para formalizar citas
+  private date;
 
   constructor(
     private api: ApiService
   ) { }
 
   ngOnInit() {
-
-    // this.user = JSON.parse(localStorage.getItem('user'));
-    this.user = {
-      firstName: 'Jose'
-    };
-    this.colaEspera = [
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.api.getCitasActivas().subscribe(data => {
+      if(data.success) {
+        this.colaEspera = data.appointments;
+      } else {
+        // Pajita
+        this.colaEspera = [];
+      }
+    });
+    /*this.colaEspera = [
       {
         brand: 'Chevrolet',
         model: 'Aveo',
@@ -70,7 +76,11 @@ export class ManagerDashboardComponent implements OnInit {
           licensePlate: 'AA00AA'
         }
       }
-    ];
+    ];*/
+  }
+
+  generarOrdenReparacion() {
+
   }
 
   buscarCedula() {

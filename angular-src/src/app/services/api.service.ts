@@ -67,4 +67,11 @@ export class ApiService {
     .map(res => res.json());
   }
 
+  getCitasActivas() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:3000/Manager/appointments', { headers: headers })
+    .map(res => res.json());
+  }
+
 }

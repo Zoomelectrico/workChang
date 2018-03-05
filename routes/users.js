@@ -20,7 +20,7 @@ router.post('/register', (req, res, next) => {
   };
   UserController.registerUser(user, (err, user) => {
     if (err) {
-      res.json({success: false, msg: 'Ese nombre de usuario ya ha sido usado'});
+      res.json({success: false, msg: err.message });
     } else {
       res.json({success: true, msg: 'El usuario ha sido creado de manera exitosa'});
     }

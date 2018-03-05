@@ -1,5 +1,8 @@
 const Replacement = require('../models/Replacement');
 const User = require('../models/User');
+const Appointment = require('../models/Appointment');
+const Car = require('../models/Car');
+const RepairOrder = require('../models/RepairOrder');
 
 const AdministratorController = {
   getAllReplacements: function(callback) {
@@ -47,7 +50,7 @@ const AdministratorController = {
       } else {
         callback(new Error('No hay usuarios registrados con esa Cédula de Identidad'), null); // No hay nadie con esa cedula
       }
-    }).catch(err  => callback(err,null)); // Error de la base de datos
+    }).catch(err => callback(err,null)); // Error de la base de datos
   }
 };
 
