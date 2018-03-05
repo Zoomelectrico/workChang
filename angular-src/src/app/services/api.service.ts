@@ -67,13 +67,13 @@ export class ApiService {
     .map(res => res.json());
   }
 
-<<<<<<< HEAD
   getCitasActivas() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get('http://localhost:3000/Manager/appointments', { headers: headers })
     .map(res => res.json());
-=======
+  }
+  
   buscarMecanico(userID) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -87,7 +87,6 @@ export class ApiService {
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/Admin/new-Replacement', replacement, { headers: headers })
       .map(res => res.json());
->>>>>>> 48e900d4faf253c952c2d6b4e6a7c01f9651dd4c
   }
 
 }
