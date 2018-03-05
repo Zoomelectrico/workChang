@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
+
 @Component({
   selector: 'app-administrator-dashboard',
   templateUrl: './administrator-dashboard.component.html',
   styleUrls: ['./administrator-dashboard.component.css']
 })
 export class AdministratorDashboardComponent implements OnInit {
-
   // Usuario
-  user;
+  private user;
   // Vector de Roles
-  roles = [{ nombre: 'Gerente', type: 2 }, { nombre: 'Mecánico', type: 3 }, { nombre: 'Administrador', type: 4 }];
+  private roles = [{ nombre: 'Gerente', type: 2 }, { nombre: 'Mecánico', type: 3 }, { nombre: 'Administrador', type: 4 }];
   // Datos del nuevo empleado
   private firstName: string;
   private lastName: string;
@@ -80,5 +80,5 @@ export class AdministratorDashboardComponent implements OnInit {
   onChange(rol) {
     this.type = rol;
   }
-
+  
 }
