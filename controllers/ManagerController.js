@@ -10,7 +10,27 @@ const ManagerController = {
       "INNER JOIN `cars` ON `appointments`.`CarID` = `cars`.`ID` "+
       "WHERE `appointments`.`checkout` = 0"
     ).spread((data, metada) => {
-      callback(null, data);
+      if (data) {
+        callback(null, data);
+      } else {
+        callback(new Error('Uppps... Hemos tenido error en nuestra Base de datos'), null);
+      }
+    });
+  },
+  getActivesOrders: function(callback) {
+    sequelize.query(
+      "SELECT `repairorders`.`ID`, CONCAT(`users`.`firstName`, ' ', `users`.`lastName`) AS `mechanicName`, CONCAT(`cars`.`brand`, ' ', `cars`.`model`) AS `carName`, `cars`.`licensePlate` AS `carLicensePlate` FROM `repairorders` " +
+      "INNER JOIN `appointments` ON `repairorders`.`AppointmentID` = `appointments`.`ID` "+
+      "INNER JOIN `cars` ON `appointments`.`CarID` = `cars`.`ID` "+
+      "INNER JOIN `mechanics` ON `repairorders`.`MechanicID` = `mechanics`.`ID` "+
+      "INNER JOIN `users` ON `mechanics`.`UserID` = `users`.`ID` "+ 
+      "WHERE `repairorders`.`exitDate` IS NULL;"
+    ).spread((data, metada) => {
+      if (data) {
+        callback(null, data);
+      } else {
+        callback(new Error('Uppps... Hemos tenido un error en nuestra base de datos'), null);
+      }
     });
   },
   introduceRepairOrder: function(entryDate, MechanicID, AppointmentID, callback) {

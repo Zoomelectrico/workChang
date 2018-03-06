@@ -19,7 +19,25 @@ router.get('/appointments', (req, res, next) => {
         appointments: appointments
       });
     }
-  })
+  });
+});
+
+router.get('/actives-orders', (req, res, next) => {
+  ManagerController.getActivesOrders((err, activesOrders) => {
+    if (err) {
+      res.json({
+        success: false,
+        msg: err.message,
+        err: err
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'Ordenes de Reparacion activas',
+        activesOrders: activesOrders
+      });
+    }
+  });
 });
 
 router.post('/create-RepairOrder', (req, res, next) => {
