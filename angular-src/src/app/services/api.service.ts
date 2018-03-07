@@ -74,6 +74,13 @@ export class ApiService {
     .map(res => res.json());
   }
   
+  getOrdenesAbiertas() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:3000/Manager/actives-orders', { headers: headers })
+    .map(res => res.json());
+  }
+
   buscarMecanico(userID) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { ApiService } from '../../services/api.service';
 
 @Component({
@@ -29,7 +31,9 @@ export class ManagerDashboardComponent implements OnInit {
   private date;
 
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    private modalService: NgbModal,
+    private flash: FlashMessagesService
   ) { }
 
   ngOnInit() {
@@ -38,8 +42,15 @@ export class ManagerDashboardComponent implements OnInit {
       if(data.success) {
         this.colaEspera = data.appointments;
       } else {
-        // Pajita
+        this.flash.show(data.msg);
         this.colaEspera = [];
+      }
+    });
+    this.api.getOrdenesAbiertas().subscribe(data => {
+      if(data.success) {
+        this.ordenesActivas = data.activesOrders;
+      } else {
+        this.ordenesActivas = [];
       }
     });
     /*this.colaEspera = [
@@ -79,6 +90,11 @@ export class ManagerDashboardComponent implements OnInit {
     ];*/
   }
 
+  open(content, orden) {
+    console.log(orden);
+    this.modalService.open(content, { windowClass: 'dark-modal' });
+  }
+
   generarOrdenReparacion() {
 
   }
@@ -98,7 +114,8 @@ export class ManagerDashboardComponent implements OnInit {
         this.city = data.user.city;
         this.photoURL = data.user.photoURL;
       } else {
-        // Flash Message
+        console.log(data.msg);
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 6000 });
       }
     });
   }
@@ -116,9 +133,9 @@ export class ManagerDashboardComponent implements OnInit {
     };
     this.api.modificarDatosCliente(cliente).subscribe(data => {
       if (data.success) {
-        // Mensaje cool
+        this.flash.show(data.msg);
       } else {
-        // Mensaje no cool
+        this.flash.show(data.msg);
       }
     });
   }

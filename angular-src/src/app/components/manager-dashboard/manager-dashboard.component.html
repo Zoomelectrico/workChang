@@ -44,8 +44,8 @@
                       </div>
                     </form>
                   </td>
-                  <td>
-                    <button type="button" class="btn btn-dark">Generar Cita</button>
+                  <td>    
+                    <button type="button" class="btn btn-dark" (click)="open(modalFin, cita)">Ver detalles</button>
                   </td>
                 </tr>
               </tbody>
@@ -68,8 +68,8 @@
                   <td>{{orden.mechanicName}}</td>
                   <td>{{orden.carName}}</td>
                   <td>{{orden.carLicensePlate}}</td>
-                  <td class="text-center">
-                    <button type="button" class="btn btn-dark">Se prendio</button>
+                  <td class="text-center">    
+                    <button type="button" class="btn btn-dark" (click)="open(modalDet, orden)">Ver detalles</button>
                   </td>
                 </tr>
               </tbody>
@@ -102,7 +102,7 @@
           <div class="row">
             <div class="col-lg-10">
                 <input type="text" class="form-control" id="nationalIDSearch" [(ngModel)]="nationalIDSearch" name="nationalIDSearch"
-                placeholder="11222333...">
+                placeholder="11222333">
             </div>
             <div class="col-lg-2 text-right">
                 <button (click)="buscarCedula()" class="btn btn-dark">Buscar</button>
@@ -275,3 +275,53 @@
 <br>
 <br>
 <br>
+
+<ng-template #modalFin let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Finalizar Orden de reparación</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-12">
+            <p>Marca: </p>
+            <p>Modelo: </p>
+            <p>Placa: </p>     
+          </div>
+          <div class="col-sm-12">
+            <p>Fecha: </p>
+          </div>
+        </div>
+        <div class="row">
+
+        </div>
+        <div class="row">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #modalDet let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Modal title</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>One fine body&hellip;</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+  </ng-template>
+  
