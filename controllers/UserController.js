@@ -5,7 +5,6 @@ const Manager = require('../models/Manager');
 const Mechanic = require('../models/Mechanic');
 const Administrator = require('../models/Administrator');
 
-
 const UserController = {
   registerUser: function (user, callback) {
     User.findOne({
@@ -25,7 +24,6 @@ const UserController = {
               user.password = hash;
               User.create(user).then(user => {
                 if (user) {
-                  console.log(user);
                   const type = parseInt(user.type);
                   switch (type) {
                     case 1:
@@ -73,27 +71,6 @@ const UserController = {
         callback(null, isMatch);
       }
     });
-  },
-  changePassword: function (username, code, generateCode, newPassword) {
-    if (code === generateCode) {
-      User.findOne({
-        where: {
-          username: username
-        }
-      }).then(user => {
-        bcrypt.genSalt(10, (err, salt) => {
-          if (err) console.error(err);
-          bcrypt.hash(newPassword, salt, (err, hash) => {
-            if (err) console.error(err);
-            user.update({
-              password: hash
-            }).then(() => {
-              console.log('All good')
-            });
-          })
-        });
-      }).catch(err => console.error(err));
-    }
   },
   searchClient: function (userID, callback) {
     Client.findOne({

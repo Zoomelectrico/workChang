@@ -35,12 +35,12 @@ export class AdministratorDashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.type = 2;
     this.user = JSON.parse(localStorage.getItem('user'));
   }
 
   registrarEmpleado() {
     const photoURL = ''; //Provedor
-    console.log(this.type);
     if (this.password === this.password2) {
       const user = {
         photoURL: photoURL,
@@ -61,8 +61,9 @@ export class AdministratorDashboardComponent implements OnInit {
           this.firstName = '';
           this.lastName = '';
           this.email = ''
-          this.username = '';
-          this.password = ''; 
+          this.username = ''; 
+          this.password = '';
+          this.password2 = ''; 
           this.addressLine1 = '';
           this.addressLine2 = '';
           this.city = '';

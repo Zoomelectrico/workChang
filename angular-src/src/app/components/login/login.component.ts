@@ -35,13 +35,13 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/client']);
             break;
           case 2:
-            this.router.navigate(['/gerente']);
+            this.router.navigate(['/Manager']);
             break;
           case 3:
-            this.router.navigate(['/']); //Mecanico
+            this.router.navigate(['/Mechanic']); //Mecanico
             break;
           case 4:
-            this.router.navigate(['/']); // Administrador
+            this.router.navigate(['/Admin']); // Administrador
             break;
           default:
             this.router.navigate(['/']);

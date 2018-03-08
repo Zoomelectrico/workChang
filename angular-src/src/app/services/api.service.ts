@@ -96,4 +96,18 @@ export class ApiService {
       .map(res => res.json());
   }
 
+  getMecanicosDisponibles() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:3000/Manager/available-mechanics', { headers: headers })
+      .map(res => res.json());
+  }
+
+  nuevaOrdenReparacion(orden) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/Manager/create-RepairOrder', orden, { headers: headers })
+      .map(res => res.json());
+  }
+
 }

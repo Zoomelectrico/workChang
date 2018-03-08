@@ -16,6 +16,8 @@ export class ManagerDashboardComponent implements OnInit {
   private colaEspera = [];
   // Ordenes de esperas activas
   private ordenesActivas = [];
+  // Lista de Mecánicos Disponibles
+  private mecanicos = [];
   // Modificar Datos del cliente
   private firstName: string;
   private lastName: string;
@@ -29,6 +31,10 @@ export class ManagerDashboardComponent implements OnInit {
   private nationalIDSearch: string;
   // Datos para formalizar citas
   private date;
+  private cita;
+  private mecanico;
+  // Datos de la Orden 
+  private orden;
 
   constructor(
     private api: ApiService,
@@ -53,50 +59,47 @@ export class ManagerDashboardComponent implements OnInit {
         this.ordenesActivas = [];
       }
     });
-    /*this.colaEspera = [
-      {
-        brand: 'Chevrolet',
-        model: 'Aveo',
-        licensePlate: 'aa000aa'
-      },
-      {
-        brand: 'Ford',
-        model: 'Explorer',
-        licensePlate: 'AAA000AA'
+    this.api.getMecanicosDisponibles().subscribe(data => {
+      if (data.success) {
+        this.mecanicos = data.mechanics;
+        this.mecanico = this.mecanicos[0].mechanicID;
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
-    ];
-    this.ordenesActivas = [
-      {
-        mechanicName: 'Germano Rojas',
-        car: {
-          name: 'Jeep Cherokee',
-          licensePlate: 'AA00AA'
-        }
-      },
-      {
-        mechanicName: 'Germano Rojas',
-        car: {
-          name: 'Chevrolet Aveo',
-          licensePlate: 'AA00AA'
-        }
-      },
-      {
-        mechanicName: 'Germano Rojas',
-        car: {
-          name: 'For Explorer',
-          licensePlate: 'AA00AA'
-        }
-      }
-    ];*/
+    });
   }
 
-  open(content, orden) {
-    console.log(orden);
+  openFinOrden (content, cita) {
+    if (this.date) {
+      this.cita = cita;
+      this.modalService.open(content, { windowClass: 'dark-modal' });
+    } else {
+      this.flash.show('No ha Seleccionado una fecha', { cssClass: 'custom-alert-danger', timeout: 3000 })
+    }
+    
+  }
+
+  openDetOrden (content, orden) {
     this.modalService.open(content, { windowClass: 'dark-modal' });
   }
 
-  generarOrdenReparacion() {
+  onChange(mecanicoID) {
+    this.mecanico = mecanicoID;
+  }
 
+  generarOrdenReparacion() {
+    const orden = {
+      entryDate: this.date,
+      MechanicID: this.mecanico,
+      AppointmentID: this.cita.ID
+    };
+    this.api.nuevaOrdenReparacion(orden).subscribe(data => {
+      if (data.success) {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-success', timeout: 6000 });
+      } else {
+        this.flash.show(data.msg, { cssClas: 'custom-alert-danger', timeout: 6000 });
+      }
+    });
   }
 
   buscarCedula() {
