@@ -26,7 +26,7 @@ main {
 }
 
 .parallax { 
-  background-image: url("../assets/img_parallax.jpg");
+  background-image: url("https://images.pexels.com/photos/638479/pexels-photo-638479.jpeg");
   height: 100%; 
   background-attachment: fixed;
   background-position: center;

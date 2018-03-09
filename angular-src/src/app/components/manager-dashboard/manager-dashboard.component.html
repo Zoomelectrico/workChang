@@ -44,7 +44,7 @@
                       </div>
                     </form>
                   </td>
-                  <td>    
+                  <td>
                     <button type="button" class="btn btn-dark" (click)="openFinOrden(modalFin, cita)">Admitir</button>
                   </td>
                 </tr>
@@ -68,7 +68,7 @@
                   <td>{{orden.mechanicName}}</td>
                   <td>{{orden.carName}}</td>
                   <td>{{orden.carLicensePlate}}</td>
-                  <td class="text-center">    
+                  <td class="text-center">
                     <button type="button" class="btn btn-dark" (click)="openDetOrden(modalDet, orden)">Ver detalles</button>
                   </td>
                 </tr>
@@ -94,80 +94,79 @@
 <div class="container">
   <div class="row justify-content-around">
     <div class="col-lg-10 fondoBlanco">
+      <div class="row">
+        <div class="col-lg-12">
+          <h4>Cedula de identidad:</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-10">
+          <input type="text" class="form-control" id="nationalIDSearch" [(ngModel)]="nationalIDSearch" name="nationalIDSearch" placeholder="11222333">
+        </div>
+        <div class="col-lg-2 text-right">
+          <button (click)="buscarCedula()" class="btn btn-dark">Buscar</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 mt-3">
+          <h4>Datos cliente:</h4>
+        </div>
+      </div>
+
+      <form #formUpdate="ngForm" (submit)="modificarDatosUsuario()">
         <div class="row">
-            <div class="col-lg-12">
-              <h4>Cedula de identidad:</h4>
-            </div>
+          <div class="col-sm-12 col-lg-6 form-group">
+            <label for="firstName">Nombre</label>
+            <input type="text" class="form-control" id="firstName" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder=" ">
           </div>
-          <div class="row">
-            <div class="col-lg-10">
-                <input type="text" class="form-control" id="nationalIDSearch" [(ngModel)]="nationalIDSearch" name="nationalIDSearch"
-                placeholder="11222333">
-            </div>
-            <div class="col-lg-2 text-right">
-                <button (click)="buscarCedula()" class="btn btn-dark">Buscar</button>
-            </div>
+          <div class="col-sm-12 col-lg-6 form-group">
+            <label for="lastName">Apellidos</label>
+            <input type="text" class="form-control" id="lastName" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" name="lastName"
+              placeholder=" ">
           </div>
-
-          <div class="row">
-              <div class="col-lg-12 mt-3">
-                <h4>Datos cliente:</h4>
-              </div>
-            </div>
-
-          <form #formUpdate="ngForm" (submit)="modificarDatosUsuario()">
-              <div class="row">
-                <div class="col-sm-12 col-lg-6 form-group">
-                  <label for="firstName">Nombre</label>
-                  <input type="text" class="form-control" id="firstName" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder=" ">
-                </div>
-                <div class="col-sm-12 col-lg-6 form-group">
-                  <label for="lastName">Apellidos</label>
-                  <input type="text" class="form-control" id="lastName" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" name="lastName"
-                    placeholder=" ">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-12 col-lg-6 form-group">
-                  <label for="nationalID">Cédula</label>
-                  <input type="text" class="form-control" id="nationalID" [(ngModel)]="nationalID" [ngModelOptions]="{standalone: true}" name="nationalID"
-                    placeholder=" ">
-                </div>
-                <div class="col-sm-12 col-lg-6 form-group">
-                  <label for="email">Correo Electrónico</label>
-                  <input type="email" class="form-control" id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" name="email"
-                    placeholder=" ">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-12 col-lg-6 form-group">
-                  <label for="addressLine1">Dirección 1</label>
-                  <input type="text" class="form-control" id="addressLine1" [(ngModel)]="addressLine1" [ngModelOptions]="{standalone: true}"
-                    name="addressLine1" placeholder=" ">
-                </div>
-                <div class="col-sm-12 col-lg-6 form-group">
-                  <label for="addressLine2">Direcciones 2</label>
-                  <input type="text" class="form-control" id="addressLine2" [(ngModel)]="addressLine2" [ngModelOptions]="{standalone: true}"
-                    name="addressLine2" placeholder=" ">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-12 col-lg-6 form-group">
-                  <label for="city">Ciudad</label>
-                  <input type="text" class="form-control" id="city" [(ngModel)]="city" [ngModelOptions]="{standalone: true}" name="city" placeholder=" ">
-                </div>
-                <div class="col-sm-12 col-lg-6 form-group">
-                  <label for="photoURL">Foto</label>
-                  <input type="text" class="form-control" id="photoURL" [(ngModel)]="photoURL" [ngModelOptions]="{standalone: true}" name="photoURL"
-                    placeholder=" ">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-12 text-center">
-                  <button type="submit" class="btn btn-dark">Modificar</button>
-                </div>
-              </div>
-            </form>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-lg-6 form-group">
+            <label for="nationalID">Cédula</label>
+            <input type="text" class="form-control" id="nationalID" [(ngModel)]="nationalID" [ngModelOptions]="{standalone: true}" name="nationalID"
+              placeholder=" ">
+          </div>
+          <div class="col-sm-12 col-lg-6 form-group">
+            <label for="email">Correo Electrónico</label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" name="email"
+              placeholder=" ">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-lg-6 form-group">
+            <label for="addressLine1">Dirección 1</label>
+            <input type="text" class="form-control" id="addressLine1" [(ngModel)]="addressLine1" [ngModelOptions]="{standalone: true}"
+              name="addressLine1" placeholder=" ">
+          </div>
+          <div class="col-sm-12 col-lg-6 form-group">
+            <label for="addressLine2">Direcciones 2</label>
+            <input type="text" class="form-control" id="addressLine2" [(ngModel)]="addressLine2" [ngModelOptions]="{standalone: true}"
+              name="addressLine2" placeholder=" ">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-lg-6 form-group">
+            <label for="city">Ciudad</label>
+            <input type="text" class="form-control" id="city" [(ngModel)]="city" [ngModelOptions]="{standalone: true}" name="city" placeholder=" ">
+          </div>
+          <div class="col-sm-12 col-lg-6 form-group">
+            <label for="photoURL">Foto</label>
+            <input type="text" class="form-control" id="photoURL" [(ngModel)]="photoURL" [ngModelOptions]="{standalone: true}" name="photoURL"
+              placeholder=" ">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <button type="submit" class="btn btn-dark">Modificar</button>
+          </div>
+        </div>
+      </form>
 
 
 
@@ -187,7 +186,7 @@
 
 <h3 class="text-center text-white">Reportes</h3>
 <div class="container">
-  <div class="row justify-content-around invertirColor">
+  <div class="row justify-content-around invertirColor card-deck">
     <div class="col-lg-3">
       <div class="row">
         <div class="col-12">
@@ -275,7 +274,7 @@
 <br>
 <br>
 <br>
- 
+
 <ng-template #modalFin let-c="close" let-d="dismiss">
   <div class="modal-header text-center">
     <h4 class="modal-title">Finalizar Orden de reparación</h4>
@@ -288,12 +287,16 @@
       <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-12">
-            <p><strong>Marca: </strong>{{cita.brand}}</p>
-            <p><strong>Modelo: </strong>{{cita.model}}</p>
-            <p><strong>Placa: </strong>{{cita.licensePlate}}</p>     
+            <p>
+              <strong>Marca: </strong>{{cita.brand}}</p>
+            <p>
+              <strong>Modelo: </strong>{{cita.model}}</p>
+            <p>
+              <strong>Placa: </strong>{{cita.licensePlate}}</p>
           </div>
           <div class="col-sm-12">
-            <p><strong>Fecha: </strong>{{date.year}}-{{date.month}}-{{date.day}}</p>
+            <p>
+              <strong>Fecha: </strong>{{date.year}}-{{date.month}}-{{date.day}}</p>
           </div>
         </div>
         <hr>
@@ -319,17 +322,18 @@
 </ng-template>
 
 <ng-template #modalDet let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title">Modal title</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <div class="modal-header">
+    <h4 class="modal-title">Detalles de las Orden</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      
     </div>
-    <div class="modal-body">
-      <p>One fine body&hellip;</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
-    </div>
-  </ng-template>
-  
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>

@@ -109,7 +109,7 @@ export class ClientDashboardComponent implements OnInit {
   }
 
   verHistorial (serial) {
-
+    //TODO: Terminar Ese query es medio yuca jejejejejej
   }
 
   pedirCita(serial) {
