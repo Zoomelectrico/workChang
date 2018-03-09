@@ -72,12 +72,41 @@ router.post('/search-nationalID', (req, res, next) => {
   });
 });
 
-router.post('/modify', (req, res, next) => {
-  //  TODO: TERMINAR
+router.post('/desactive-cars', (req, res, next) => {
+  const carSerial = req.body.carSerial;
+  ClientController.desactiveCars(carSerial, (err, car) => {
+    if (err) {
+      res.json({
+        success: false,
+        msg: err.message,
+        err: err
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'Carro desactivado correctamente',
+        car: car
+      });
+    }
+  });
 });
 
-router.get('/Appoiments/:id', (req,res, next) => {
-  // TODO: IMPLEMENTAR
+router.get('/all-appoiments/:id', (req, res, next) => {
+  ClientController.getAksedAppointments(req.params.id, (err, appoiments) => {
+    if (err) {
+      res.json({
+        success: false,
+        msg: err.message,
+        err: err
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'Citas Encontradas',
+        appoiments: appoiments
+      });
+    }
+  });
 });
 
 module.exports = router;

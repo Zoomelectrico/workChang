@@ -27,6 +27,14 @@ export class ClientDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user')); // Guardo los datos del usuario
+    this.resolverVehiculos();
+    this.resolverCitasPedidas();
+      
+  }
+
+  // Funciones utilizadas Varias veces
+
+  resolverVehiculos() {
     this.api.buscarCliente({
       userID: this.user.ID
     }).subscribe(clientData => { // Busco al cliente 
@@ -40,9 +48,18 @@ export class ClientDashboardComponent implements OnInit {
         console.log(clientData.msg); // sino averiguo que fallo
       }
     });
-    // Buscar las citas
-    this.citas = [{licensePlate: 'aaa000aa', model: 'Aja1', brand: 'Aja2'}, {licensePlate: 'aaa000aa', model: 'Aja1', brand: 'Aja2'}, {licensePlate: 'aaa000aa', model: 'Aja1', brand: 'Aja2'}];
   }
+
+  resolverCitasPedidas() {
+    this.api.getCitasPedidas(this.user.ID).subscribe(data => {
+      if(data.success) {
+        this.citas = data.appoiments;
+      } else {
+        console.log(data.msg);
+      }
+    });
+  }
+
 
   // Metodo asincrono
   async registrarCarro() {
@@ -78,7 +95,17 @@ export class ClientDashboardComponent implements OnInit {
   }
 
   desactivar (serial) {
-
+    if (serial) {
+      this.api.desactivarVehiculo({ carSerial: serial}).subscribe(data => {
+        if(data.success) {
+          this.resolverVehiculos();
+        } else {
+          // Pajita :c
+        }
+      });
+    } else {
+      // Pajita Mala :c
+    }
   }
 
   verHistorial (serial) {

@@ -95,6 +95,17 @@ export class ManagerDashboardComponent implements OnInit {
     };
     this.api.nuevaOrdenReparacion(orden).subscribe(data => {
       if (data.success) {
+        const appointmentID = data.repairOrder.AppointmentID;
+        const i = this.colaEspera.findIndex(element => element.ID === appointmentID);
+        const vecAppointment = this.colaEspera.slice(i, i+1);
+        this.colaEspera = this.colaEspera.slice(i,i+1);
+        this.api.getOrdenesAbiertas().subscribe(data => {
+          if(data.success) {
+            this.ordenesActivas = data.activesOrders;
+          } else {
+            this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 5000 })
+          }
+        });
         this.flash.show(data.msg, { cssClass: 'custom-alert-success', timeout: 6000 });
       } else {
         this.flash.show(data.msg, { cssClas: 'custom-alert-danger', timeout: 6000 });

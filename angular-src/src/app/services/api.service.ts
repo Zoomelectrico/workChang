@@ -36,21 +36,7 @@ export class ApiService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/Client/Cars', OwnerID, { headers: headers })
-      .map(res => res.json().cars.map(car => {
-        if (car.active) {
-          return {
-            ID: car.ID,
-            serial: car.serial,
-            licensePlate: car.licensePlate,
-            model: car.model,
-            brand: car.brand,
-            year: car.year,
-            active: car.active,
-            photoLink: car.photoLink,
-            OwnerID: car.OwnerID
-          };
-        }
-      }));
+      .map(res => res.json().cars.filter(car => car.active == 1 ));
   }
 
   buscarClientePorCedula(cedula) {
@@ -107,6 +93,20 @@ export class ApiService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/Manager/create-RepairOrder', orden, { headers: headers })
+      .map(res => res.json());
+  }
+
+  desactivarVehiculo(serial) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/Client/desactive-cars', serial, { headers: headers })
+      .map(res => res.json());
+  }
+
+  getCitasPedidas(userID) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(`http://localhost:3000/Client/all-appoiments/${userID}`, { headers: headers })
       .map(res => res.json());
   }
 
