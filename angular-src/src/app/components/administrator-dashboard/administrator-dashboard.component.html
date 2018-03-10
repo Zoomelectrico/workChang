@@ -17,7 +17,7 @@
               <h2 class="text-center mt-2">Registrar Usuario</h2>
               <div class="row justify-content-around mt-2">
                 <div class="col-sm-12 col-lg-12">
-                  <form #formUpdate="ngForm" (submit)="registrarEmpleado()">
+                  <form #formUpdate="ngForm" (submit)="registrarEmpleado(content)">
                     <div class="row">
                       <div class="col-sm-12 col-lg-6 form-group">
                         <label for="firstName">Nombres</label>
@@ -94,9 +94,25 @@
                       </div>
                     </div>
                   </form>
+                  <div class="row">
+                    <div class="col-sm-12 form-group text-center">
+                      <p *ngFor="let alert of alerts">
+                        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+                      </p>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </ng-template>
+            <ng-template #content let-c="close" let-d="dismiss">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-body">
+                  <h4>Usuario creado con éxito</h4>
+                </div>
+              </div>
+            </ng-template>
+            
           </ngb-tab>
           <ngb-tab title="Repuestos">
             <ng-template ngbTabContent>
