@@ -26,6 +26,12 @@ export class AdministratorDashboardComponent implements OnInit {
   private city: string;
   private type: number;
   private photo: any;
+  // Datos de repuestos
+  private partNumber: number;
+  private name: string;
+  private brand: string;
+  private forModel: string;
+  private inStock: number;
   // Vector de Respuestos
 
   //Alerts y modals
