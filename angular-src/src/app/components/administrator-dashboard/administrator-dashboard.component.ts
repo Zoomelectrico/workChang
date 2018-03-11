@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-administrator-dashboard',
@@ -33,7 +34,7 @@ export class AdministratorDashboardComponent implements OnInit {
   private forModel: string;
   private inStock: number;
   // Vector de Respuestos
-
+  private repuestos = [];
   //Alerts y modals
   closeResult: string;
   public alerts: Array<any> = [];
@@ -41,12 +42,23 @@ export class AdministratorDashboardComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private api: ApiService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private flash: FlashMessagesService
   ) { }
 
   ngOnInit() {
     this.type = 2;
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.api.getRepuestos().subscribe(data => {
+      if(data.success) {
+        console.log(data.msg);
+        console.log(data.replacements[0].name);
+        this.repuestos = data.replacements;
+      } else {
+        this.flash.show(data.msg);
+        this.repuestos = [];
+      }
+    });
   }
 
   //Alerts y modal
@@ -125,6 +137,30 @@ export class AdministratorDashboardComponent implements OnInit {
 
   onChange(rol) {
     this.type = rol;
+  }
+
+  //registrar repuesto
+  registrarRepuesto(content){
+    const replacement = {
+      partNumber: this.partNumber,
+      name: this.name,
+      brand: this.brand,
+      forModel: this.forModel,
+      inStock: this.inStock
+    };
+    this.api.registrarRepuesto(replacement).subscribe(dataReplacement =>{
+      if(dataReplacement.success){
+        this.open(content);
+        this.repuestos.push(dataReplacement.replacement);
+        this.partNumber = 0;
+        this.name = '';
+        this.brand = '';
+        this.forModel = '';
+        this.inStock = 0;
+      } else {
+        // ups it doesnt work
+      }
+    })
   }
   
 }

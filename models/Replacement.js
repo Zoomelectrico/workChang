@@ -3,7 +3,7 @@ const dbconfig = require('../config/database');
 
 const sequelize = dbconfig;
 
-const Replacement = sequelize.define('Replacements', {
+const Replacement = sequelize.define('replacements', {
   ID: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -26,11 +26,11 @@ const Replacement = sequelize.define('Replacements', {
   inStock: {
     type: Sequelize.INTEGER,
     allowNull: false,
-  },
+  }/**,
   forModel: {
     type: Sequelize.STRING,
     allowNull:false
-  }
+  }**/
 }, { timestamps: false, freezeTableName: true });
 
 
