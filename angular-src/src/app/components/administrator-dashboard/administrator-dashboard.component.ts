@@ -33,6 +33,7 @@ export class AdministratorDashboardComponent implements OnInit {
   private brand: string;
   private forModel: string;
   private inStock: number;
+  private partNumberSearch: number; //Para la busqueda por numero de parte
   // Vector de Respuestos
   private repuestos = [];
   //Alerts y modals
@@ -161,6 +162,9 @@ export class AdministratorDashboardComponent implements OnInit {
         // ups it doesnt work
       }
     })
+  }
+
+  getRepuesto(){
   }
   
 }
