@@ -89,12 +89,12 @@ export class ApiService {
       .map(res => res.json());
   }
 
-  /**getRepuestosByPartNumber() {
+  getRepuestosByPartNumber(partNumber) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/Admin/replacements', { headers: headers })
+    return this.http.post('http://localhost:3000/Admin/searchByPartNumber', partNumber, { headers: headers })
       .map(res => res.json());
-  }**/
+  }
 
   getMecanicosDisponibles() {
     let headers = new Headers();

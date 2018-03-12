@@ -50,16 +50,7 @@ export class AdministratorDashboardComponent implements OnInit {
   ngOnInit() {
     this.type = 2;
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.api.getRepuestos().subscribe(data => {
-      if(data.success) {
-        console.log(data.msg);
-        console.log(data.replacements[0].name);
-        this.repuestos = data.replacements;
-      } else {
-        this.flash.show(data.msg);
-        this.repuestos = [];
-      }
-    });
+    this.getRepuesto();
   }
 
   //Alerts y modal
@@ -165,6 +156,31 @@ export class AdministratorDashboardComponent implements OnInit {
   }
 
   getRepuesto(){
+    this.api.getRepuestos().subscribe(data => {
+      if(data.success) {
+        console.log(data.msg);
+        console.log(data.replacements[0].name);
+        this.repuestos = data.replacements;
+      } else {
+        this.flash.show(data.msg);
+        this.repuestos = [];
+      }
+    });
+  }
+
+  getRepuestosByPartNumber(){
+    this.api.getRepuestosByPartNumber({
+      partNumber: this.partNumberSearch
+    }).subscribe(replacement => { // Busco el repuesto
+      if (replacement.success) { // Pregunto si tuve exito
+        console.log("prueba 1 " + replacement.partNumber);
+        console.log("prueba 1 " + replacement.replacement.partNumber);
+        this.repuestos = []
+        this.repuestos[0] = replacement.replacement
+      } else {
+        console.log(replacement.msg); // sino averiguo que fallo
+      }
+    });
   }
   
 }

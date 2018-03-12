@@ -30,8 +30,13 @@ const AdministratorController = {
       where: {
         partNumber: partNumber
       }
-    }).then(replacement => callback(null, replacement))
-    .catch(err => callback(err, null)); 
+    }).then( replacement => {
+      if (replacement) {
+        callback(null, replacement)
+      } else {
+        callback(new Error('No existe ningun repuesto registrado con ese numero de parte'), null);
+      }
+    }).catch(err => callback(err, null)); 
   },
   changeRole: function (nationalID, newRole, callback) {
     User.findAll({

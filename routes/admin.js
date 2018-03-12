@@ -19,6 +19,25 @@ router.get('/replacements', (req, res, next) => {
   });
 });
 
+router.post('/searchByPartNumber', (req, res, next) => {
+  console.log("este es el numero" + req.body.partNumber);
+  AdministratorController.searchReplacementByPartNumber(req.body.partNumber, (err, replacement) => {
+    if(err) {
+      res.json({
+        success: false,
+        msg: err.message,
+        err: err
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'Usuario encontrado',
+        replacement: replacement
+      });
+    }
+  });
+});
+
 router.post('/new-Replacement', (req, res, next) => {
   const replacement = {
     partNumber: req.body.partNumber,
