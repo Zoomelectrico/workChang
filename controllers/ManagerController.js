@@ -19,7 +19,7 @@ const ManagerController = {
   },
   getActivesOrders: function (callback) {
     sequelize.query(
-      "SELECT `repairorders`.`ID`, CONCAT(`users`.`firstName`, ' ', `users`.`lastName`) AS `mechanicName`, CONCAT(`cars`.`brand`, ' ', `cars`.`model`) AS `carName`, `cars`.`licensePlate` AS `carLicensePlate` FROM `repairorders` " +
+      "SELECT `repairorders`.`ID`, `cars`.`ID` AS carID, `mechanics`.`ID` AS mechanicID, CONCAT(`users`.`firstName`, ' ', `users`.`lastName`) AS `mechanicName`, CONCAT(`cars`.`brand`, ' ', `cars`.`model`) AS `carName`, `cars`.`licensePlate` AS `carLicensePlate` FROM `repairorders` " +
       "INNER JOIN `appointments` ON `repairorders`.`AppointmentID` = `appointments`.`ID` " +
       "INNER JOIN `cars` ON `appointments`.`CarID` = `cars`.`ID` " +
       "INNER JOIN `mechanics` ON `repairorders`.`MechanicID` = `mechanics`.`ID` " +

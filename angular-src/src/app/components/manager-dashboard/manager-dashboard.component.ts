@@ -34,7 +34,7 @@ export class ManagerDashboardComponent implements OnInit {
   private cita;
   private mecanico;
   // Datos de la Orden 
-  private orden;
+  private orden = {};
 
   constructor(
     private api: ApiService,
@@ -69,6 +69,26 @@ export class ManagerDashboardComponent implements OnInit {
     });
   }
 
+  openDetOrden (content, orden) {
+    console.log(orden);
+    this.api.verDetallesReparacion({
+      "repairOrderID": orden.ID,
+      "mechanicID": orden.mechanicID,
+      "carID": orden.carID
+    }).subscribe(data => {
+      if (data.success) {
+        this.orden = data.detalles
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+      }
+    });
+    this.modalService.open(content, { windowClass: 'dark-modal' });
+  }
+  
+  onChange(mecanicoID) {
+    this.mecanico = mecanicoID;
+  }
+
   openFinOrden (content, cita) {
     if (this.date) {
       this.cita = cita;
@@ -77,14 +97,6 @@ export class ManagerDashboardComponent implements OnInit {
       this.flash.show('No ha Seleccionado una fecha', { cssClass: 'custom-alert-danger', timeout: 3000 })
     }
     
-  }
-
-  openDetOrden (content, orden) {
-    this.modalService.open(content, { windowClass: 'dark-modal' });
-  }
-
-  onChange(mecanicoID) {
-    this.mecanico = mecanicoID;
   }
 
   generarOrdenReparacion() {

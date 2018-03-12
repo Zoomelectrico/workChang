@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-client-dashboard',
@@ -22,14 +23,14 @@ export class ClientDashboardComponent implements OnInit {
   private citas = [];
 
   constructor(
-    private api: ApiService 
+    private api: ApiService,
+    private flash: FlashMessagesService 
   ) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user')); // Guardo los datos del usuario
     this.resolverVehiculos();
     this.resolverCitasPedidas();
-      
   }
 
   // Funciones utilizadas Varias veces
@@ -45,7 +46,7 @@ export class ClientDashboardComponent implements OnInit {
           this.vehiculos = cars; // Como es un observable asigno directamente
         });
       } else {
-        console.log(clientData.msg); // sino averiguo que fallo
+        this.flash.show(clientData.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     });
   }
@@ -55,7 +56,7 @@ export class ClientDashboardComponent implements OnInit {
       if(data.success) {
         this.citas = data.appoiments;
       } else {
-        console.log(data.msg);
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     });
   }
@@ -85,11 +86,11 @@ export class ClientDashboardComponent implements OnInit {
           if (dataCar.success) {
             this.vehiculos.push(dataCar.car);
           } else {
-            // Flash Message
+            this.flash.show(dataCar.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
           }
         });
       } else {
-        // Flash Message Pajita roja
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     });
   }
@@ -100,11 +101,11 @@ export class ClientDashboardComponent implements OnInit {
         if(data.success) {
           this.resolverVehiculos();
         } else {
-          // Pajita :c
+          this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000});
         }
       });
     } else {
-      // Pajita Mala :c
+      this.flash.show('Upsss... Hemos tenido un eror :(', { cssClass: 'custom-alert-danger' })
     }
   }
 
@@ -118,9 +119,9 @@ export class ClientDashboardComponent implements OnInit {
       serial: serial
     }).subscribe(data => {
       if(data.success) {
-        // Flash Message de todo cool
+        this.flash.show('Su solicitud de cita fue elaborada de manera correcta', { cssClass: 'custom-alert-success', timeout: 3000 });
       } else {
-        // Flash Message de todo mal 
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger' }); 
       }
     });
   }

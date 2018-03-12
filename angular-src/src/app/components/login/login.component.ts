@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private flash: FlashMessagesService
   ) { }
 
   ngOnInit() {
@@ -38,20 +40,19 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/Manager']);
             break;
           case 3:
-            this.router.navigate(['/Mechanic']); //Mecanico
+            this.router.navigate(['/Mechanic']); 
             break;
           case 4:
-            this.router.navigate(['/Admin']); // Administrador
+            this.router.navigate(['/Admin']); 
             break;
           default:
             this.router.navigate(['/']);
         }
-        
       } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         this.router.navigate(['/login']);
       } 
     });
   }
-
 }
   

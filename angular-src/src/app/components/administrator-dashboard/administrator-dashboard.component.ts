@@ -37,8 +37,6 @@ export class AdministratorDashboardComponent implements OnInit {
   // Vector de Respuestos
   private repuestos = [];
   //Alerts y modals
-  closeResult: string;
-  public alerts: Array<any> = [];
 
   constructor(
     private auth: AuthService,
@@ -51,28 +49,6 @@ export class AdministratorDashboardComponent implements OnInit {
     this.type = 2;
     this.user = JSON.parse(localStorage.getItem('user'));
     this.getRepuesto();
-  }
-
-  //Alerts y modal
-  open(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
-  public closeAlert(alert: any) {
-    const index: number = this.alerts.indexOf(alert);
-    this.alerts.splice(index, 1);
   }
 
   //RegistrarEmpleado
@@ -94,7 +70,6 @@ export class AdministratorDashboardComponent implements OnInit {
       };
       this.auth.registerUser(user).subscribe(data => {
         if (data.success) {
-          this.open(content);
           this.nationalID = 0;
           this.firstName = '';
           this.lastName = '';
@@ -105,25 +80,16 @@ export class AdministratorDashboardComponent implements OnInit {
           this.addressLine1 = '';
           this.addressLine2 = '';
           this.city = '';
-          this.alerts = [];
-          // Flash Todo Beio
+          this.flash.show(data.msg, {cssClass: 'custom-alert-success', timeout: 2000 });
         } else {
-          console.log("error " + data.msg);
-          this.alerts.push({
-            type: 'warning',
-            message: data.msg
-          })
-          // Mano la cagamos
+          this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         }
       })
     } else {
       // Las contraseñas no coinciden vv
       this.password = '';
       this.password2 = '';
-      this.alerts.push({
-        type: 'warning',
-        message: "Las contraseñas no coinciden"
-      })
+      this.flash.show('Las contraseñas no coinciden', { cssClass: 'custom-alert-danger' });
     }
   }
 
@@ -142,15 +108,16 @@ export class AdministratorDashboardComponent implements OnInit {
     };
     this.api.registrarRepuesto(replacement).subscribe(dataReplacement =>{
       if(dataReplacement.success){
-        this.open(content);
         this.repuestos.push(dataReplacement.replacement);
+        this.flash.show('Repuesto Ingresado con exito', { cssClass:'custom-alert-success', timeout: 3000 });
         this.partNumber = 0;
         this.name = '';
         this.brand = '';
         this.forModel = '';
         this.inStock = 0;
+        this.flash.show('Repuesto', { cssClass: '', timeout: 3000 });
       } else {
-        // ups it doesnt work
+        this.flash.show(dataReplacement.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     })
   }
@@ -158,11 +125,9 @@ export class AdministratorDashboardComponent implements OnInit {
   getRepuesto(){
     this.api.getRepuestos().subscribe(data => {
       if(data.success) {
-        console.log(data.msg);
-        console.log(data.replacements[0].name);
         this.repuestos = data.replacements;
       } else {
-        this.flash.show(data.msg);
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         this.repuestos = [];
       }
     });
@@ -173,12 +138,10 @@ export class AdministratorDashboardComponent implements OnInit {
       partNumber: this.partNumberSearch
     }).subscribe(replacement => { // Busco el repuesto
       if (replacement.success) { // Pregunto si tuve exito
-        console.log("prueba 1 " + replacement.partNumber);
-        console.log("prueba 1 " + replacement.replacement.partNumber);
         this.repuestos = []
         this.repuestos[0] = replacement.replacement
       } else {
-        console.log(replacement.msg); // sino averiguo que fallo
+        this.flash.show(replacement.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     });
   }

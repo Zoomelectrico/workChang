@@ -330,7 +330,20 @@
   </div>
   <div class="modal-body">
     <div class="row">
-      
+      <div class="col-sm-12">
+        <p><strong>Mecánico Asignado:</strong> {{orden.mechanicName}}</p>
+        <p><strong>Vehículo:</strong> {{orden.carName}}</p>
+        <p><strong>Placa:</strong> {{orden.licensePlate}}</p>
+        <p><strong>Fecha de Recepción:</strong> {{orden.entryDate}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <h4 class="text-center">Respuestos Utilizados</h4>
+        <ul>
+          <li *ngFor="let r of orden.replacements">{{r}}</li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="modal-footer">
