@@ -12,10 +12,10 @@
     <ul *ngIf="auth.isLogged()" class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item"><a class="nav-link" href="" (click)="logOut()">Logout</a></li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/Client" *ngIf="isClient()">Dashboard</a>
-        <a class="nav-link" routerLink="/Manager" *ngIf="isManager()">Dashboard</a>
+        <a class="nav-link" routerLink="/client" *ngIf="isClient()">Dashboard</a>
+        <a class="nav-link" routerLink="/manager" *ngIf="isManager()">Dashboard</a>
         <a class="nav-link" routerLink="/mechanic" *ngIf="isMechanic()">Dashboard</a>
-        <a class="nav-link" routerLink="/Admin" *ngIf="isAdmin()">Dashboard</a>
+        <a class="nav-link" routerLink="/admin" *ngIf="isAdmin()">Dashboard</a>
       </li>
     </ul>
 

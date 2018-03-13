@@ -85,6 +85,7 @@ export class ClientDashboardComponent implements OnInit {
         this.api.registrarCarro(car).subscribe(dataCar => {
           if (dataCar.success) {
             this.vehiculos.push(dataCar.car);
+            this.flash.show("Vehículo registrado correctamete", { cssClass: 'custom-alert-success', timeout: 3000})
           } else {
             this.flash.show(dataCar.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
           }
@@ -119,6 +120,7 @@ export class ClientDashboardComponent implements OnInit {
       serial: serial
     }).subscribe(data => {
       if(data.success) {
+        this.citas.push(data.appoiment);
         this.flash.show('Su solicitud de cita fue elaborada de manera correcta', { cssClass: 'custom-alert-success', timeout: 3000 });
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger' }); 
