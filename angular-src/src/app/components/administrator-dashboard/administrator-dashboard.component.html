@@ -160,10 +160,10 @@
                       </div>
                       <div class="row">
                         <div class="col-sm-6 form-group text-center">
-                          <button type="submit" class="btn btn-dark">Registrar</button>
+                          <button type="submit" class="btn btn-dark" [disabled] = "canModificateUser">Registrar</button>
                         </div>
                         <div class="col-sm-6 form-group text-center">
-                          <button class="btn btn-dark" (click) = "modificarUser()">Modificar</button>
+                          <button class="btn btn-dark" (click) = "modificarUser()" [disabled] = "!canModificateUser">Modificar</button>
                         </div>
                       </div>
                     </form>
@@ -283,10 +283,10 @@
                     </div>
                     <div class="row">
                       <div class="col-sm-6 form-group text-center">
-                        <button class="btn btn-dark" (click) = "registrarRepuesto(content)">Añadir</button>
+                        <button class="btn btn-dark" (click) = "registrarRepuesto(content)" [disabled]="canModificateRep">Añadir</button>
                       </div>
                       <div class="col-sm-6 form-group text-center">
-                        <button class="btn btn-dark" (click) = "modificarRepuesto()">Modificar</button>
+                        <button class="btn btn-dark" (click) = "modificarRepuesto()" [disabled]="!canModificateRep">Modificar</button>
                       </div>
                     </div>
                   </form>

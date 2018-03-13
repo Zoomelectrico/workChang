@@ -40,8 +40,9 @@ export class AdministratorDashboardComponent implements OnInit {
   private partNumberSearch: number; //Para la busqueda por numero de parte
   // Vector de Respuestos
   private repuestos = [];
-  //Alerts y modals
-
+  //Condición para modificar
+  private canModificateUser: boolean = false;
+  private canModificateRep: boolean = false;
   constructor(
     private auth: AuthService,
     private api: ApiService,
@@ -114,6 +115,7 @@ export class AdministratorDashboardComponent implements OnInit {
         this.addressLine1 = null;
         this.addressLine2 = null;
         this.city = null;
+        this.canModificateUser = false;
         console.log("usuario: " + this.usuarios[0].nationalID + this.usuarios[0].firstName + this.usuarios[0].lastName + this.usuarios[0].type);
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
@@ -140,6 +142,7 @@ export class AdministratorDashboardComponent implements OnInit {
         this.addressLine2 = user.users.addressLine2;
         this.city = user.users.city;
         this.type = user.users.type;
+        this.canModificateUser = true;
         this.userIDSearch = null;
       } else {
         this.flash.show(user.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
@@ -219,6 +222,13 @@ export class AdministratorDashboardComponent implements OnInit {
       this.partNumberSearch = null;
       if(data.success) {
         this.repuestos = data.replacements;
+        this.canModificateRep = false;
+        this.partNumberSearch = null;
+        this.partNumber = null;
+        this.name = null;
+        this.brand = null;
+        this.forModel = null;
+        this.inStock = null;
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         this.repuestos = [];
@@ -238,6 +248,7 @@ export class AdministratorDashboardComponent implements OnInit {
         this.brand = replacement.replacement.brand;
         this.forModel = replacement.replacement.forModel;
         this.inStock = replacement.replacement.inStock;
+        this.canModificateRep = true;
       } else {
         this.flash.show(replacement.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
