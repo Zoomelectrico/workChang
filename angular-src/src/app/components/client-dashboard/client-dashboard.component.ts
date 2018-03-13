@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-client-dashboard',
@@ -22,11 +23,19 @@ export class ClientDashboardComponent implements OnInit {
   private citas = [];
 
   constructor(
-    private api: ApiService 
+    private api: ApiService,
+    private flash: FlashMessagesService 
   ) { }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user')); // Guardo los datos del usuario
+    this.resolverVehiculos();
+    this.resolverCitasPedidas();
+  }
+
+  // Funciones utilizadas Varias veces
+
+  resolverVehiculos() {
     this.api.buscarCliente({
       userID: this.user.ID
     }).subscribe(clientData => { // Busco al cliente 
@@ -37,12 +46,21 @@ export class ClientDashboardComponent implements OnInit {
           this.vehiculos = cars; // Como es un observable asigno directamente
         });
       } else {
-        console.log(clientData.msg); // sino averiguo que fallo
+        this.flash.show(clientData.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     });
-    // Buscar las citas
-    this.citas = [{licensePlate: 'aaa000aa', model: 'Aja1', brand: 'Aja2'}, {licensePlate: 'aaa000aa', model: 'Aja1', brand: 'Aja2'}, {licensePlate: 'aaa000aa', model: 'Aja1', brand: 'Aja2'}];
   }
+
+  resolverCitasPedidas() {
+    this.api.getCitasPedidas(this.user.ID).subscribe(data => {
+      if(data.success) {
+        this.citas = data.appoiments;
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+      }
+    });
+  }
+
 
   // Metodo asincrono
   async registrarCarro() {
@@ -67,33 +85,50 @@ export class ClientDashboardComponent implements OnInit {
         this.api.registrarCarro(car).subscribe(dataCar => {
           if (dataCar.success) {
             this.vehiculos.push(dataCar.car);
+            this.flash.show("Vehículo registrado correctamete", { cssClass: 'custom-alert-success', timeout: 3000})
+            this.brand = '';
+            this.model = '';
+            this.year = null;
+            this.licensePlate = '';
+            this.serial = '';
+            this.photoLink = '';
           } else {
-            // Flash Message
+            this.flash.show(dataCar.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
           }
         });
       } else {
-        // Flash Message Pajita roja
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     });
   }
 
   desactivar (serial) {
-
+    if (serial) {
+      this.api.desactivarVehiculo({ carSerial: serial}).subscribe(data => {
+        if(data.success) {
+          this.resolverVehiculos();
+        } else {
+          this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000});
+        }
+      });
+    } else {
+      this.flash.show('Upsss... Hemos tenido un error :(', { cssClass: 'custom-alert-danger' })
+    }
   }
 
   verHistorial (serial) {
-
+    //TODO: Terminar Ese query es medio yuca jejejejejej
   }
 
   pedirCita(serial) {
-    console.log(serial);
     this.api.pedirCita({
       serial: serial
     }).subscribe(data => {
       if(data.success) {
-        // Flash Message de todo cool
+        this.resolverCitasPedidas();
+        this.flash.show('Su solicitud de cita fue elaborada de manera correcta', { cssClass: 'custom-alert-success', timeout: 3000 });
       } else {
-        // Flash Message de todo mal 
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger' }); 
       }
     });
   }

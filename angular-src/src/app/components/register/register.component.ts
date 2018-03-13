@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private router: Router,
+    private flash: FlashMessagesService
   ) { }
 
   ngOnInit() {
@@ -45,15 +46,15 @@ export class RegisterComponent implements OnInit {
       }
       this.auth.registerUser(user).subscribe(data => {
         if (data.success) {
-          this.auth.storeUserData(data.token, data.user);
+          this.flash.show('Cliente Registrado con Éxito', { cssClass: 'custom-alert-success', timeout: 3000 });
           this.router.navigate(['/login']);
         } else {
-          console.log(data.msg);
-          this.router.navigate(['/client/register']);
+          this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+          // this.router.navigate(['/client/register']);
         }
       });
     } else {
-      //TODO: El alert de constraseña mala
+      this.flash.show('Las contraseñas no coinciden', { cssClass: 'custom-alert-danger', timeout: 3000 });
     }
   }
 }

@@ -17,4 +17,4 @@ const RepairsReplacement = sequelize.define('RepairsReplacements', {
 
 RepairsReplacement.removeAttribute('id');
 
-module.exports = Administrator;
+module.exports = RepairsReplacement;

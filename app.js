@@ -18,8 +18,10 @@ sequelize.authenticate().then(() => {
 // App Creation
 const app = express();
 const users = require('./routes/users');
-const query = require('./routes/reports');
+// const query = require('./routes/reports');
 const client = require('./routes/clients'); 
+const admin = require('./routes/admin');
+const manager = require('./routes/manager');
 const port = 3000;
 //set static Folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -33,6 +35,8 @@ app.use(bodyParser.json());
 //Router
 app.use('/User', users);
 app.use('/Client', client);
+app.use('/Admin', admin);
+app.use('/Manager', manager);
 //app.use('/Query', query);
 // Passport
 app.use(passport.initialize());
