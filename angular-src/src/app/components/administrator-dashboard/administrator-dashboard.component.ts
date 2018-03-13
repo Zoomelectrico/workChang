@@ -76,16 +76,16 @@ export class AdministratorDashboardComponent implements OnInit {
       this.auth.registerUser(user).subscribe(data => {
         if (data.success) {
           this.usuarios.push(data.user);
-          this.nationalID = 0;
-          this.firstName = '';
-          this.lastName = '';
-          this.email = ''
-          this.username = ''; 
-          this.password = '';
-          this.password2 = ''; 
-          this.addressLine1 = '';
-          this.addressLine2 = '';
-          this.city = '';
+          this.nationalID = null;
+          this.firstName = null;
+          this.lastName = null;
+          this.email = null;
+          this.username = null; 
+          this.password = null;
+          this.password2 = null; 
+          this.addressLine1 = null;
+          this.addressLine2 = null;
+          this.city = null;
           this.flash.show(data.msg, {cssClass: 'custom-alert-success', timeout: 3000 });
         } else {
           this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
@@ -93,8 +93,8 @@ export class AdministratorDashboardComponent implements OnInit {
       })
     } else {
       // Las contraseñas no coinciden vv
-      this.password = '';
-      this.password2 = '';
+      this.password = null;
+      this.password2 = null;
       this.flash.show('Las contraseñas no coinciden', { cssClass: 'custom-alert-danger' });
     }
   }
@@ -202,11 +202,11 @@ export class AdministratorDashboardComponent implements OnInit {
       if(dataReplacement.success){
         this.repuestos.push(dataReplacement.replacement);
         this.flash.show('Repuesto Ingresado con exito', { cssClass:'custom-alert-success', timeout: 3000 });
-        this.partNumber = 0;
-        this.name = '';
-        this.brand = '';
-        this.forModel = '';
-        this.inStock = 0;
+        this.partNumber = null;
+        this.name = null;
+        this.brand = null;
+        this.forModel = null;
+        this.inStock = null;
         this.flash.show('Repuesto', { cssClass: '', timeout: 3000 });
       } else {
         this.flash.show(dataReplacement.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
