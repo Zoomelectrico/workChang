@@ -1,9 +1,9 @@
 var Sequelize = require('sequelize');
 
-module.exports = new Sequelize(`heroku_87c246b2e5f03fc`, 'bbf3ddab2be9bf', 'c71db1c8', {
-  host: 'us-cdbr-iron-east-05.cleardb.net',
+module.exports = new Sequelize('workchang', 'root', 'Paty1998', {
+  host: '127.0.0.1',
   dialect: 'mysql',
-  port: process.env.PORT || 3306,
+  port: 3307,
   pool: {
     max: 5,
     min: 0,

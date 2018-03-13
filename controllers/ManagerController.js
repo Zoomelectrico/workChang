@@ -1,6 +1,7 @@
 const Appointment = require('../models/Appointment');
 const Car = require('../models/Car');
 const RepairOrder = require('../models/RepairOrder');
+const RepairsReplacements = require('../models/RepairsReplacement');
 const sequelize = require('../config/database');
 
 const ManagerController = {
@@ -81,10 +82,15 @@ const ManagerController = {
       QRCode: ''
     }).then(repairOrder => {
       if (repairOrder) {
-        Appointment.findById(AppointmentID).then(appointment => {
-          appointment.checkout = 1;
-          appointment.save().then(() => {
-            callback(null, repairOrder);
+        RepairsReplacements.create({
+          RepairOrder: repairOrder.ID,
+          Replacement: 4
+        }).then(rr => {
+          Appointment.findById(AppointmentID).then(appointment => {
+            appointment.checkout = 1;
+            appointment.save().then(() => {
+              callback(null, repairOrder);
+            }).catch(err => callback(err, null));
           }).catch(err => callback(err, null));
         }).catch(err => callback(err, null));
       } else {

@@ -36,21 +36,28 @@ router.post('/auth', (req, res, next) => {
       username: username
     }
   }).then((user) => {
-    UserController.comparePassword(password, user.password, (err, isMatch) => {
-      if (err) throw err;
-      if (isMatch) {
-        const token = jwt.sign({data: user}, 'yoursecret', {
-          expiresIn: 604800
-        });
-        res.json({
-          success: true,
-          token: token,
-          user: user
-        });
-      } else {
-        return res.json({success: false, msg: 'Las contraseñas no coinciden'});
-      }
-    });
+    if (user) {
+      UserController.comparePassword(password, user.password, (err, isMatch) => {
+        if (err) throw err;
+        if (isMatch) {
+          const token = jwt.sign({data: user}, 'yoursecret', {
+            expiresIn: 604800
+          });
+          res.json({
+            success: true,
+            token: token,
+            user: user
+          });
+        } else {
+          return res.json({success: false, msg: 'Las contraseñas no coinciden'});
+        }
+      });
+    } else {
+      res.json({
+        success: false,
+        msg: 'El usuario no existe en nuestra base de datos'
+      });
+    }
   });
 });
 

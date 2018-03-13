@@ -24,8 +24,8 @@ const ClientController = {
             CarID: car.ID
           }).then(appoiment2 => callback(null, appoiment2)).catch(err => callback(err, null));
         }
-      })
-    });
+      }).catch(err => callback(err, null));
+    }).catch(err => callback(err, null));
   },
   register: function (userID, callback) {
     Client.create({

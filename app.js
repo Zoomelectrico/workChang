@@ -22,7 +22,7 @@ const users = require('./routes/users');
 const client = require('./routes/clients'); 
 const admin = require('./routes/admin');
 const manager = require('./routes/manager');
-const port = process.env.PORT || 3000;
+const port = 3000;
 //set static Folder
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {

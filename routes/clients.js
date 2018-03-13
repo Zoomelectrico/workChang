@@ -29,7 +29,7 @@ router.post('/CarRegister', (req, res, next) => {
 router.post('/askAppoiment', (req, res, next) => {
   ClientController.askAppoiment(req.body.serial, (err, appoiment) => {
     if (err) {
-      res.send({ success: false, msg: err });
+      res.send({ success: false, msg: err.message });
     } else {
       res.json({
         success: true,
@@ -37,7 +37,7 @@ router.post('/askAppoiment', (req, res, next) => {
         msg: 'Just Fine'
       });
     }
-  });
+  }); 
 });
 
 router.post('/Cars', (req, res, next) => {

@@ -86,6 +86,12 @@ export class ClientDashboardComponent implements OnInit {
           if (dataCar.success) {
             this.vehiculos.push(dataCar.car);
             this.flash.show("Vehículo registrado correctamete", { cssClass: 'custom-alert-success', timeout: 3000})
+            this.brand = '';
+            this.model = '';
+            this.year = null;
+            this.licensePlate = '';
+            this.serial = '';
+            this.photoLink = '';
           } else {
             this.flash.show(dataCar.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
           }
@@ -106,7 +112,7 @@ export class ClientDashboardComponent implements OnInit {
         }
       });
     } else {
-      this.flash.show('Upsss... Hemos tenido un eror :(', { cssClass: 'custom-alert-danger' })
+      this.flash.show('Upsss... Hemos tenido un error :(', { cssClass: 'custom-alert-danger' })
     }
   }
 
@@ -115,12 +121,11 @@ export class ClientDashboardComponent implements OnInit {
   }
 
   pedirCita(serial) {
-    console.log(serial);
     this.api.pedirCita({
       serial: serial
     }).subscribe(data => {
       if(data.success) {
-        this.citas.push(data.appoiment);
+        this.resolverCitasPedidas();
         this.flash.show('Su solicitud de cita fue elaborada de manera correcta', { cssClass: 'custom-alert-success', timeout: 3000 });
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger' }); 

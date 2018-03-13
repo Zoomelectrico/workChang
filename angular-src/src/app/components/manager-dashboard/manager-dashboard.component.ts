@@ -70,7 +70,7 @@ export class ManagerDashboardComponent implements OnInit {
   }
 
   openDetOrden (content, orden) {
-    console.log(orden);
+    this.orden = {};
     this.api.verDetallesReparacion({
       "repairOrderID": orden.ID,
       "mechanicID": orden.mechanicID,

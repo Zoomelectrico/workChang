@@ -67,13 +67,13 @@ const AdministratorController = {
           if (user.type !== 1) { // Todas aquellas cuentas que no sean de clientes pueden ser cambiadas
             user.update({ // Cambia el tipo de cuenta
               type: newRole
-            }).then(() => {callback(null, user)}).catch(err => callback(err, null)); // Llama al callback
+            }).then(() => callback(null, user)).catch(err => callback(err, null)); // Llama al callback
           }
         })
       } else {
         callback(new Error('No hay usuarios registrados con esa Cédula de Identidad'), null); // No hay nadie con esa cedula
       }
-    }).catch(err => {callback(err,null)}); // Error de la base de datos
+    }).catch(err => callback(err,null)); // Error de la base de datos
   }
 };
 
