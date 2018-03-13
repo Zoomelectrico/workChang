@@ -4,6 +4,8 @@ const Client = require('../models/Client');
 const Manager = require('../models/Manager');
 const Mechanic = require('../models/Mechanic');
 const Administrator = require('../models/Administrator');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const UserController = {
   registerUser: function (user, callback) {
@@ -104,15 +106,44 @@ const UserController = {
       }).then(administrator => callback(null, administrator))
       .catch(err => callback(err, null));
   },
+  getAllWorkers: function(callback) {
+    User.findAll({
+      where: {
+        [Op.or]: [{type: 2}, {type:3}, {type: 4}] 
+      }
+    })
+    .then(users => callback(null, users))
+    .catch(err => callback(err, users));
+  },
+  searchUser: function (userID, callback) {
+    User.findOne({
+        where: {
+          ID: userID
+        }
+      }).then(user => callback(null, user))
+      .catch(err => callback(err, null));
+  },
   modifyData: function (user, callback) {
     User.findOne({
       where: {
-        username: user.username
+        ID: user.ID
       }
     }).then(userFin => {
-      userFin.firstName = user.firstName;
-      userFin.lastName = user.lastName;
-      userFin.nationalID = user.nationalID;
+      if (userFin) { // Si existe el repuesto
+        userFin.update({
+          nationalID: user.nationalID,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          username: user.username,
+          addressLine1: user.addressLine1,
+          addressLine2: user.addressLine2,
+          city: user.city,
+          type: user.type
+        }).then(userFin => {callback(null, userFin)}).catch(err => callback(err, null)); // Llama al callback
+      } else {
+        callback(new Error('No hay repuestos registrados con ese número de parte'), null); // No hay ese repuesto
+      }
     }).catch(err => callback(err, null));
   }
 };

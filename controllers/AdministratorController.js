@@ -38,6 +38,24 @@ const AdministratorController = {
       }
     }).catch(err => callback(err, null)); 
   },
+  modifyReplacement: function (replacement, callback) {
+    Replacement.findOne({
+      where: {
+        partNumber: replacement.partNumber
+      }
+    }).then(replacementBD  => { // Busca el repuesto con el numero de parte
+      if (replacementBD) { // Si existe el repuesto
+        replacementBD.update({
+          name: replacement.name,
+          brand: replacement.brand,
+          inStock: replacement.inStock,
+          forModel: replacement.forModel
+        }).then(replacementBD => {callback(null, replacementBD)}).catch(err => callback(err, null)); // Llama al callback
+      } else {
+        callback(new Error('No hay repuestos registrados con ese número de parte'), null); // No hay ese repuesto
+      }
+    }).catch(err => {callback(err, null)}); // Error de la base de datos
+  },
   changeRole: function (nationalID, newRole, callback) {
     User.findAll({
       where: {
@@ -49,13 +67,13 @@ const AdministratorController = {
           if (user.type !== 1) { // Todas aquellas cuentas que no sean de clientes pueden ser cambiadas
             user.update({ // Cambia el tipo de cuenta
               type: newRole
-            }).then(() => callback(null, user)).catch(err => callback(err, null)); // Llama al callback
+            }).then(() => {callback(null, user)}).catch(err => callback(err, null)); // Llama al callback
           }
         })
       } else {
         callback(new Error('No hay usuarios registrados con esa Cédula de Identidad'), null); // No hay nadie con esa cedula
       }
-    }).catch(err => callback(err,null)); // Error de la base de datos
+    }).catch(err => {callback(err,null)}); // Error de la base de datos
   }
 };
 

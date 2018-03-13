@@ -10,12 +10,32 @@ export class ApiService {
     private http: Http
   ) { }
 
+  getUsuariosWorkers() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:3000/User/get-workers', { headers: headers })
+      .map(res => res.json());
+  }
+
+  getUsuariosByID(userID) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/User/searchUsersByID', userID, { headers: headers })
+      .map(res => res.json());
+  }
+
+  modificarDatosUsuario(usuario) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/User/modify-User', usuario, { headers: headers })
+    .map(res => res.json());
+  }
+
   buscarCliente(userID) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/User/searchClient', userID, { headers: headers })
       .map(res => res.json());
-   
   }
 
   registrarCarro(car) {
@@ -93,6 +113,13 @@ export class ApiService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/Admin/searchByPartNumber', partNumber, { headers: headers })
+      .map(res => res.json());
+  }
+
+  modificarRepuesto(replacement) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/Admin/modify-Replacement', replacement, { headers: headers })
       .map(res => res.json());
   }
 

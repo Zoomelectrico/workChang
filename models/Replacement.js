@@ -26,11 +26,11 @@ const Replacement = sequelize.define('replacements', {
   inStock: {
     type: Sequelize.INTEGER,
     allowNull: false,
-  }/**,
+  },
   forModel: {
     type: Sequelize.STRING,
     allowNull:false
-  }**/
+  }
 }, { timestamps: false, freezeTableName: true });
 
 

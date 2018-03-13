@@ -62,6 +62,30 @@ router.post('/new-Replacement', (req, res, next) => {
   })
 });
 
+router.post('/modify-Replacement', (req, res, next) => {
+  const replacement = {
+    partNumber: req.body.partNumber,
+    name: req.body.name,
+    brand: req.body.brand,
+    inStock: req.body.inStock,
+    forModel: req.body.forModel
+  };
+  AdministratorController.modifyReplacement(replacement, (err, user) => {
+    if (err) {
+      res.json({
+        success: false,
+        msg: err.message
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'Modificación del repuesto correcta',
+        replacement: replacement
+      });
+    }
+  })
+});
+
 router.post('/users/change-role', (req, res, next) => {
   AdministratorController.changeRole(req.body.nationalID, req.body.newRole, (err, user) => {
     if (err) {
