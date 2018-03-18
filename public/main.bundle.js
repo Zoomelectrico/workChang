@@ -1691,7 +1691,7 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.login = function (credentials) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('user/auth', credentials, { headers: headers })
+        return this.http.post('User/auth', credentials, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getProfile = function () {
