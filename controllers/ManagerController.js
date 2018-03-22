@@ -47,8 +47,8 @@ const ManagerController = {
       "INNER JOIN `users` ON `mechanics`.`UserID` = `users`.`ID` " +
       "INNER JOIN `appointments` ON `repairorders`.`AppointmentID` = `appointments`.`ID` " +
       "INNER JOIN `cars` ON `appointments`.`CarID` = `cars`.`ID` " +
-      "INNER JOIN `repairsreplacements` ON `repairorders`.`ID` = `repairsreplacements`.`RepairOrder` " +
-      "INNER JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID` " +
+      "LEFT JOIN `repairsreplacements` ON `repairorders`.`ID` = `repairsreplacements`.`RepairOrder` " +
+      "LEFT JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID` " +
       "WHERE `repairorders`.`ID` = " + repairOrderID + 
       " AND `mechanics`.`ID` = " + mechanicID + 
       " AND `cars`.`ID` = " + carID
@@ -82,16 +82,9 @@ const ManagerController = {
       QRCode: ''
     }).then(repairOrder => {
       if (repairOrder) {
-        RepairsReplacements.create({
-          RepairOrder: repairOrder.ID,
-          Replacement: 4
-        }).then(rr => {
-          Appointment.findById(AppointmentID).then(appointment => {
-            appointment.checkout = 1;
-            appointment.save().then(() => {
-              callback(null, repairOrder);
-            }).catch(err => callback(err, null));
-          }).catch(err => callback(err, null));
+        Appointment.findById(AppointmentID).then(appointment => {
+          appointment.checkout = 1;
+          appointment.save().then(() => callback(null, repairOrder)).catch(err => callback(err, null));
         }).catch(err => callback(err, null));
       } else {
         callback(new Error('Hemos tenido un falla para registrar esta orden'), null)
