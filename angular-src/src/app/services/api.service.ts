@@ -13,84 +13,84 @@ export class ApiService {
   getUsuariosWorkers() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/User/get-workers', { headers: headers })
+    return this.http.get('User/get-workers', { headers: headers })
       .map(res => res.json());
   }
 
   getUsuariosByID(userID) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/User/searchUsersByID', userID, { headers: headers })
+    return this.http.post('User/searchUsersByID', userID, { headers: headers })
       .map(res => res.json());
   }
 
   modificarDatosUsuario(usuario) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/User/modify-User', usuario, { headers: headers })
+    return this.http.post('User/modify-User', usuario, { headers: headers })
     .map(res => res.json());
   }
 
   buscarCliente(userID) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/User/searchClient', userID, { headers: headers })
+    return this.http.post('User/searchClient', userID, { headers: headers })
       .map(res => res.json());
   }
 
   registrarCarro(car) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Client/CarRegister', car, { headers: headers })
+    return this.http.post('Client/CarRegister', car, { headers: headers })
       .map(res => res.json());
   }
 
   pedirCita(cita) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Client/askAppoiment', cita, { headers: headers })
+    return this.http.post('Client/askAppoiment', cita, { headers: headers })
       .map(res => res.json());
   }
 
   buscarCarros(OwnerID) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Client/Cars', OwnerID, { headers: headers })
+    return this.http.post('Client/Cars', OwnerID, { headers: headers })
       .map(res => res.json().cars.filter(car => car.active == 1 ));
   }
 
   buscarClientePorCedula(cedula) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Client/search-nationalID', cedula, { headers: headers })
+    return this.http.post('Client/search-nationalID', cedula, { headers: headers })
     .map(res => res.json());
   }
 
   modificarDatosCliente(cliente) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Client/modify', cliente, { headers: headers })
+    return this.http.post('Client/modify', cliente, { headers: headers })
     .map(res => res.json());
   }
 
   getCitasActivas() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/Manager/appointments', { headers: headers })
+    return this.http.get('Manager/appointments', { headers: headers })
     .map(res => res.json());
   }
   
   getOrdenesAbiertas() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/Manager/actives-orders', { headers: headers })
+    return this.http.get('Manager/actives-orders', { headers: headers })
     .map(res => res.json());
   }
 
   buscarMecanico(userID) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/User/searchMechanic', userID, { headers: headers })
+    return this.http.post('User/searchMechanic', userID, { headers: headers })
       .map(res => res.json());
    
   }
@@ -98,63 +98,63 @@ export class ApiService {
   registrarRepuesto(replacement) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Admin/new-Replacement', replacement, { headers: headers })
+    return this.http.post('Admin/new-Replacement', replacement, { headers: headers })
       .map(res => res.json());
   }
 
   getRepuestos() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/Admin/replacements', { headers: headers })
+    return this.http.get('Admin/replacements', { headers: headers })
       .map(res => res.json());
   }
 
   getRepuestosByPartNumber(partNumber) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Admin/searchByPartNumber', partNumber, { headers: headers })
+    return this.http.post('Admin/searchByPartNumber', partNumber, { headers: headers })
       .map(res => res.json());
   }
 
   modificarRepuesto(replacement) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Admin/modify-Replacement', replacement, { headers: headers })
+    return this.http.post('Admin/modify-Replacement', replacement, { headers: headers })
       .map(res => res.json());
   }
 
   getMecanicosDisponibles() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/Manager/available-mechanics', { headers: headers })
+    return this.http.get('Manager/available-mechanics', { headers: headers })
       .map(res => res.json());
   }
 
   nuevaOrdenReparacion(orden) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Manager/create-RepairOrder', orden, { headers: headers })
+    return this.http.post('Manager/create-RepairOrder', orden, { headers: headers })
       .map(res => res.json());
   }
 
   desactivarVehiculo(serial) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Client/desactive-cars', serial, { headers: headers })
+    return this.http.post('Client/desactive-cars', serial, { headers: headers })
       .map(res => res.json());
   }
 
   getCitasPedidas(userID) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get(`http://localhost:3000/Client/all-appoiments/${userID}`, { headers: headers })
+    return this.http.get(`Client/all-appoiments/${userID}`, { headers: headers })
       .map(res => res.json());
   }
 
   verDetallesReparacion(ids) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Manager/order-details', ids, { headers: headers })
+    return this.http.post('Manager/order-details', ids, { headers: headers })
       .map(res => res.json());
   }
 
