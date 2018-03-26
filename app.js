@@ -6,6 +6,13 @@ const cors = require('cors');
 const passport = require('passport');
 const Sequelize = require('sequelize');
 const dbconfig = require('./config/database');
+const cloudinary = require('cloudinary');
+
+cloudinary.config({ 
+  cloud_name: 'zoomelectrico', 
+  api_key: '313523126261516', 
+  api_secret: 'MKhMWN5xuStsXLHkkJxhPZc-sJY' 
+});
 
 // Sequelize Configuration
 const sequelize = dbconfig;
@@ -14,7 +21,7 @@ sequelize.authenticate().then(() => {
   }).catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-
+  
 // App Creation
 const app = express();
 const users = require('./routes/users');

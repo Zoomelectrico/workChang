@@ -10,6 +10,7 @@
   "dependencies": {
     "bcryptjs": "*",
     "body-parser": "*",
+    "cloudinary": "^1.11.0",
     "cookie-parser": "*",
     "cors": "*",
     "debug": "*",
