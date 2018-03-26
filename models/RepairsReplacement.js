@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const dbconfig = require('../config/database');
 const sequelize = dbconfig;
 
-const RepairsReplacement = sequelize.define('RepairsReplacements', {
+const RepairsReplacement = sequelize.define('repairsreplacements', {
   RepairOrder: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -17,4 +17,4 @@ const RepairsReplacement = sequelize.define('RepairsReplacements', {
 
 RepairsReplacement.removeAttribute('id');
 
-module.exports = RepairsReplacement;
+module.exports = RepairsReplacement; 

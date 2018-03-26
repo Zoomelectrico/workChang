@@ -3,7 +3,7 @@ const dbconfig = require('../config/database');
 
 const sequelize = dbconfig;
 
-const Car = sequelize.define('Cars', {
+const Car = sequelize.define('cars', {
   ID: {
     type: Sequelize.INTEGER,
     allowNull: false,

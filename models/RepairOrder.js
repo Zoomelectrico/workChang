@@ -11,7 +11,7 @@ const RepairOrder = sequelize.define('RepairOrders', {
     autoIncrement: true
   },
   entryDate: {
-    type: Sequelize.DATEONLY,
+    type: Sequelize.DATEONLY, 
     allowNull: false
   },
   exitDate: {
@@ -28,6 +28,18 @@ const RepairOrder = sequelize.define('RepairOrders', {
   },
   QRCode: {
     type: Sequelize.STRING,
+    allowNull: false
+  },
+  details: {
+    type: Sequelize.TEXT,
+    allowNull: true
+  }, 
+  diagnostic: {
+    type: Sequelize.TEXT,
+    allowNull: false
+  },
+  ready: {
+    type: Sequelize.TINYINT,
     allowNull: false
   }
 }, { timestamps: false, freezeTableName: true });

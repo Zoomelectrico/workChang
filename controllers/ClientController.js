@@ -57,10 +57,10 @@ const ClientController = {
                 serial: car.serial
               }
             }).then(car => callback(null, car))
-            .catch(err => (err, null));
+            .catch(err => callback(err, null));
         });
       }
-    }).catch(err => callback(err, null));
+    }).catch(err => { console.log('epa 4', err); callback(err, null) });
   },
   getCars: function (ClientID, callback) {
     Car.findAll({

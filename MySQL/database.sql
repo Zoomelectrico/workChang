@@ -5,9 +5,6 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
 -- Schema workchang
 -- -----------------------------------------------------
 
@@ -16,46 +13,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `workchang` DEFAULT CHARACTER SET utf8 ;
 USE `workchang` ;
-
--- -----------------------------------------------------
--- Table `workchang`.`users`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `workchang`.`users` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `nationalID` INT(11) NOT NULL,
-  `firstName` VARCHAR(45) NOT NULL,
-  `lastName` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
-  `username` VARCHAR(20) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
-  `type` INT(11) NULL DEFAULT NULL,
-  `addressLine1` VARCHAR(45) NULL DEFAULT NULL,
-  `addressLine2` VARCHAR(45) NULL DEFAULT NULL,
-  `city` VARCHAR(45) NULL DEFAULT NULL,
-  `photoLink` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
-ENGINE = InnoDB
-AUTO_INCREMENT = 6
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `workchang`.`administrators`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `workchang`.`administrators` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `UserID` INT(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  INDEX `fk_Administrador_Usuario1_idx` (`UserID` ASC),
-  CONSTRAINT `fk_Administrador_Usuario1`
-    FOREIGN KEY (`UserID`)
-    REFERENCES `workchang`.`users` (`ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
 
 -- -----------------------------------------------------
 -- Table `workchang`.`cars`
@@ -96,36 +53,25 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `workchang`.`clients`
+-- Table `workchang`.`users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `workchang`.`clients` (
+CREATE TABLE IF NOT EXISTS `workchang`.`users` (
   `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `UserID` INT(11) NOT NULL,
+  `nationalID` INT(11) NOT NULL,
+  `firstName` VARCHAR(45) NOT NULL,
+  `lastName` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `username` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `type` INT(11) NULL DEFAULT NULL,
+  `addressLine1` VARCHAR(45) NULL DEFAULT NULL,
+  `addressLine2` VARCHAR(45) NULL DEFAULT NULL,
+  `city` VARCHAR(45) NULL DEFAULT NULL,
+  `photoLink` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  INDEX `fk_Clientes_Usuario_idx` (`UserID` ASC),
-  CONSTRAINT `fk_Clientes_Usuario`
-    FOREIGN KEY (`UserID`)
-    REFERENCES `workchang`.`users` (`ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `workchang`.`managers`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `workchang`.`managers` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `UserID` INT(11) NOT NULL,
-  PRIMARY KEY (`ID`),
-  INDEX `fk_Gerente_Usuario1_idx` (`UserID` ASC),
-  CONSTRAINT `fk_Gerente_Usuario1`
-    FOREIGN KEY (`UserID`)
-    REFERENCES `workchang`.`users` (`ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -156,6 +102,9 @@ CREATE TABLE IF NOT EXISTS `workchang`.`repairorders` (
   `AppointmentID` INT(11) NOT NULL,
   `MechanicID` INT(11) NOT NULL,
   `QRCode` VARCHAR(255) NOT NULL,
+  `diagnostic` LONGTEXT NOT NULL,
+  `details` LONGTEXT NULL,
+  `ready` TINYINT(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`ID`),
   INDEX `fk_OrdenRepacion_Cita1_idx` (`AppointmentID` ASC),
   INDEX `fk_OrdenRepacion_Mecanico1_idx` (`MechanicID` ASC),
@@ -167,6 +116,76 @@ CREATE TABLE IF NOT EXISTS `workchang`.`repairorders` (
   CONSTRAINT `fk_OrdenRepacion_Mecanico1`
     FOREIGN KEY (`MechanicID`)
     REFERENCES `workchang`.`mechanics` (`ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`photoDetailsRO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `workchang`.`photoDetailsRO` (
+  `ID` INT NOT NULL,
+  `photoURL` NVARCHAR(255) NULL,
+  `repairOrdersID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  INDEX `fk_photoDetailsRO_repairorders_idx` (`repairOrdersID` ASC),
+  CONSTRAINT `fk_photoDetailsRO_repairorders`
+    FOREIGN KEY (`repairOrdersID`)
+    REFERENCES `workchang`.`repairorders` (`ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+USE `workchang` ;
+
+-- -----------------------------------------------------
+-- Table `workchang`.`administrators`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `workchang`.`administrators` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `UserID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  INDEX `fk_Administrador_Usuario1_idx` (`UserID` ASC),
+  CONSTRAINT `fk_Administrador_Usuario1`
+    FOREIGN KEY (`UserID`)
+    REFERENCES `workchang`.`users` (`ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `workchang`.`clients`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `workchang`.`clients` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `UserID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  INDEX `fk_Clientes_Usuario_idx` (`UserID` ASC),
+  CONSTRAINT `fk_Clientes_Usuario`
+    FOREIGN KEY (`UserID`)
+    REFERENCES `workchang`.`users` (`ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `workchang`.`managers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `workchang`.`managers` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `UserID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  INDEX `fk_Gerente_Usuario1_idx` (`UserID` ASC),
+  CONSTRAINT `fk_Gerente_Usuario1`
+    FOREIGN KEY (`UserID`)
+    REFERENCES `workchang`.`users` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

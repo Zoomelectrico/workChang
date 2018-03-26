@@ -15,52 +15,67 @@ const UserController = {
       }
     }).then(userFin => {
       if (userFin) {
-        callback(new Error('Este username ya ha sido utilizado'), null);
+        callback(new Error('... Se mas original, ese username ya es de alguien'), null);
       } else {
         bcrypt.genSalt(10, (err, salt) => {
-          if (err) { throw err; }
-          bcrypt.hash(user.password, salt, (err, hash) => {
-            if (err) {
-              callback(err, null);
-            } else {
-              user.password = hash;
-              User.create(user).then(user => {
-                if (user) {
-                  const type = parseInt(user.type);
-                  switch (type) {
-                    case 1:
-                      Client.create({
-                          UserID: user.ID
-                        }).then(client => callback(null, user))
-                        .catch(err => callback(err, null));
-                      break;
-                    case 2:
-                      Manager.create({
-                          UserID: user.ID
-                        }).then(manager => callback(null, user))
-                        .catch(err => callback(err, null));
-                      break;
-                    case 3:
-                      Mechanic.create({
-                          UserID: user.ID
-                        }).then(mechanic => callback(null, user))
-                        .catch(err => callback(err, null));
-                      break;
-                    case 4:
-                      Administrator.create({
-                          UserID: user.ID
-                        }).then(administrator => callback(null, user))
-                        .catch(err => callback(err, null));
-                      break;
-                    default:
-                      callback(new Error('ERROR PAPI'), null);
+          if (err) { 
+            callback(new Error('Upps... Tu contraseña es demasiado poderosa para nosotros :('), null); 
+          } else {
+            bcrypt.hash(user.password, salt, (err, hash) => {
+              if (err) {
+                callback(new Error('Upps... Algo ha salido horrible'), null);
+              } else {
+                user.password = hash;
+                User.create(user).then(user => {
+                  if (user) {
+                    const type = parseInt(user.type);
+                    switch (type) {
+                      case 1:
+                        Client.create({
+                            UserID: user.ID
+                          }).then(client => callback(null, user))
+                          .catch(err => {
+                            // TODO: Eliminar al Usuario
+                            callback(new Error('Nos hemos equivocado en algo :('), null)
+                          });
+                        break;
+                      case 2:
+                        Manager.create({
+                            UserID: user.ID
+                          }).then(manager => callback(null, user))
+                          .catch(err => {
+                            // TODO: Eliminar al Usuario
+                            callback(new Error('Nos hemos equivocado en algo :('), null)
+                          });
+                        break;
+                      case 3:
+                        Mechanic.create({
+                            UserID: user.ID
+                          }).then(mechanic => callback(null, user))
+                          .catch(err => {
+                            // TODO: Eliminar al Usuario
+                            callback(new Error('Nos hemos equivocado en algo :('), null)
+                          });
+                        break;
+                      case 4:
+                        Administrator.create({
+                            UserID: user.ID
+                          }).then(administrator => callback(null, user))
+                          .catch(err => {
+                            // TODO: Eliminar al Usuario
+                            callback(new Error('Nos hemos equivocado en algo :('), null)
+                          });
+                        break;
+                      default:
+                        callback(new Error('OH MAI GOSH QUE PASO'), null);
+                    }
+                  } else {
+                    callback(new Error('Uppps... Fallamos y no pudimos hacer nada :('), null);
                   }
-                } else {
-                  callback(new Error('El usuario no ha sido creado'), null);
-                }
-              }).catch(err => callback(err, null));
-            }
-          });
+                }).catch(err => callback(new Error('Estem... La cosa exploto'), null));
+              }
+            });
+          }
         });
       }
     }).catch(err => callback(err, null));
@@ -129,7 +144,7 @@ const UserController = {
         ID: user.ID
       }
     }).then(userFin => {
-      if (userFin) { // Si existe el repuesto
+      if (userFin) { 
         userFin.update({
           nationalID: user.nationalID,
           firstName: user.firstName,
@@ -140,9 +155,9 @@ const UserController = {
           addressLine2: user.addressLine2,
           city: user.city,
           type: user.type
-        }).then(userFin => {callback(null, userFin)}).catch(err => callback(err, null)); // Llama al callback
+        }).then(userFin => {callback(null, userFin)}).catch(err => callback(new Error('Que Dios proteja el servidor porque no sabemos que estamos haciendo'), null)); // Llama al callback
       } else {
-        callback(new Error('No hay repuestos registrados con ese número de parte'), null); // No hay ese repuesto
+        callback(new Error('Que intentas rick no hay nadie con ese username :s'), null); // No hay ese repuesto
       }
     }).catch(err => callback(err, null));
   }
