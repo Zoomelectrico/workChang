@@ -67,7 +67,7 @@ INNER JOIN `mechanics` ON `repairorders`.`MechanicID` = `mechanics`.`ID`
 INNER JOIN `users` ON `mechanics`.`UserID` = `users`.`ID` 
 LEFT JOIN `repairsreplacements` ON  `repairorders`.`ID` = `repairsreplacements`.`RepairOrder`
 LEFT JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID`
-WHERE `clients`.`ID` = (SELECT `clients`.`ID` FROM `clients` INNER JOIN `users` ON `users`.`ID` = `clients`.`UserID` WHERE `users`.`nationalID` = `#` AND `user`.`type` = 1)
+WHERE `clients`.`ID` = (SELECT `clients`.`ID` FROM `clients` INNER JOIN `users` ON `users`.`ID` = `clients`.`UserID` WHERE `users`.`nationalID` = `#` AND `users`.`type` = 1)
 
 -- Historial por mecanico
 SELECT *
@@ -78,4 +78,4 @@ INNER JOIN `mechanics` ON `mechanics`.`ID` = `repairorders`.`MechanicID`
 INNER JOIN `users` ON `mechanics`.`UserID` = `users`.`ID`
 LEFT JOIN `repairsreplacements` ON  `repairorders`.`ID` = `repairsreplacements`.`RepairOrder`
 LEFT JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID`
-WHERE `mechanics`.`ID` = (SELECT `mechanics`.`ID` FROM `mechanics` INNER JOIN `users` ON `mechanics`.`UserID` = `users`.`ID` WHERE `users`.`nationalID` = `#` and `user`.`type` = 3)
+WHERE `mechanics`.`ID` = (SELECT `mechanics`.`ID` FROM `mechanics` INNER JOIN `users` ON `mechanics`.`UserID` = `users`.`ID` WHERE `users`.`nationalID` = `#` and `users`.`type` = 3)
