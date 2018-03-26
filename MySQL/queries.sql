@@ -52,7 +52,7 @@ WHERE `repairorders`.`ID` = `#` AND `mechanics`.`ID` = `#` AND `cars`.`ID` = `#`
 
 -- QUERIES DE GUILLEN, 
 
--- Historial de vehiculos por clientes
+-- Historial de vehiculos por clientes TODO: Acomodar los Alias
 SELECT CONCAT(`cars`.`brand`, ' ', `cars`.`model`, ' ', `cars`.`year`, ' ') AS `carName`
 		,CONCAT(`users`.`firstName`, ' ', `users`.`lastName`) AS `mechanicName`
     ,`repairorders`.`entryDate` AS `receptionDate`
@@ -69,8 +69,33 @@ LEFT JOIN `repairsreplacements` ON  `repairorders`.`ID` = `repairsreplacements`.
 LEFT JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID`
 WHERE `clients`.`ID` = (SELECT `clients`.`ID` FROM `clients` INNER JOIN `users` ON `users`.`ID` = `clients`.`UserID` WHERE `users`.`nationalID` = `#` AND `users`.`type` = 1)
 
--- Historial por mecanico
-SELECT *
+-- Historial de un vehículo
+SELECT CONCAT(`cars`.`brand`, ' ', `cars`.`model`, ' ', `cars`.`year`, ' ') AS `Car Data`
+		,CONCAT(`users`.`firstName`, ' ', `users`.`lastName`) AS `Mechanic Name`
+    ,`repairorders`.`entryDate` AS `Reception Date`
+		,`repairorders`.`exitDate` AS `Exit Date`
+    ,DATEDIFF(`repairorders`.`exitDate`, `repairorders`.`entryDate`) AS `Time in the workshop`
+    ,`repairorders`.`diagnostic` AS `Diagnostic`
+		,CONCAT(`replacements`.`name`, ', marca: ', `replacements`.`brand`, ', para: ', `replacements`.`forModel`) AS `Replacement Info`
+FROM `cars`
+INNER JOIN `appointments` ON `cars`.`ID` = `appointments`.`CarID`
+INNER JOIN `repairorders` ON `appointments`.`ID` = `repairorders`.`AppointmentID`
+INNER JOIN `mechanics` ON `repairorders`.`MechanicID` = `mechanics`.`ID`
+INNER JOIN `users` ON `mechanics`.`UserID` = `users`.`ID` 
+LEFT JOIN `repairsreplacements` ON  `repairorders`.`ID` = `repairsreplacements`.`RepairOrder`
+LEFT JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID`
+WHERE `cars`.`licensePlate` = `#`
+
+-- Historial por mecanico TODO: Cuadrar lo de las Fechas
+SELECT CONCAT(`users`.`firstName`, ' ', `users`.`lastName`) AS `Mechanic Name` 
+		,CONCAT(`cars`.`brand`, ' ', `cars`.`model`, ' ', `cars`.`year`) AS `Car Data`
+		,`cars`.`licensePlate` AS `License Plate`
+		,`cars`.`serial` AS `Serial`
+		,`repairorders`.`diagnostic` AS `Diagnostic`
+		,`repairorders`.`entryDate` AS `Reception Date`
+		,`repairorders`.`exitDate` AS `Exit Date`
+		,DATEDIFF(`repairorders`.`exitDate`, `repairorders`.`entryDate`) AS `Time in the workshop`
+		,CONCAT(`replacements`.`name`, ', marca: ', `replacements`.`brand`, ', para: ', `replacements`.`forModel`) AS `Replacement Info`
 FROM `cars`
 INNER JOIN `appointments` ON `cars`.`ID` = `appointments`.`CarID`
 INNER JOIN `repairorders` ON `appointments`.`ID` = `repairorders`.`AppointmentID`
@@ -79,3 +104,5 @@ INNER JOIN `users` ON `mechanics`.`UserID` = `users`.`ID`
 LEFT JOIN `repairsreplacements` ON  `repairorders`.`ID` = `repairsreplacements`.`RepairOrder`
 LEFT JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID`
 WHERE `mechanics`.`ID` = (SELECT `mechanics`.`ID` FROM `mechanics` INNER JOIN `users` ON `mechanics`.`UserID` = `users`.`ID` WHERE `users`.`nationalID` = `#` and `users`.`type` = 3)
+
+-- Historial por modelo de vehiculo, que ladilla hacer esto
