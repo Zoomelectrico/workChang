@@ -11,16 +11,28 @@ Entre sus funciones podemos nombrar:
 * Y más.
 ### Como probar WorkChang
 El primer paso consiste en clonar este repositorio de git con el siguiente comando
-$ git clone https://www.github.com/zoomelectrico/workChang.git
+
+```
+$ git clone https://github.com/Zoomelectrico/workChang.git
+```
+
 Lo siguiente es abrir la termina en la capeta del repositorio clonado y ejercutar los siguientes comandos
+
+```
 $ sudo npm install
 $ cd angular-src
 $ sudo npm install
+```
 una vez hecho eso deberá abrir dos terminales ambas en la ubicacion de la carpeta donde se clono el repositorio y ejecutar en una terminal el siguiente comando:
+```
 $ node app.js
+```
 y en la otra terminal este otro comando
+
+```
 $ cd angular-src
 $ ng serve
+```
 Y listo podrá disfrutar de workchang.
 ### Frameworks o Librerias Utilizadas
 * [Node](https://nodejs.org) JavaScript Enviroment
