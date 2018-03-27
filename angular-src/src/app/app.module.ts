@@ -10,6 +10,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from './services/auth.service';
 import { ApiService } from './services/api.service';
 import { AuthGuard } from './services/guard.service';
+import { UploadImgService } from './services/upload-img.service'
 // Navegación
 import { AppRoutingModule } from './app-routing.module';
 //Componentes
@@ -23,6 +24,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { MechanicDashboardComponent } from './components/mechanic-dashboard/mechanic-dashboard.component';
 import { AdministratorDashboardComponent } from './components/administrator-dashboard/administrator-dashboard.component';
 import { ManagerDashboardComponent } from './components/manager-dashboard/manager-dashboard.component';
+import { ReciveCarComponent } from './components/recive-car/recive-car.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { ManagerDashboardComponent } from './components/manager-dashboard/manage
     RegisterComponent,
     MechanicDashboardComponent,
     AdministratorDashboardComponent,
-    ManagerDashboardComponent
+    ManagerDashboardComponent,
+    ReciveCarComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import { ManagerDashboardComponent } from './components/manager-dashboard/manage
   providers: [
     AuthService,
     ApiService,
-    AuthGuard
+    AuthGuard,
+    UploadImgService
   ],
   bootstrap: [AppComponent]
 })

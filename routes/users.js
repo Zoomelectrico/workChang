@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/User');
 const UserController = require('../controllers/UserController');
+const EmailController = require('../controllers/EmailController');
 
 router.post('/register', (req, res, next) => {
   const user = {
@@ -22,7 +23,16 @@ router.post('/register', (req, res, next) => {
     if (err) {
       res.json({success: false, msg: err.message });
     } else {
-      res.json({success: true, msg: 'El usuario ha sido creado de manera exitosa'});
+      EmailController.registrationEmail(user.email, (err, info) => {
+        if (err) {
+          console.log(err);
+          res.json({success: false, msg: err.message});
+        } else {
+          console.log(info);
+          res.json({success: true, msg: 'El usuario ha sido creado de manera exitosa'});
+        }
+      })
+      
     }
   });
 });

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { UploadImgService } from '../../services/upload-img.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
@@ -16,7 +17,8 @@ export class ClientDashboardComponent implements OnInit {
   private year: number;
   private licensePlate: string;
   private serial: string;
-  private photoLink: string;
+  private photoLink: any;
+  private photo: File;
   // Vector de Vehiculos
   private vehiculos = [];
   // vector de citas
@@ -24,8 +26,10 @@ export class ClientDashboardComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private flash: FlashMessagesService 
-  ) { }
+    private flash: FlashMessagesService,
+    private img: UploadImgService 
+  ) {
+  }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user')); // Guardo los datos del usuario
@@ -61,11 +65,13 @@ export class ClientDashboardComponent implements OnInit {
     });
   }
 
+  onChange(evt) {
+    this.img.loadImg(evt.target.files[0]).then(algo => {
+      this.photoLink = algo;
+    }).catch(err => console.log(err));
+  }
 
-  // Metodo asincrono
-  async registrarCarro() {
-    // Subir la foto a un proovedor y recibir el link
-    this.photoLink = ''; // await proovedor... 
+  registrarCarro() {
     const car = {
       brand: this.brand,
       model: this.model,

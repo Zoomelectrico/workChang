@@ -1,3 +1,4 @@
+const cloudinary = require('../config/clodinary');
 const sequelize = require('../config/database');
 const Client = require('../models/Client');
 const User = require('../models/User');
@@ -51,13 +52,16 @@ const ClientController = {
         carFin.save().then(() => callback(null, carFin))
         .catch(err => callback(err, null));
       } else {
-        Car.create(car).then(() => {
-          Car.findOne({
-              where: {
-                serial: car.serial
-              }
-            }).then(car => callback(null, car))
-            .catch(err => callback(err, null));
+        cloudinary.uploader.upload(car.photoLink, result => {
+          car.photoLink = result.secure_url;
+          Car.create(car).then(() => {
+            Car.findOne({
+                where: {
+                  serial: car.serial
+                }
+              }).then(car => callback(null, car))
+              .catch(err => callback(err, null));
+          });
         });
       }
     }).catch(err => { console.log('epa 4', err); callback(err, null) });

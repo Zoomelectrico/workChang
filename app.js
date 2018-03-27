@@ -8,12 +8,6 @@ const Sequelize = require('sequelize');
 const dbconfig = require('./config/database');
 const cloudinary = require('cloudinary');
 
-cloudinary.config({ 
-  cloud_name: 'zoomelectrico', 
-  api_key: '313523126261516', 
-  api_secret: 'MKhMWN5xuStsXLHkkJxhPZc-sJY' 
-});
-
 // Sequelize Configuration
 const sequelize = dbconfig;
 sequelize.authenticate().then(() => {
@@ -38,7 +32,8 @@ app.get('/', (req, res) => {
 
 // Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '65mb' }));
+app.use(bodyParser.urlencoded({ limit: '65mb', extended: true }));
 //Router
 app.use('/User', users);
 app.use('/Client', client);
