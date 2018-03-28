@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ManagerDashboardComponent } from './components/manager-dashboard/manager-dashboard.component';
 import { MechanicDashboardComponent } from './components/mechanic-dashboard/mechanic-dashboard.component';
 import { AdministratorDashboardComponent } from './components/administrator-dashboard/administrator-dashboard.component';
+import { ReciveCarComponent } from './components/recive-car/recive-car.component';
 
 import { AuthGuard } from './services/guard.service';
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: "client", component: ClientDashboardComponent, canActivate:[AuthGuard]}, 
   { path: "client/register", component: RegisterComponent },
   { path: "manager", component: ManagerDashboardComponent},
+  { path: "manager/recive-car", component: ReciveCarComponent },
   { path: "mechanic", component: MechanicDashboardComponent},
   { path: "admin", component: AdministratorDashboardComponent}
 ];

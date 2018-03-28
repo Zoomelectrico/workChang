@@ -1,8 +1,10 @@
+const sequelize = require('../config/database');
 const Appointment = require('../models/Appointment');
 const Car = require('../models/Car');
 const RepairOrder = require('../models/RepairOrder');
 const RepairsReplacements = require('../models/RepairsReplacement');
-const sequelize = require('../config/database');
+const detailsRO = require('../models/detailsRO');
+const cloudinary = require('../config/clodinary');
 
 const ManagerController = {
   getAppointments: function (callback) {
@@ -79,17 +81,48 @@ const ManagerController = {
       entryDate: entryDate,
       MechanicID: MechanicID,
       AppointmentID: AppointmentID,
-      QRCode: ''
+      QRCode: '',
+      ready: 0
     }).then(repairOrder => {
       if (repairOrder) {
         Appointment.findById(AppointmentID).then(appointment => {
           appointment.checkout = 1;
-          appointment.save().then(() => callback(null, repairOrder)).catch(err => callback(err, null));
-        }).catch(err => callback(err, null));
+          appointment.save().then(() => callback(null, repairOrder))
+          .catch(err => callback(new Error('Nuestro Sistema esta teniendo dificultades intente más tarde'), null));
+        }).catch(err => callback(new Error('Nuestro Sistema esta teniendo dificultades intente más tarde'), null));
       } else {
         callback(new Error('Hemos tenido un falla para registrar esta orden'), null)
       }
-    }).catch(err => callback(err, null));
+    }).catch(err => callback(new Error('Nuestro Sistema esta teniendo dificultades intente más tarde'), null));
+  },
+  reciveCar: function(repairOrderID, details, photo, callback) {
+    RepairOrder.findById(repairOrderID).then(repairOrder => {
+      if (repairOrder) {
+        if (repairOrder.exitDate) {
+          callback(new Error('No lo se rick eso esta cerrado...'), null);
+        } else {
+          cloudinary.uploader.upload(photo, result => {
+            if (result) {
+              detailsRO.create({
+                photoURL: result.secure_url,
+                details: details,
+                repairorderID: repairOrder.ID
+              }).then(detailsro => {
+                if (detailsro) {
+                  callback(null, detailsro);
+                } else {
+                  callback(new Error(), null)
+                }
+              }).catch(err =>  callback(new Error(), null));
+            } else {
+              callback(new Error('Tuvimos un error subiendo la foto, vuelva a intentar'), null);
+            }
+          });
+        }
+      } else {
+        callback(new Error('Eso no parece ser una orden de nuestro taller :s'), null)
+      }
+    });
   }
 };
 

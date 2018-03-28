@@ -23,17 +23,21 @@ export class UploadImgService {
             tipo = 'data:image/svg+xml;base64,';
             break;
           default:
-            console.error('Imagen con formato inválido');
+            tipo = null;
             return;
         }
         const reader = new FileReader();
-        reader.onload = readEvt => {
-          const binaryString = (readEvt.target as any).result;
-          const base64 = btoa(binaryString);
-          const resultado = tipo + base64;
-          resolve(resultado);
+        if(tipo) {
+          reader.onload = readEvt => {
+            const binaryString = (readEvt.target as any).result;
+            const base64 = btoa(binaryString);
+            const resultado = tipo + base64;
+            resolve(resultado);
+          }
+          reader.readAsBinaryString(file);
+        } else {
+          reject('Formato de Imagen Inválido')
         }
-        reader.readAsBinaryString(file);
       } else {
         reject('Formato de Imagen Inválido');
       }

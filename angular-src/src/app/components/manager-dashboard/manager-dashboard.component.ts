@@ -18,7 +18,7 @@ export class ManagerDashboardComponent implements OnInit {
   private ordenesActivas = [];
   // Lista de Mecánicos Disponibles
   private mecanicos = [];
-  // Modificar Datos del cliente
+  // Modificar Datos del cliente 
   private firstName: string;
   private lastName: string;
   private nationalID: number;

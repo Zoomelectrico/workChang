@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/database');
 
-const photoDetailRO = sequelize.define('photoDetailRO', {
+const detailsRO = sequelize.define('detailsRO', {
 	ID: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
@@ -9,13 +9,17 @@ const photoDetailRO = sequelize.define('photoDetailRO', {
 		autoIncrement: true
 	},
 	photoURL: {
-		type: Sequelize.STRING,
+		type: Sequelize.TEXT,
 		allowNull: true
 	},
-	repairOrdersID: {
+	details: {
+		type: Sequelize.TEXT,
+		allowNull: true
+	},
+	repairorderID: {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	}
 }, { timestamps: false, freezeTableName: true });
 
-module.exports = photoDetailRO;
+module.exports = detailsRO;

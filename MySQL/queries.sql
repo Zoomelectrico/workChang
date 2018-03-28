@@ -50,15 +50,29 @@ LEFT JOIN `repairsreplacements` ON `repairorders`.`ID` = `repairsreplacements`.`
 LEFT JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID`
 WHERE `repairorders`.`ID` = `#` AND `mechanics`.`ID` = `#` AND `cars`.`ID` = `#`
 
+SELECT `repairorders`.`ID`
+		,CONCAT(`cars`.`brand`, ' ', `cars`.`model`, ' ', `cars`.`year`, ', placa: ', `cars`.`licensePlate`) AS `carData`
+		,`repairorders`.`diagnostic`
+        ,`detailsRO`.`details`
+        ,`detailsRO`.`photoURL`
+        ,CONCAT(`replacements`.`name`, ', marca: ', `replacements`.`brand`, ', para: ', `replacements`.`forModel`) AS `replacementData`
+FROM `cars`
+INNER JOIN `appointments` ON `cars`.`ID` = `appointments`.`CarID` 
+INNER JOIN `repairorders` ON `appointments`.`ID` = `repairorders`.`AppointmentID`
+INNER JOIN `detailsRO` ON `repairorders`.`ID` = `detailsRO`.`repairOrderID`
+LEFT JOIN `repairsreplacements` ON `repairorders`.`ID` = `repairsreplacements`.`RepairOrder`
+LEFT JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID`  
+WHERE `repairorders`.`MechanicID` = (SELECT `mechanics`.`ID` FROM `users` INNER JOIN `mechanics` ON `users`.`ID` = `mechanics`.`UserID` WHERE `users`.`nationalID` = `#`)
+
 -- QUERIES DE GUILLEN, 
 
 -- Historial de vehiculos por clientes TODO: Acomodar los Alias
 SELECT CONCAT(`cars`.`brand`, ' ', `cars`.`model`, ' ', `cars`.`year`, ' ') AS `carName`
-		,CONCAT(`users`.`firstName`, ' ', `users`.`lastName`) AS `mechanicName`
+	,CONCAT(`users`.`firstName`, ' ', `users`.`lastName`) AS `mechanicName`
     ,`repairorders`.`entryDate` AS `receptionDate`
     ,DATEDIFF(`repairorders`.`exitDate`, `repairorders`.`entryDate`) AS `totalTime`
     ,`repairorders`.`diagnostic`
-		,CONCAT(`replacements`.`name`, ', marca: ', `replacements`.`brand`, ', para: ', `replacements`.`forModel`) AS `repaclementInfo`
+	,CONCAT(`replacements`.`name`, ', marca: ', `replacements`.`brand`, ', para: ', `replacements`.`forModel`) AS `repaclementInfo`
 FROM `clients`
 INNER JOIN `cars` ON `clients`.`ID` = `cars`.`OwnerID`
 INNER JOIN `appointments` ON `cars`.`ID` = `appointments`.`CarID`

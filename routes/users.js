@@ -23,16 +23,7 @@ router.post('/register', (req, res, next) => {
     if (err) {
       res.json({success: false, msg: err.message });
     } else {
-      EmailController.registrationEmail(user.email, (err, info) => {
-        if (err) {
-          console.log(err);
-          res.json({success: false, msg: err.message});
-        } else {
-          console.log(info);
-          res.json({success: true, msg: 'El usuario ha sido creado de manera exitosa'});
-        }
-      })
-      
+      res.json({success: true, msg: 'El usuario ha sido creado de manera exitosa'});   
     }
   });
 });

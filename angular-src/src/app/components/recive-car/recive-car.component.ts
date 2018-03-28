@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ApiService } from '../../services/api.service';
 @Component({
   selector: 'app-recive-car',
   templateUrl: './recive-car.component.html',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReciveCarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private api: ApiService
+  ) { }
 
   ngOnInit() {
   }
 
+  aceptarVehiculo() {
+    
+  }
+
 }
+ 

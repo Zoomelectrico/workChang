@@ -26,17 +26,13 @@ const RepairOrder = sequelize.define('RepairOrders', {
     type: Sequelize.INTEGER,
     allowNull: false 
   },
-  QRCode: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
   details: {
     type: Sequelize.TEXT,
     allowNull: true
   }, 
   diagnostic: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: true
   },
   ready: {
     type: Sequelize.TINYINT,
