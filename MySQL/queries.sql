@@ -53,9 +53,9 @@ WHERE `repairorders`.`ID` = `#` AND `mechanics`.`ID` = `#` AND `cars`.`ID` = `#`
 SELECT `repairorders`.`ID`
 		,CONCAT(`cars`.`brand`, ' ', `cars`.`model`, ' ', `cars`.`year`, ', placa: ', `cars`.`licensePlate`) AS `carData`
 		,`repairorders`.`diagnostic`
-        ,`detailsRO`.`details`
-        ,`detailsRO`.`photoURL`
-        ,CONCAT(`replacements`.`name`, ', marca: ', `replacements`.`brand`, ', para: ', `replacements`.`forModel`) AS `replacementData`
+		,`detailsRO`.`details`
+		,`detailsRO`.`photoURL`
+		,CONCAT(`replacements`.`name`, ', marca: ', `replacements`.`brand`, ', para: ', `replacements`.`forModel`) AS `replacementData`
 FROM `cars`
 INNER JOIN `appointments` ON `cars`.`ID` = `appointments`.`CarID` 
 INNER JOIN `repairorders` ON `appointments`.`ID` = `repairorders`.`AppointmentID`
@@ -64,14 +64,25 @@ LEFT JOIN `repairsreplacements` ON `repairorders`.`ID` = `repairsreplacements`.`
 LEFT JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID`  
 WHERE `repairorders`.`MechanicID` = (SELECT `mechanics`.`ID` FROM `users` INNER JOIN `mechanics` ON `users`.`ID` = `mechanics`.`UserID` WHERE `users`.`nationalID` = `#`)
 
+SELECT CONCAT(`users`.`firstName`, ' ', `users`.`lastName`) AS `mechanicName`
+			,CONCAT(`cars`.`brand`, ' ', `cars`.`model`, ' ', `cars`.`year`) AS `carName`
+			,`cars`.`licensePlate`
+      ,`repairorders`.`ID`
+FROM `appointments`
+INNER JOIN  `cars` ON `appointments`.`CarID`= `cars`.`ID`
+INNER JOIN `repairorders` ON `appointments`.`ID` = `repairorders`.`AppointmentID`
+INNER JOIN `mechanics` ON `repairorders`.`MechanicID` = `mechanics`.`ID`
+INNER JOIN `users` ON `mechanics`.`UserID` = `users`.`ID`
+WHERE `repairorders`.`ID` = `#`
+
 -- QUERIES DE GUILLEN, 
 
 -- Historial de vehiculos por clientes TODO: Acomodar los Alias
 SELECT CONCAT(`cars`.`brand`, ' ', `cars`.`model`, ' ', `cars`.`year`, ' ') AS `carName`
 	,CONCAT(`users`.`firstName`, ' ', `users`.`lastName`) AS `mechanicName`
-    ,`repairorders`.`entryDate` AS `receptionDate`
-    ,DATEDIFF(`repairorders`.`exitDate`, `repairorders`.`entryDate`) AS `totalTime`
-    ,`repairorders`.`diagnostic`
+	,`repairorders`.`entryDate` AS `receptionDate`
+	,DATEDIFF(`repairorders`.`exitDate`, `repairorders`.`entryDate`) AS `totalTime`
+	,`repairorders`.`diagnostic`
 	,CONCAT(`replacements`.`name`, ', marca: ', `replacements`.`brand`, ', para: ', `replacements`.`forModel`) AS `repaclementInfo`
 FROM `clients`
 INNER JOIN `cars` ON `clients`.`ID` = `cars`.`OwnerID`

@@ -24,6 +24,7 @@
     "passport": "*",
     "passport-jwt": "^4.0.0",
     "qrcode": "*",
+    "request": "^2.85.0",
     "sequelize": "^4.37.4",
     "serve-favicon": "*"
   },

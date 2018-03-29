@@ -52,22 +52,22 @@ const ManagerController = {
       "INNER JOIN `cars` ON `appointments`.`CarID` = `cars`.`ID` " +
       "LEFT JOIN `repairsreplacements` ON `repairorders`.`ID` = `repairsreplacements`.`RepairOrder` " +
       "LEFT JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID` " +
-      "WHERE `repairorders`.`ID` = " + repairOrderID + 
-      " AND `mechanics`.`ID` = " + mechanicID + 
+      "WHERE `repairorders`.`ID` = " + repairOrderID +
+      " AND `mechanics`.`ID` = " + mechanicID +
       " AND `cars`.`ID` = " + carID
     ).spread((data, metada) => {
       if (data) {
         let replacements = [];
         data.forEach((element, i) => {
           replacements.push(element.replacement);
-          if(i === data.length-1) {
+          if (i === data.length - 1) {
             const newData = {
               "repairOrdersID": element.repairOrdersID,
               "mechanicName": element.mechanicName,
               "carName": element.carName,
               "licensePlate": element.licensePlate,
               "entryDate": element.entryDate,
-              "replacements": replacements  
+              "replacements": replacements
             }
             callback(null, newData);
           }
@@ -107,11 +107,14 @@ const ManagerController = {
                 console.log(7);
                 cloudinary.uploader.upload(url, result => {
                   console.log(8);
-                  if(result) {
+                  if (result) {
                     console.log(9);
                     repairOrder.QRCode = result.secure_url;
-                    repairOrder.save().then(() => {console.log(10); callback(null, repairOrder)})
-                    .catch(err => callback(new Error(''), null));
+                    repairOrder.save().then(() => {
+                        console.log(10);
+                        callback(null, repairOrder)
+                      })
+                      .catch(err => callback(new Error(''), null));
                   } else {
                     callback(new Error(''), null);
                   }
@@ -125,25 +128,41 @@ const ManagerController = {
       }
     }).catch(err => callback(err, null));
   },
-  reciveCar: function(repairOrderID, details, photo, callback) {
+  receiveCar: function (repairOrderID, details, photo, diagnostic, callback) {
+    console.log(diagnostic);
+    console.log(1);
     RepairOrder.findById(repairOrderID).then(repairOrder => {
+      console.log(2);
       if (repairOrder) {
+        console.log(3);
         if (repairOrder.exitDate) {
+          console.log(4);
           callback(new Error('No lo se rick eso esta cerrado...'), null);
         } else {
+          console.log(5);
           cloudinary.uploader.upload(photo, result => {
+            console.log(6);
             if (result) {
-              detailsRO.create({
-                photoURL: result.secure_url,
-                details: details,
-                repairorderID: repairOrder.ID
-              }).then(detailsro => {
-                if (detailsro) {
-                  callback(null, detailsro);
-                } else {
-                  callback(new Error(), null)
-                }
-              }).catch(err =>  callback(new Error(), null));
+              console.log(7);
+              repairOrder.diagnostic = diagnostic;
+              console.log(8);
+              repairOrder.save().then(() => {
+                console.log(8.1);
+                detailsRO.create({
+                  photoURL: result.secure_url,
+                  details: details,
+                  repairorderID: repairOrder.ID
+                }).then(detailsro => {
+                  console.log(9);
+                  if (detailsro) {
+                    console.log(10);
+                    callback(null, detailsro);
+                  } else {
+                    console.log(11);
+                    callback(new Error('No se pudieron guardar los detalles'), null)
+                  }
+                }).catch(err => callback(err, null));
+              }).catch(err => callback(err, null));
             } else {
               callback(new Error('Tuvimos un error subiendo la foto, vuelva a intentar'), null);
             }

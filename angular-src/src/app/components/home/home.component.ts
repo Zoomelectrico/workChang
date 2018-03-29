@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +11,14 @@ import { Router } from '@angular/router';
 
 export class HomeComponent implements OnInit {
 
+  public name;
+  public email;
+  public msg;
+
   constructor(
-    private router: Router
+    private router: Router,
+    private api: ApiService,
+    private flash: FlashMessagesService
   ) { }
 
   ngOnInit() {
@@ -35,6 +43,26 @@ export class HomeComponent implements OnInit {
       }
       
     } 
+  }
+
+  contactar() {
+    console.log('aja')
+    const email = {
+      email: this.email,
+      msg: this.msg,
+      name: this.name
+    };
+    this.api.contactEmail(email).subscribe(data => {
+      console.log('eje')
+      if(data.success) {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-success', timeout: 3000 });
+        this.email = '';
+        this.msg = '';
+        this.name = '';
+      } else { 
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+      }
+    });
   }
 
 }

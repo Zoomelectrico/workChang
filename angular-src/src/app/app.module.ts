@@ -10,7 +10,8 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from './services/auth.service';
 import { ApiService } from './services/api.service';
 import { AuthGuard } from './services/guard.service';
-import { UploadImgService } from './services/upload-img.service'
+import { UploadImgService } from './services/upload-img.service';
+import { QrcodeService } from './services/qrcode.service';
 // Navegación
 import { AppRoutingModule } from './app-routing.module';
 //Componentes
@@ -61,7 +62,8 @@ import { ReciveCarComponent } from './components/recive-car/recive-car.component
     AuthService,
     ApiService,
     AuthGuard,
-    UploadImgService
+    UploadImgService,
+    QrcodeService
   ],
   bootstrap: [AppComponent]
 })

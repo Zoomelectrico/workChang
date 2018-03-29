@@ -12,31 +12,31 @@
   <h3 class="text-center text-white">Contáctanos</h3>
   <div class="container">
     <div class="row justify-content-around">
-      <div class="col-lg-8 fondoBlanco">
+      <form class="col-lg-8 fondoBlanco" #contact="ngForm" (submit)="contactar()">
         <div class="row">
           <div class="col-sm-12">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="johndoe@example.com">
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="johndoe@example.com">
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12 mt-2">
             <label for="name">Nombre</label>
-            <input type="text" class="form-control" id="name" placeholder="John Doe">
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="John Doe">
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12 mt-2">
             <label for="mensaje">Mensaje</label>
-            <textarea class="form-control" id="mensaje" rows="3"></textarea>
+            <textarea class="form-control" id="msg" name="msg" [(ngModel)]="msg" [ngModelOptions]="{standalone: true}" rows="3"></textarea>
           </div>
         </div>
         <div class="row text-center">
           <div class="col-sm-12 mt-2">
-            <a href="" class="btn btn-dark">Enviar</a>
+            <button class="btn btn-dark" type="submit">Enviar</button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </section>

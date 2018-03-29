@@ -101,4 +101,26 @@ router.get('/available-mechanics', (req, res, next) => {
   });
 });
 
+router.post('/receive-car', (req, res, next) => {
+  const roid = req.body.repairOrderID;
+  const det = req.body.details;
+  const photo = req.body.photo;
+  const diag = req.body.diagnostic;
+  ManagerController.receiveCar(roid, det, photo, diag, (err, detailsro)=> {
+    if(err) {
+      res.json({
+        success: false,
+        msg: err.message,
+        err: err
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'Vehículo Recibido',
+        detailsRO: detailsro
+      });
+    }
+  });
+});
+
 module.exports = router;

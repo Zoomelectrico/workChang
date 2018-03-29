@@ -158,4 +158,18 @@ export class ApiService {
       .map(res => res.json());
   }
 
+  recibirVehiculo(detalles) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/Manager/receive-car', detalles, { headers: headers })
+      .map(res => res.json());
+  }
+
+  contactEmail(email) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/Email/contact', email, { headers: headers })
+      .map(res => res.json());
+  }
+
 }
