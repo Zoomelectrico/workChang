@@ -63,11 +63,8 @@ router.post('/order-details', (req, res, next) => {
 });
 
 router.post('/create-RepairOrder', (req, res, next) => {
-  const entryDate = moment({
-    y: req.body.entryDate.year,
-    M: req.body.entryDate.month,
-    d: req.body.entryDate.day
-  });
+  const entryDate = (req.body.entryDate.year).toString()+'-'+(req.body.entryDate.month).toString()+'-'+(req.body.entryDate.day).toString(); 
+  console.log(entryDate);
   const MechanicID = req.body.MechanicID;
   const AppointmentID = req.body.AppointmentID;
   ManagerController.introduceRepairOrder(entryDate, MechanicID, AppointmentID, (err, repairOrder) => {

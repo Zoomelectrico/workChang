@@ -5,6 +5,7 @@ const RepairOrder = require('../models/RepairOrder');
 const RepairsReplacements = require('../models/RepairsReplacement');
 const detailsRO = require('../models/detailsRO');
 const cloudinary = require('../config/clodinary');
+const QR = require('qrcode');
 
 const ManagerController = {
   getAppointments: function (callback) {
@@ -82,18 +83,47 @@ const ManagerController = {
       MechanicID: MechanicID,
       AppointmentID: AppointmentID,
       QRCode: '',
-      ready: 0
+      ready: 0,
+      diagnostic: ''
     }).then(repairOrder => {
+      console.log(1);
       if (repairOrder) {
-        Appointment.findById(AppointmentID).then(appointment => {
+        console.log(2);
+        Appointment.findById(repairOrder.AppointmentID).then(appointment => {
           appointment.checkout = 1;
-          appointment.save().then(() => callback(null, repairOrder))
-          .catch(err => callback(new Error('Nuestro Sistema esta teniendo dificultades intente más tarde'), null));
+          console.log(3);
+          appointment.save().then(() => {
+            console.log(4);
+            const opts = {
+              errorCorrectionLevel: 'H',
+              type: 'image/png'
+            };
+            console.log(5);
+            QR.toDataURL((repairOrder.ID).toString(), opts, (err, url) => {
+              console.log(6);
+              if (err) {
+                callback(new Error(''), null);
+              } else {
+                console.log(7);
+                cloudinary.uploader.upload(url, result => {
+                  console.log(8);
+                  if(result) {
+                    console.log(9);
+                    repairOrder.QRCode = result.secure_url;
+                    repairOrder.save().then(() => {console.log(10); callback(null, repairOrder)})
+                    .catch(err => callback(new Error(''), null));
+                  } else {
+                    callback(new Error(''), null);
+                  }
+                });
+              }
+            });
+          }).catch(err => callback(new Error('Nuestro Sistema esta teniendo dificultades intente más tarde'), null));
         }).catch(err => callback(new Error('Nuestro Sistema esta teniendo dificultades intente más tarde'), null));
       } else {
         callback(new Error('Hemos tenido un falla para registrar esta orden'), null)
       }
-    }).catch(err => callback(new Error('Nuestro Sistema esta teniendo dificultades intente más tarde'), null));
+    }).catch(err => callback(err, null));
   },
   reciveCar: function(repairOrderID, details, photo, callback) {
     RepairOrder.findById(repairOrderID).then(repairOrder => {

@@ -12,6 +12,7 @@ export class ReciveCarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
   }
 
   aceptarVehiculo() {

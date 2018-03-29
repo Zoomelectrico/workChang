@@ -161,6 +161,8 @@ CREATE TABLE IF NOT EXISTS `workchang`.`repairorders` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+ALTER TABLE `workchang`.`repairorders` 
+CHANGE COLUMN `QRCode` `QRCode` LONGTEXT NOT NULL COMMENT '\n' ;
 
 -- -----------------------------------------------------
 -- Table `workchang`.`detailsRO`

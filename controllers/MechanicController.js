@@ -14,10 +14,13 @@ const MechanicController = {
             const data = {
               mechanicID: mechanic.ID,
               userID: user.ID,
-              name: user.firstName + ' ' + user.lastName,
+              nombre: user.firstName + ' ' + user.lastName,
               email: user.email
             }
-            user.push(data);
+            users.push(data);
+          }
+          if(i === mechanics.length - 1) {
+            callback(null, users);
           }
         }).catch(err => callback(new Error(), null));
       });

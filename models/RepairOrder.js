@@ -3,7 +3,7 @@ const dbconfig = require('../config/database');
 
 const sequelize = dbconfig;
 
-const RepairOrder = sequelize.define('RepairOrders', {
+const RepairOrder = sequelize.define('repairorders', {
   ID: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -25,14 +25,14 @@ const RepairOrder = sequelize.define('RepairOrders', {
   AppointmentID: {
     type: Sequelize.INTEGER,
     allowNull: false 
-  },
-  details: {
-    type: Sequelize.TEXT,
-    allowNull: true
   }, 
   diagnostic: {
     type: Sequelize.TEXT,
-    allowNull: true
+    allowNull: false
+  },
+  QRCode: {
+    type: Sequelize.TEXT,
+    allowNull: false
   },
   ready: {
     type: Sequelize.TINYINT,
