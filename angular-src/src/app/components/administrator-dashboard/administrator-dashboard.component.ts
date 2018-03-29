@@ -43,6 +43,8 @@ export class AdministratorDashboardComponent implements OnInit {
   //Condición para modificar
   private canModificateUser: boolean = false;
   private canModificateRep: boolean = false;
+  //Busqueda de usuario
+  private busqueda: string = "username";
   constructor(
     private auth: AuthService,
     private api: ApiService,
@@ -105,6 +107,26 @@ export class AdministratorDashboardComponent implements OnInit {
       this.userIDSearch = null;
       if(data.success) {
         this.usuarios = data.users;
+       for(let user of this.usuarios){
+         switch(user.type){
+         case 2: {
+           user.type = "Gerente";
+           break;
+         }
+         case 3: {
+           user.type = "Mecánico";
+           break;
+         }
+         case 4: {
+           user.type = "Administrador";
+           break;
+         }
+         default: {
+           user.type = "unknown"
+           break;
+         }
+        }
+       }
         this.nationalID = null;
         this.firstName = null;
         this.lastName = null;
@@ -126,12 +148,13 @@ export class AdministratorDashboardComponent implements OnInit {
 
   getUsuarioByID(){
     this.api.getUsuariosByID({
-      userID: this.userIDSearch
-    }).subscribe(user=> { // Busco el repuesto
+      search: this.userIDSearch
+    }, this.busqueda).subscribe(user=> { // Busco el usuario
       if (user.success) { // Pregunto si tuve exito
         this.usuarios = []
-        this.usuarios[0] = user.users
-        console.log("dato1 " + user.users.ID)
+        this.usuarios = user.users
+        console.log("dato1 " + this.usuarios[0].nationalID)
+        //NOTA: lo siguiente es para modificar un determinado usuario, no está hecha esa función aún
         this.userID = user.users.ID;
         this.nationalID = user.users.nationalID;
         this.firstName = user.users.firstName;

@@ -5,6 +5,7 @@ const Manager = require('../models/Manager');
 const Mechanic = require('../models/Mechanic');
 const Administrator = require('../models/Administrator');
 const Sequelize = require('sequelize');
+const sequelize = require('../config/database');
 const Op = Sequelize.Op;
 
 const UserController = {
@@ -133,7 +134,65 @@ const UserController = {
   searchUser: function (userID, callback) {
     User.findOne({
         where: {
-          ID: userID
+          ID: userID,
+          [Op.or]: [{type: 2}, {type:3}, {type: 4}]
+        }
+      }).then(user => callback(null, user))
+      .catch(err => callback(err, null));
+  },
+  searchUserByNationalID: function (nationalID, callback) {
+    User.findAll({
+        where: {
+          narionalID: {[Op.like]: '%'+nationalID+'%'},
+          [Op.or]: [{type: 2}, {type:3}, {type: 4}]
+        }
+      }).then(user => callback(null, user))
+      .catch(err => callback(err, null));
+  },
+  searchUserByUsername: function (username, callback) {
+    User.findAll({
+        where: {
+          username: {[Op.like]: '%'+username+'%'},
+          [Op.or]: [{type: 2}, {type:3}, {type: 4}]
+        }
+      }).then(user => callback(null, user))
+      .catch(err => callback(err, null));
+  },
+  searchUserByName: function (name, callback) {
+    User.findAll({
+        where: {
+          type: {
+            [Op.or]: [2,3,4]
+          },
+          [Op.or]:[{firstName: {
+              [Op.like]: '%'+name+'%'
+            }},
+            {lastName: {
+              [Op.like]: '%'+name+'%'
+            }}
+          ]          
+        }
+      }).then(user => callback(null, user))
+      .catch(err => callback(err, null));
+  },
+  /*
+  searchUserByName: function (name, callback) {
+    sequelize.query(
+      'SELECT * FROM users WHERE (firstName LIKE "%' + name +'%" OR lastName LIKE "%' + name + '%")' +
+      'AND type != 1'
+    ).spread((data, metada) => {
+      if (data) {
+        callback(null, data);
+      } else {
+        callback(new Error('Uppps... Hemos tenido error en nuestra Base de datos'), null);
+      }
+    });
+  },*/
+  searchUserByEmail: function (email, callback) {
+    User.findAll({
+        where: {
+          email: {[Op.like]: '%'+email+'%'},
+          [Op.or]: [{type: 2}, {type:3}, {type: 4}]
         }
       }).then(user => callback(null, user))
       .catch(err => callback(err, null));
