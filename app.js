@@ -23,6 +23,7 @@ const users = require('./routes/users');
 const client = require('./routes/clients'); 
 const admin = require('./routes/admin');
 const manager = require('./routes/manager');
+const mechanic = require('./routes/mechanics');
 const port = 3000;
 //set static Folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -38,6 +39,7 @@ app.use(bodyParser.urlencoded({ limit: '65mb', extended: true }));
 app.use('/User', users);
 app.use('/Client', client);
 app.use('/Admin', admin);
+app.use('/Mechanic', mechanic);
 app.use('/Manager', manager);
 //app.use('/Query', query);
 // Passport

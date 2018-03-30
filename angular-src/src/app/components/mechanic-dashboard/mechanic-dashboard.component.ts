@@ -8,6 +8,7 @@ import { ApiService } from '../../services/api.service';
 })
 export class MechanicDashboardComponent implements OnInit {
   private user: any;
+  private ordenes = [];
 
 
   constructor(
@@ -16,6 +17,20 @@ export class MechanicDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user')); // Guardo los datos del usuario
+    console.log(this.user.ID + " " + this.user.firstName);
+    this.getOrder(this.user);
+  }
+
+  getOrder(user){
+    this.api.getOrdenes(user.ID).subscribe(data => {
+      if(data.success) {
+        this.ordenes = data.repairOrders;
+        console.log("ordenNro" + this.ordenes[0].ID);
+      } else {
+        //this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+        this.ordenes = [];
+      }
+    });
   }
 
 }

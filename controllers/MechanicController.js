@@ -40,7 +40,7 @@ const MechanicController = {
       "INNER JOIN `detailsRO` ON `repairorders`.`ID` = `detailsRO`.`repairOrderID` " +
       "LEFT JOIN `repairsreplacements` ON `repairorders`.`ID` = `repairsreplacements`.`RepairOrder` " +
       "LEFT JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID` " +  
-      "WHERE `repairorders`.`MechanicID` = (SELECT `mechanics`.`ID` FROM `users` INNER JOIN `mechanics` ON `users`.`ID` = `mechanics`.`UserID` WHERE `users`.`nationalID`=" + nationalID + ")"
+      "WHERE `repairorders`.`MechanicID` = "+userID+"'"//(SELECT `mechanics`.`ID` FROM `users` INNER JOIN `mechanics` ON `users`.`ID` = `mechanics`.`UserID`)"
     ).spread((data, metada) => {
       if (data) {
         let replacements = [[]];

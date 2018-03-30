@@ -143,7 +143,7 @@ const UserController = {
   searchUserByNationalID: function (nationalID, callback) {
     User.findAll({
         where: {
-          narionalID: {[Op.like]: '%'+nationalID+'%'},
+          nationalID: {[Op.like]: '%'+nationalID+'%'},
           [Op.or]: [{type: 2}, {type:3}, {type: 4}]
         }
       }).then(user => callback(null, user))
