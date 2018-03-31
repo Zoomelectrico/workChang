@@ -28,7 +28,8 @@ const MechanicController = {
   },
   getOrdenesReparacion: function(userID, callback) {
     sequelize.query(
-      "SELECT `repairorders`.`ID` " +
+      "SELECT `repairorders`.`ID` AS `ID`" +
+      ",`repairorders`.`entryDate`"+
       ",CONCAT(`cars`.`brand`, ' ', `cars`.`model`, ' ', `cars`.`year`, ', placa: ', `cars`.`licensePlate`) AS `carData` " +
       ",`repairorders`.`diagnostic` " +
       ",`detailsRO`.`details` " +
@@ -40,7 +41,7 @@ const MechanicController = {
       "INNER JOIN `detailsRO` ON `repairorders`.`ID` = `detailsRO`.`repairOrderID` " +
       "LEFT JOIN `repairsreplacements` ON `repairorders`.`ID` = `repairsreplacements`.`RepairOrder` " +
       "LEFT JOIN `replacements` ON `repairsreplacements`.`Replacement` = `replacements`.`ID` " +  
-      "WHERE `repairorders`.`MechanicID` = "+userID+"'"//(SELECT `mechanics`.`ID` FROM `users` INNER JOIN `mechanics` ON `users`.`ID` = `mechanics`.`UserID`)"
+      "WHERE `repairorders`.`MechanicID` = (SELECT `mechanics`.`ID` FROM `users` INNER JOIN `mechanics` ON `mechanics`.`UserID` = "+ userID + " group by `mechanics`.`ID`)"
     ).spread((data, metada) => {
       if (data) {
         let replacements = [[]];
@@ -64,7 +65,7 @@ const MechanicController = {
           }
         });
       } else {
-        callback(new Error(), null);
+        callback(err, null);
       }
     });
   }

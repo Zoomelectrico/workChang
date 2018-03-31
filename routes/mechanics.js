@@ -4,7 +4,7 @@ const MechanicController = require('../controllers/MechanicController');
 
 
 router.post('/repair-orders', (req, res, next) => {
-    MechanicController.getOrdenesReparacion(req.body.userID, (err, repairs) => {
+    MechanicController.getOrdenesReparacion(req.body.ID, (err, repairs) => {
       if (err) {
         res.json({
           success: false,
@@ -18,7 +18,6 @@ router.post('/repair-orders', (req, res, next) => {
           msg: 'Ordenes de Reparacion del mecanico',
           repairs: repairs
         });
-        console.log("o sera aqui?");
       }
     });
   });

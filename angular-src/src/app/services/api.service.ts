@@ -157,10 +157,10 @@ export class ApiService {
       .map(res => res.json());
   }
 
-  getOrdenes(userID){
+  getOrdenes(user){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/Mechanic/repair-orders', userID, { headers: headers })
+    return this.http.post('http://localhost:3000/Mechanic/repair-orders', user, { headers: headers })
       .map(res => res.json());
   }
 

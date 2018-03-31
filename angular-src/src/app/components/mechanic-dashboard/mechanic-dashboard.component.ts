@@ -9,8 +9,11 @@ import { ApiService } from '../../services/api.service';
 export class MechanicDashboardComponent implements OnInit {
   private user: any;
   private ordenes = [];
-
-
+  private diagnostico
+  private procedimiento
+  private repUsados
+  private repNecesarios
+  
   constructor(
     private api: ApiService 
   ) { }
@@ -22,10 +25,10 @@ export class MechanicDashboardComponent implements OnInit {
   }
 
   getOrder(user){
-    this.api.getOrdenes(user.ID).subscribe(data => {
+    this.api.getOrdenes(user).subscribe(data => {
       if(data.success) {
-        this.ordenes = data.repairOrders;
-        console.log("ordenNro" + this.ordenes[0].ID);
+        this.ordenes = data.repairs;
+        console.log("ordenNro" + data.repairs[0].ID);
       } else {
         //this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         this.ordenes = [];
