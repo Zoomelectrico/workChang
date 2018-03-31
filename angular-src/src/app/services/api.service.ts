@@ -112,8 +112,7 @@ export class ApiService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/User/searchMechanic', userID, { headers: headers })
-      .map(res => res.json());
-   
+      .map(res => res.json());   
   }
 
   registrarRepuesto(replacement) {
@@ -155,6 +154,13 @@ export class ApiService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/Manager/create-RepairOrder', orden, { headers: headers })
+      .map(res => res.json());
+  }
+
+  getOrdenes(user){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/Mechanic/repair-orders', user, { headers: headers })
       .map(res => res.json());
   }
 

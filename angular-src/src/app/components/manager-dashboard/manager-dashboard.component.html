@@ -45,7 +45,7 @@
                     </form>
                   </td>
                   <td>
-                    <button type="button" class="btn btn-dark" (click)="openFinOrden(modalFin, cita)">Admitir</button>
+                    <button type="button" class="btn btn-primary" (click)="openFinOrden(modalFin, cita)">Admitir</button>
                   </td>
                 </tr>
               </tbody>
@@ -69,7 +69,7 @@
                   <td>{{orden.carName}}</td>
                   <td>{{orden.carLicensePlate}}</td>
                   <td class="text-center">
-                    <button type="button" class="btn btn-dark" (click)="openDetOrden(modalDet, orden)">Ver detalles</button>
+                    <button type="button" class="btn btn-primary" (click)="openDetOrden(modalDet, orden)">Ver detalles</button>
                   </td>
                 </tr>
               </tbody>
@@ -104,7 +104,7 @@
           <input type="text" class="form-control" id="nationalIDSearch" [(ngModel)]="nationalIDSearch" name="nationalIDSearch" placeholder="11222333">
         </div>
         <div class="col-lg-2 text-right">
-          <button (click)="buscarCedula()" class="btn btn-dark">Buscar</button>
+          <button (click)="buscarCedula()" class="btn btn-primary">Buscar</button>
         </div>
       </div>
 
@@ -163,7 +163,7 @@
         </div>
         <div class="row">
           <div class="col-sm-12 text-center">
-            <button type="submit" class="btn btn-dark">Modificar</button>
+            <button type="submit" class="btn btn-primary">Modificar</button>
           </div>
         </div>
       </form>

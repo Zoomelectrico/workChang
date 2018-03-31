@@ -24,6 +24,8 @@ const admin = require('./routes/admin');
 const manager = require('./routes/manager');
 const qr = require('./routes/qr');
 const email = require('./routes/email');
+const mechanic = require('./routes/mechanics');
+
 const port = 3000;
 
 //set static Folder
@@ -41,6 +43,7 @@ app.use(bodyParser.urlencoded({ limit: '65mb', extended: true }));
 app.use('/User', users);
 app.use('/Client', client);
 app.use('/Admin', admin);
+app.use('/Mechanic', mechanic);
 app.use('/Manager', manager);
 app.use('/Query', query);
 app.use('/qr', qr);

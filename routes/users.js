@@ -115,6 +115,7 @@ router.post('/searchUsersByNationalID', (req, res, next) => {
         msg: 'Usuarios encontrados',
         users: users
       });
+      console.log("en user funciona");
     }
   });
 });

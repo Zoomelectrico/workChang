@@ -12,6 +12,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 export class AdministratorDashboardComponent implements OnInit {
   // Usuario
   private user;
+  private usuarioSel;
   //Vector de usuarios
   private usuarios = [];
   // Vector de Roles
@@ -44,7 +45,7 @@ export class AdministratorDashboardComponent implements OnInit {
   private canModificateUser: boolean = false;
   private canModificateRep: boolean = false;
   //Busqueda de usuario
-  private busqueda: string = "username";
+  private busqueda: string = "email";
   constructor(
     private auth: AuthService,
     private api: ApiService,
@@ -107,26 +108,7 @@ export class AdministratorDashboardComponent implements OnInit {
       this.userIDSearch = null;
       if(data.success) {
         this.usuarios = data.users;
-       for(let user of this.usuarios){
-         switch(user.type){
-         case 2: {
-           user.type = "Gerente";
-           break;
-         }
-         case 3: {
-           user.type = "Mecánico";
-           break;
-         }
-         case 4: {
-           user.type = "Administrador";
-           break;
-         }
-         default: {
-           user.type = "unknown"
-           break;
-         }
-        }
-       }
+        this.convertRol();
         this.nationalID = null;
         this.firstName = null;
         this.lastName = null;
@@ -146,6 +128,29 @@ export class AdministratorDashboardComponent implements OnInit {
     });
   }
 
+  convertRol(){    
+    for(let user of this.usuarios){
+      switch(user.type){
+      case 2: {
+        user.typeShown = "Gerente";
+        break;
+      }
+      case 3: {
+        user.typeShown = "Mecánico";
+        break;
+      }
+      case 4: {
+        user.typeShown = "Administrador";
+        break;
+      }
+      default: {
+        user.typeShown = "unknown"
+        break;
+      }
+     }
+    }
+  }
+
   getUsuarioByID(){
     this.api.getUsuariosByID({
       search: this.userIDSearch
@@ -153,19 +158,8 @@ export class AdministratorDashboardComponent implements OnInit {
       if (user.success) { // Pregunto si tuve exito
         this.usuarios = []
         this.usuarios = user.users
-        console.log("dato1 " + this.usuarios[0].nationalID)
-        //NOTA: lo siguiente es para modificar un determinado usuario, no está hecha esa función aún
-        this.userID = user.users.ID;
-        this.nationalID = user.users.nationalID;
-        this.firstName = user.users.firstName;
-        this.lastName = user.users.lastName;
-        this.email = user.users.email;
-        this.username = user.users.username;
-        this.addressLine1 = user.users.addressLine1;
-        this.addressLine2 = user.users.addressLine2;
-        this.city = user.users.city;
-        this.type = user.users.type;
-        this.canModificateUser = true;
+        this.convertRol();
+        console.log("dato1 " + this.usuarios[0].nationalID)        
         this.userIDSearch = null;
       } else {
         this.flash.show(user.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
@@ -213,6 +207,21 @@ export class AdministratorDashboardComponent implements OnInit {
 
   onChange(rol) {
     this.type = rol;
+  }
+  usuarioSelec(user){
+    this.usuarioSel = user;
+    console.log("prueba de selec" + this.usuarioSel.nationalID)
+    this.userID = this.usuarioSel.ID;
+    this.nationalID = this.usuarioSel.nationalID;
+    this.firstName = this.usuarioSel.firstName;
+    this.lastName = this.usuarioSel.lastName;
+    this.email = this.usuarioSel.email;
+    this.username = this.usuarioSel.username;
+    this.addressLine1 = this.usuarioSel.addressLine1;
+    this.addressLine2 = this.usuarioSel.addressLine2;
+    this.city = this.usuarioSel.city;
+    this.type = this.usuarioSel.type;
+    this.canModificateUser = true;
   }
 
   //registrar repuesto
