@@ -164,6 +164,9 @@ DEFAULT CHARACTER SET = utf8;
 ALTER TABLE `workchang`.`repairorders` 
 CHANGE COLUMN `QRCode` `QRCode` LONGTEXT NOT NULL COMMENT '\n' ;
 
+ALTER TABLE `workchang`.`repairorders` 
+ADD COLUMN `procedure` LONGTEXT NULL AFTER `ready`;
+
 -- -----------------------------------------------------
 -- Table `workchang`.`detailsRO`
 -- -----------------------------------------------------

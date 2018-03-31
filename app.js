@@ -18,7 +18,7 @@ sequelize.authenticate().then(() => {
 // App Creation
 const app = express();
 const users = require('./routes/users');
-const query = require('./routes/reports');
+const reports = require('./routes/reports');
 const client = require('./routes/clients'); 
 const admin = require('./routes/admin');
 const manager = require('./routes/manager');
@@ -45,7 +45,7 @@ app.use('/Client', client);
 app.use('/Admin', admin);
 app.use('/Mechanic', mechanic);
 app.use('/Manager', manager);
-app.use('/Query', query);
+app.use('/Reports', reports);
 app.use('/qr', qr);
 app.use('/Email',email);
 

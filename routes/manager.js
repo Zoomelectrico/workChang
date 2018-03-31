@@ -123,4 +123,23 @@ router.post('/receive-car', (req, res, next) => {
   });
 });
 
+router.post('/close-order', (req, res, next) => {
+  let exitDate = `${req.body.exitDate.year}-${req.body.exitDate.month}-${req.body.exitDate.day}`;
+  ManagerController.cerrarOrden(req.body.id, exitDate, (err, ro) => {
+    if(err) {
+      res.json({
+        success: false,
+        msg: err.message,
+        err: err
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'Orden cerrada con Exito',
+        RepairOrder: ro
+      });
+    }
+  });
+});
+
 module.exports = router;

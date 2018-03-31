@@ -78,6 +78,7 @@ export class ManagerDashboardComponent implements OnInit {
     }).subscribe(data => {
       if (data.success) {
         this.orden = data.detalles
+        console.log(this.orden);
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
@@ -99,7 +100,7 @@ export class ManagerDashboardComponent implements OnInit {
     
   }
 
-  generarOrdenReparacion() {
+  generarOrdenReparacion(content) {
     const orden = {
       entryDate: this.date,
       MechanicID: this.mecanico,
@@ -114,6 +115,7 @@ export class ManagerDashboardComponent implements OnInit {
         this.api.getOrdenesAbiertas().subscribe(data => {
           if(data.success) {
             this.ordenesActivas = data.activesOrders;
+            this.modalService.open(content).close();
           } else {
             this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 5000 })
           }
@@ -162,6 +164,33 @@ export class ManagerDashboardComponent implements OnInit {
         this.flash.show(data.msg);
       } else {
         this.flash.show(data.msg);
+      }
+    });
+  }
+
+  cerrarOrden(ordenID) {
+    console.log(ordenID);
+    let d = new Date(Date.now());
+    const datos = {
+      id: ordenID,
+      exitDate: {
+        year: d.getFullYear(),
+        month: d.getMonth()+1,
+        day: d.getDay()
+      }
+    }
+    this.api.cerrarOrden(datos).subscribe(data => {
+      console.log(data);
+      if(data.success){
+        this.api.getOrdenesAbiertas().subscribe(data => {
+          if(data.success) {
+            this.ordenesActivas = data.activesOrders;
+          } else {
+            this.ordenesActivas = [];
+          }
+        });
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     });
   }

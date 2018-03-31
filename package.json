@@ -15,7 +15,7 @@
     "cors": "*",
     "debug": "*",
     "express": "^4.16.3",
-    "json2csv": "^3.11.5",
+    "json-2-csv": "^2.2.0",
     "jsonwebtoken": "^8.2.0",
     "moment": "^2.21.0",
     "morgan": "*",

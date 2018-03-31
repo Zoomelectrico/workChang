@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { ApiService } from '../../services/api.service';
 import { UploadImgService } from '../../services/upload-img.service';
-import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-client-dashboard',
@@ -11,6 +12,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 export class ClientDashboardComponent implements OnInit {
   // The Client
   private user: any;
+  private car: any;
   // The ngModel for the Form
   private brand: string;
   private model: string;
@@ -23,11 +25,13 @@ export class ClientDashboardComponent implements OnInit {
   private vehiculos = [];
   // vector de citas
   private citas = [];
+  
 
   constructor(
     private api: ApiService,
     private flash: FlashMessagesService,
-    private img: UploadImgService 
+    private img: UploadImgService,
+    private modal: NgbModal 
   ) {
   }
 
@@ -123,7 +127,15 @@ export class ClientDashboardComponent implements OnInit {
   }
 
   verHistorial (serial) {
-    //TODO: Terminar Ese query es medio yuca jejejejejej
+    let i = this.vehiculos.findIndex(c => c.serial === serial);
+    const licensePlate = this.vehiculos[i].licensePlate;
+    this.api.historicoVehiculo({ licensePlate: licensePlate }).subscribe(data => {
+      if(data.success) {
+        // Pajita
+      } else {
+        // Pajita
+      }
+    });
   }
 
   pedirCita(serial) {
@@ -137,6 +149,12 @@ export class ClientDashboardComponent implements OnInit {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger' }); 
       }
     });
+  }
+
+  verVehiculo(serial, content) {
+    let i = this.vehiculos.findIndex(c => c.serial === serial);
+    this.car = this.vehiculos[i];
+    this.modal.open(content);
   }
 
 }

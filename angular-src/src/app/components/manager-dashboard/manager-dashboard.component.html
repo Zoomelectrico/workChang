@@ -310,7 +310,7 @@
         <hr>
         <div class="row">
           <div class="col-sm-12">
-            <button type="button" class="btn btn-outline-dark" (click)="generarOrdenReparacion()">Enviar</button>
+            <button type="button" class="btn btn-outline-dark" (click)="generarOrdenReparacion(modalFin)">Enviar</button>
           </div>
         </div>
       </div>
@@ -344,6 +344,10 @@
           <li *ngFor="let r of orden.replacements">{{r}}</li>
         </ul>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-3"><strong>Cerrar: </strong></div>
+      <div class="col-sm-12 col-lg-9"><button type="button" class="btn btn-primary" (click)="cerrarOrden(orden.repairOrdersID)">Cerrar</button></div>
     </div>
   </div>
   <div class="modal-footer">

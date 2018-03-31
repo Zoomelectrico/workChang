@@ -199,4 +199,74 @@ export class ApiService {
       .map(res => res.json());
   }
 
+  getRepuestoModelos(model) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(`http://localhost:3000/Mechanic/replacements/${model}`, { headers: headers })
+      .map(res => res.json());
+  }
+
+  actualizarOrden(datos){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/Mechanic/change-order', datos, { headers: headers })
+      .map(res => res.json());
+  }
+
+  cerrarOrdenMecanico(id) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/Mechanic/close-order', id, { headers: headers })
+      .map(res => res.json());
+  }
+
+  getOrdenByID(id) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(`http://localhost:3000/Mechanic/order/${id}`, { headers: headers })
+      .map(res => res.json());
+  }
+
+  cerrarOrden(data) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(`http://localhost:3000/Manager/close-order`, data, { headers: headers })
+      .map(res => res.json());
+  }
+  
+  historicoCliente(data) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(`http://localhost:3000/Reports/clientHistorical`, data, { headers: headers })
+      .map(res => res.json());
+  }
+
+  historicoVehiculo(data) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(`http://localhost:3000/Reports/carHistorical`, data, { headers: headers })
+      .map(res => res.json());
+  }
+
+  historicoMecanico(data) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(`http://localhost:3000/Reports/mechanicHistorical`, data, { headers: headers })
+      .map(res => res.json());
+  }
+
+  historicoModelo(data) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(`http://localhost:3000/Reports/modelHistorical`, data, { headers: headers })
+      .map(res => res.json());
+  }
+
+  getCarBySerial(serial) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(`http://localhost:3000/Mechanic/car/${serial}`, { headers: headers })
+      .map(res => res.json());  
+  }
+
 }

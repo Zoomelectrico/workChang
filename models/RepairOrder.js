@@ -37,6 +37,10 @@ const RepairOrder = sequelize.define('repairorders', {
   ready: {
     type: Sequelize.TINYINT,
     allowNull: false
+  }, 
+  procedure: {
+    type: Sequelize.TEXT,
+    allowNull: true
   }
 }, { timestamps: false, freezeTableName: true });
 

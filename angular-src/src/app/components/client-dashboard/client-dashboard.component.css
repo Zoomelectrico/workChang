@@ -27,3 +27,8 @@
   -moz-border-bottom-colors: red;
   -moz-text-decoration-color: red;
 }
+
+.img-thumbnail{
+  height: 250px;
+  width: auto;
+}

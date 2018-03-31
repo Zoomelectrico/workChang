@@ -1,3 +1,4 @@
+const QR = require('qrcode');
 const sequelize = require('../config/database');
 const Appointment = require('../models/Appointment');
 const Car = require('../models/Car');
@@ -5,7 +6,9 @@ const RepairOrder = require('../models/RepairOrder');
 const RepairsReplacements = require('../models/RepairsReplacement');
 const detailsRO = require('../models/detailsRO');
 const cloudinary = require('../config/clodinary');
-const QR = require('qrcode');
+const email = require('./EmailController');
+const Client = require('../models/Client');
+const User = require('../models/User')
 
 const ManagerController = {
   getAppointments: function (callback) {
@@ -45,6 +48,7 @@ const ManagerController = {
       ",`cars`.`licensePlate` AS `licensePlate` " +
       ",`repairorders`.`entryDate` AS `entryDate` " +
       ",CONCAT(`replacements`.`name`, ' ', `replacements`.`forModel`) AS `replacement` " +
+      ",`repairorders`.`ready` AS `ready`" +
       "FROM `repairorders` " +
       "INNER JOIN `mechanics` ON `repairorders`.`MechanicID` = `mechanics`.`ID` " +
       "INNER JOIN `users` ON `mechanics`.`UserID` = `users`.`ID` " +
@@ -67,6 +71,7 @@ const ManagerController = {
               "carName": element.carName,
               "licensePlate": element.licensePlate,
               "entryDate": element.entryDate,
+              "ready": element.ready,
               "replacements": replacements
             }
             callback(null, newData);
@@ -84,39 +89,42 @@ const ManagerController = {
       AppointmentID: AppointmentID,
       QRCode: '',
       ready: 0,
-      diagnostic: ''
+      diagnostic: '',
+      procedure: ''
     }).then(repairOrder => {
-      console.log(1);
       if (repairOrder) {
-        console.log(2);
         Appointment.findById(repairOrder.AppointmentID).then(appointment => {
           appointment.checkout = 1;
-          console.log(3);
           appointment.save().then(() => {
-            console.log(4);
             const opts = {
               errorCorrectionLevel: 'H',
               type: 'image/png'
             };
-            console.log(5);
             QR.toDataURL((repairOrder.ID).toString(), opts, (err, url) => {
-              console.log(6);
               if (err) {
                 callback(new Error(''), null);
               } else {
-                console.log(7);
                 cloudinary.uploader.upload(url, result => {
-                  console.log(8);
                   if (result) {
-                    console.log(9);
                     repairOrder.QRCode = result.secure_url;
                     repairOrder.save().then(() => {
-                        console.log(10);
-                        callback(null, repairOrder)
-                      })
-                      .catch(err => callback(new Error(''), null));
+                      Car.findById(appointment.CarID).then(car => {
+                        Client.findById(car.OwnerID).then(client => {
+                          User.findById(client.UserID).then(user => {
+                            let carData = `${car.brand} ${car.model} ${car.year} | ${car.licensePlate}`;
+                            email.repairOrderEmail(user.firstName, user.email, carData, repairOrder.entryDate, repairOrder.QRCode, (err, info) => {
+                              if (err) {
+                                callback(err, null);
+                              } else {
+                                callback(null, repairOrder);
+                              }
+                            });
+                          }).catch(err => callback(err, null));
+                        }).catch(err => callback(err, null));
+                      }).catch(err => callback(err, null));
+                    }).catch(err => callback(err, null));
                   } else {
-                    callback(new Error(''), null);
+                    callback(err, null);
                   }
                 });
               }
@@ -172,6 +180,29 @@ const ManagerController = {
         callback(new Error('Eso no parece ser una orden de nuestro taller :s'), null)
       }
     });
+  },
+  cerrarOrden: function (id, exitDate, callback) {
+    RepairOrder.findById(id).then(ro => {
+      ro.exitDate = exitDate;
+      ro.save().then(() => {
+        Appointment.findById(ro.AppointmentID).then(a => {
+          Car.findById(a.CarID).then(c => {
+            Client.findById(c.OwnerID).then(client => {
+              User.findById(client.UserID).then(u => {
+                let carData = `${c.brand} ${c.model} ${c.year} | ${c.licensePlate}`;
+                email.notificacionOrdenCerrada(u.firstName, u.email, carData, (err, info) => {
+                  if(err) {
+                    callback(err, null);
+                  } else {
+                    callback(null, ro);
+                  }
+                });
+              }).catch(err => callback(err, null));
+            }).catch(err => callback(err, null));
+          }).catch(err => callback(err, null));
+        }).catch(err => callback(err, null));
+      }).catch(err => callback(err, null));
+    }).catch(err => callback(err, null));
   }
 };
 
