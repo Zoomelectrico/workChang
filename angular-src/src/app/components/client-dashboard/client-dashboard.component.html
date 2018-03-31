@@ -1,3 +1,4 @@
+
 <section>
   <section id="welcome">
     <div class="container">
@@ -11,8 +12,8 @@
   <div class="container">
     <div class="row justify-content-around">
       <div class="col-lg-10 fondoBlanco">
-        <ngb-tabset type="pills" justify="justified">
-          <ngb-tab title="Registrar Vehiculo">
+        <ngb-tabset type="pills" justify="justified" >
+          <ngb-tab title="Registrar Vehiculo" class="btn btn-dark">
             <ng-template ngbTabContent>
               <div class="row justify-content-around">
                 <div class="col-sm-12">
@@ -52,7 +53,7 @@
                     </div> 
                     <div class="row">
                       <div class="col-sm-12 text-center">
-                        <button type="submit" class="btn btn-dark text-center">Registrar</button>
+                        <button type="submit" class="btn btn-primary text-center">Registrar</button>
                       </div>
                     </div>
                   </form>
@@ -86,9 +87,11 @@
                         </div>
                         <div class="col-lg-6 text-right">
                           <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-dark" (click)="pedirCita(serial.textContent)">Pedir cita</button>
-                            <button type="button" class="btn btn-dark" (click)="verHistorial(serial.textContent)">Historial</button>
-                            <button type="button" class="btn btn-secondary" (click)="desactivar(serial.textContent)">Desactivar</button>
+                              <button type="button" class="btn btn-outline-dark">Ver</button>
+                            <button type="button" class="btn btn-outline-dark" (click)="pedirCita(serial.textContent)">Pedir cita</button>
+                            <button type="button" class="btn btn-outline-dark" (click)="verHistorial(serial.textContent)">Historial</button>
+                            <button type="button" class="btn btn-outline-primary" (click)="desactivar(serial.textContent)">Desactivar</button>
+                            
                           </div>
                         </div>
                       </div>
