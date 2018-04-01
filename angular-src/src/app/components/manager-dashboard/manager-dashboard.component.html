@@ -7,7 +7,6 @@
     </div>
   </div>
 </section>
-
 <h3 class="text-center text-white">Ordenes Reparación</h3>
 <div class="container">
   <div class="row justify-content-around">
@@ -15,7 +14,6 @@
       <ngb-tabset type="pills" justify="justified">
         <ngb-tab title="En Espera">
           <ng-template ngbTabContent>
-              
             <table class="table">
               <thead class="thead-dark">
                 <tr>
@@ -51,7 +49,6 @@
                 </tr>
               </tbody>
             </table>
-          
           </ng-template>
         </ngb-tab>
         <ngb-tab title="En Curso">
@@ -82,7 +79,6 @@
     </div>
   </div>
 </div>
-
 <br>
 <br>
 <br>
@@ -91,7 +87,6 @@
 <br>
 <br>
 <br>
-
 <h3 class="text-center text-white">Modificar Cliente</h3>
 <div class="container">
   <div class="row justify-content-around">
@@ -109,13 +104,11 @@
           <button (click)="buscarCedula()" class="btn btn-primary">Buscar</button>
         </div>
       </div>
-
       <div class="row">
         <div class="col-lg-12 mt-3">
           <h4>Datos cliente:</h4>
         </div>
       </div>
-
       <form #formUpdate="ngForm" (submit)="modificarDatosUsuario()">
         <div class="row">
           <div class="col-sm-12 col-lg-6 form-group">
@@ -169,14 +162,9 @@
           </div>
         </div>
       </form>
-
-
-
     </div>
   </div>
 </div>
-
-
 <br>
 <br>
 <br>
@@ -185,7 +173,6 @@
 <br>
 <br>
 <br>
-
 <h3 class="text-center text-white">Reportes</h3>
 <div class="container">
   <div class="row justify-content-around invertirColor card-deck">
@@ -257,9 +244,6 @@
           servicio de cada vehículo, descargable en formato csv.</p>
       </div>
       <div class="row">
-        
-      </div>
-      <div class="row">
         <div class="col input-group input-group-sm mb-3">
           <input type="text" class="form-control" placeholder="Modelo vehiculo" #modelo>
           <div class="input-group-append">
@@ -268,14 +252,33 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row justify content-around mt-3">
-    <div class="col-sm-12 text-center">
-      <a class="btn btn-primary" #descargar>descargar</a>
+    <div class="row">
+      <div class="col-lg-4 col-sm-12 m-1 text-right">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd" name="rangoI">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              X
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-12 m-1 text-right">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd" name="rangoF">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              X
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-12 m-1 text-right">
+        <a class="btn btn-primary" #descargar>Descargar</a>
+      </div>
     </div>
   </div>
 </div>
-
 <br>
 <br>
 <br>
@@ -287,7 +290,9 @@
 
 <ng-template #modalFin let-c="close" let-d="dismiss">
   <div class="modal-header text-center">
-    <h4 class="modal-title"><strong>Admision y asignacion de mecánico</strong></h4>
+    <h4 class="modal-title">
+      <strong>Admision y asignacion de mecánico</strong>
+    </h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -328,7 +333,7 @@
       </div>
     </div>
   </div>
-  
+
 </ng-template>
 
 <ng-template #modalDet let-c="close" let-d="dismiss">
