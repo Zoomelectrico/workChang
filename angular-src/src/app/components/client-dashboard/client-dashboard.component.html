@@ -136,7 +136,7 @@
 <br>
 <ng-template #modalCarro let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Vehículo</h4>
+    <h4 class="modal-title"><strong>Vehículo</strong></h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -149,20 +149,26 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <p>
-          <strong>Marca</strong> {{car.brand}}</p>
-        <p>
-          <strong>Modelo:</strong> {{car.model}}</p>
-        <p>
-          <strong>Placa:</strong> {{car.licensePlate}}</p>
-        <p>
-          <strong>Serial:</strong> {{car.serial}}</p>
-        <p>
-          <strong>Año:</strong> {{car.year}}</p>
+        <h5>
+          <strong>Marca</strong> {{car.brand}}</h5>
+        <h6>
+          <strong>Modelo:</strong> {{car.model}}</h6>
+        <h6>
+          <strong>Placa:</strong> {{car.licensePlate}}</h6>
+        <h6>
+          <strong>Serial:</strong> {{car.serial}}</h6>
+        <h6>
+          <strong>Año:</strong> {{car.year}}</h6>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    <button type="button" class="btn btn-dark" (click)="c('Close click')">Close</button>
   </div>
 </ng-template>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
