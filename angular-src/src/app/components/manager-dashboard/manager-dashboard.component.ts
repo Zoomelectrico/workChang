@@ -10,15 +10,10 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./manager-dashboard.component.css']
 })
 export class ManagerDashboardComponent implements OnInit {
-  // Los datos del usuario
   private user: any;
-  // Los datos de las citas pautadas
   private colaEspera = [];
-  // Ordenes de esperas activas
   private ordenesActivas = [];
-  // Lista de Mecánicos Disponibles
   private mecanicos = [];
-  // Modificar Datos del cliente 
   private firstName: string;
   private lastName: string;
   private nationalID: number;
@@ -27,13 +22,10 @@ export class ManagerDashboardComponent implements OnInit {
   private addressLine2: string;
   private city: string;
   private photoURL: string;
-  // Cedula para realizar la busqueda
   private nationalIDSearch: string;
-  // Datos para formalizar citas
   private date;
   private cita;
   private mecanico;
-  // Datos de la Orden 
   private orden = {};
   @ViewChild('descargar') btn;
 
@@ -196,8 +188,8 @@ export class ManagerDashboardComponent implements OnInit {
     });
   }
 
-  historicoCliente(cedula) {
-    this.api.historicoCliente({ nationalID: cedula }).subscribe(data => {
+  historicoCliente(nationalID) {
+    this.api.historicoCliente({ nationalID }).subscribe(data => {
       if(data.success) {
         let blob = new Blob([data.csv], {type: 'text/plain'});
         if(window.navigator.msSaveBlob) {
@@ -213,8 +205,40 @@ export class ManagerDashboardComponent implements OnInit {
     });
   }
 
-  historicoVehiculo(placa) {
-    this.api.historicoVehiculo({ licensePlate: placa }).subscribe(data => {
+  historicoVehiculo(licensePlate) {
+    this.api.historicoVehiculo({ licensePlate }).subscribe(data => {
+      if(data.success) {
+        let blob = new Blob([data.csv], {type: 'text/plain'});
+        if(window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(blob);
+        } else {
+          this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+          this.btn.nativeElement.download = "reporte.csv"
+        }
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+      }
+    });
+  }
+
+  historicoMecanico(nationalID) {
+    this.api.historicoVehiculo({ nationalID }).subscribe(data => {
+      if(data.success) {
+        let blob = new Blob([data.csv], {type: 'text/plain'});
+        if(window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(blob);
+        } else {
+          this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+          this.btn.nativeElement.download = "reporte.csv"
+        }
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+      }
+    });
+  }
+
+  historicoModelo(model) {
+    this.api.historicoVehiculo({ model }).subscribe(data => {
       if(data.success) {
         let blob = new Blob([data.csv], {type: 'text/plain'});
         if(window.navigator.msSaveBlob) {
