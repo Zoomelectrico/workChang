@@ -23,16 +23,16 @@ export class ApiService {
     if(type == 'ID'){
       return this.http.post('http://localhost:3000/User/searchUsersByID', search, { headers: headers })
       .map(res => res.json());
-    }else if(type == 'nationalID') {    
+    } else if (type == 'nationalID') {    
       return this.http.post('http://localhost:3000/User/searchUsersByNationalID', search, { headers: headers })
       .map(res => res.json());
-    }else if(type == 'name') {    
+    } else if (type == 'name') {    
       return this.http.post('http://localhost:3000/User/searchUsersByName', search, { headers: headers })
       .map(res => res.json());
-    }else if(type == 'username') {    
+    } else if (type == 'username') {    
       return this.http.post('http://localhost:3000/User/searchUsersByUsername', search, { headers: headers })
       .map(res => res.json());
-    }else if(type == 'email') {    
+    } else if (type == 'email') {    
       return this.http.post('http://localhost:3000/User/searchUsersByEmail', search, { headers: headers })
       .map(res => res.json());
     }

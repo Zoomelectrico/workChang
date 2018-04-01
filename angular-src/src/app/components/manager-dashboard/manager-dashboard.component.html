@@ -199,9 +199,9 @@
       </div>
       <div class="row">
         <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Cedula cliente..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <input type="text" class="form-control" placeholder="Cedula cliente" #cedula>
           <div class="input-group-append">
-            <button class="btn btn-light" type="button">Generar</button>
+            <button class="btn btn-light" type="button" (click)="historicoCliente(cedula.value)">Generar</button>
           </div>
         </div>
       </div>
@@ -218,9 +218,9 @@
       </div>
       <div class="row">
         <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Placa vehiculo..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <input type="text" class="form-control" placeholder="Placa vehiculo" #placa>
           <div class="input-group-append">
-            <button class="btn btn-light" type="button">Generar</button>
+            <button class="btn btn-light" (click)="historicoVehiculo(placa.value)" type="button">Generar</button>
           </div>
         </div>
       </div>
@@ -237,7 +237,7 @@
       </div>
       <div class="row">
         <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Cedula mecánico..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <input type="text" class="form-control" placeholder="Cedula mecánico" aria-label="Recipient's username" aria-describedby="basic-addon2">
           <div class="input-group-append">
             <button class="btn btn-light" type="button">Generar</button>
           </div>
@@ -262,6 +262,11 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row justify content-around mt-3">
+    <div class="col-sm-12 text-center">
+      <a class="btn btn-primary" #descargar>descargar</a>
     </div>
   </div>
 </div>

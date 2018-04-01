@@ -22,17 +22,10 @@ router.post('/clientHistorical', (req, res, next) => {
             err: err
           });
         } else {
-          let filePath = path.join(__dirname, `../temp/client-${req.body.nationalID}.csv`);
-          fs.writeFile(filePath, csv, err => {
-            if(err) {
-              res.json({
-                success: false,
-                msg: err.message,
-                err: err
-              })
-            } else {
-              res.download(filePath, `client-${req.body.nationalID}.csv`);
-            }
+          res.json({
+            success: true,
+            msg: 'Reporte',
+            csv: csv
           });
         }
       });
@@ -52,10 +45,20 @@ router.post('/mechanicHistorical', (req, res, next) => {
         err: err
       });
     } else {
-      res.json({
-        success: true,
-        msg: 'Todo Fino',
-        data: data
+      converter.json2csv(data, (err, csv) => {
+        if(err) {
+          res.json({
+            success: false,
+            msg: err.message,
+            err: err
+          });
+        } else {
+          res.json({
+            success: true,
+            msg: 'Reporte',
+            csv: csv
+          });
+        }
       });
     }
   });
@@ -70,10 +73,20 @@ router.post('/carHistorical', (req, res, next) => {
         err: err
       });
     } else {
-      res.json({
-        success: true,
-        msg: 'Todo Fino',
-        data: data
+      converter.json2csv(data, (err, csv) => {
+        if(err) {
+          res.json({
+            success: false,
+            msg: err.message,
+            err: err
+          });
+        } else {
+          res.json({
+            success: true,
+            msg: 'Reporte',
+            csv: csv
+          });
+        }
       });
     }
   });
@@ -91,10 +104,20 @@ router.post('/modelHistorical', (req, res, next) => {
         err: err
       });
     } else {
-      res.json({
-        success: true,
-        msg: 'Todo Fino',
-        data: data
+      converter.json2csv(data, (err, csv) => {
+        if(err) {
+          res.json({
+            success: false,
+            msg: err.message,
+            err: err
+          });
+        } else {
+          res.json({
+            success: true,
+            msg: 'Reporte',
+            csv: csv
+          });
+        }
       });
     }
   });

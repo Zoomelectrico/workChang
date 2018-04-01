@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -35,6 +35,7 @@ export class ManagerDashboardComponent implements OnInit {
   private mecanico;
   // Datos de la Orden 
   private orden = {};
+  @ViewChild('descargar') btn;
 
   constructor(
     private api: ApiService,
@@ -189,6 +190,39 @@ export class ManagerDashboardComponent implements OnInit {
             this.ordenesActivas = [];
           }
         });
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+      }
+    });
+  }
+
+  historicoCliente(cedula) {
+    this.api.historicoCliente({ nationalID: cedula }).subscribe(data => {
+      if(data.success) {
+        let blob = new Blob([data.csv], {type: 'text/plain'});
+        if(window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(blob);
+        } else {
+          this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+          this.btn.nativeElement.download = "prueba.csv"
+          console.log('Prueba');
+        }
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+      }
+    });
+  }
+
+  historicoVehiculo(placa) {
+    this.api.historicoVehiculo({ licensePlate: placa }).subscribe(data => {
+      if(data.success) {
+        let blob = new Blob([data.csv], {type: 'text/plain'});
+        if(window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(blob);
+        } else {
+          this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+          this.btn.nativeElement.download = "reporte.csv"
+        }
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
