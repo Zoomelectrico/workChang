@@ -1,0 +1,65 @@
+LOGGING (USUARIO) 
+------------------------------CLIENTE------------------------------
+
+	Solicitar cita (Entra en cola de espera)
+	Ver sus vehiculos
+		Registrar vehículos
+		Desactivar un vehículo (si lo vendio, no se pierde la informacion del vehiculo)
+
+No puede registrar un vehículo activo
+
+------------------------------GERENTE------------------------------
+
+	Revisar cola de espera
+
+asignar fechas entrada vehículos
+		cliente recibe correo
+		genera ORDEN REPARACION
+			Diagnóstico,
+			Repuestos necesarios,
+			Mecanico asignado,
+			generar qr
+
+	Deja constancia de las condiciones del vehiculo al ingresar(booleanos)
+		caucho repuesto, 
+		llaves, 
+		gato, 
+		herramientas, 
+		frontal equipo,
+		Desperfectos en carrocería
+
+Culmina la reparación CIERRA LA ORDEN (y pasa al historial del vehiculo)
+		enviar correo al cliente indicando que culmino el trabajo 
+			repuestos usados
+			diagnostico
+			procedimiento aplicado
+
+	modifica datos del cliente
+
+	genera reportes tipo (generados en formato excel)
+		historial cliente (servicios de sus vehiculos)
+		vehiculo (servicios realizados)
+		mecanico (ordenes asignadas en un periodo de tiempo)
+		modelo vehiculo (cantidad de vehiculos atendidos en periodo de tiempo)
+
+	puede seleccionar vehiculo y ver su historial
+
+------------------------------VEHICULO------------------------------
+
+	Tendrá fotos, Serial motor, Modelo, Año, Placa, Foto referencia, fecha de registro del vehículo
+	
+------------------------------MECANICO ------------------------------
+
+actualiza orden de reparacion
+		repuestos necesarios
+		procedimiento aplicado
+		diagnostico del mecanico
+		indica la finalizacion de la reparacion (SOLO EL GERENTE CIERRA LA ORDEN)	
+
+------------------------------ADMINISTRADOR------------------------------
+		agrega nuevos usuarios y asigna roles
+
+Administra los datos de los repuestos (autopartes de uso general, modelo y/o marca del movil)
+
+
+Usuario por defecto es cliente
