@@ -239,9 +239,9 @@
       </div>
       <div class="row">
         <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Cedula mecánico" aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <input type="text" class="form-control" placeholder="Cedula mecánico" #cedula>
           <div class="input-group-append">
-            <button class="btn btn-light" type="button">Generar</button>
+            <button class="btn btn-light" type="button" (click)="historicoMecanico(cedula.value)">Generar</button>
           </div>
         </div>
       </div>
@@ -257,10 +257,13 @@
           servicio de cada vehículo, descargable en formato csv.</p>
       </div>
       <div class="row">
+        
+      </div>
+      <div class="row">
         <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Modelo vehiculo..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <input type="text" class="form-control" placeholder="Modelo vehiculo" #modelo>
           <div class="input-group-append">
-            <button class="btn btn-light" type="button">Generar</button>
+            <button class="btn btn-light" type="button" (click)="historicoModelo(modelo.value)">Generar</button>
           </div>
         </div>
       </div>
@@ -338,10 +341,14 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-sm-12">
-        <p><strong>Mecánico Asignado:</strong> {{orden.mechanicName}}</p>
-        <p><strong>Vehículo:</strong> {{orden.carName}}</p>
-        <p><strong>Placa:</strong> {{orden.licensePlate}}</p>
-        <p><strong>Fecha de Recepción:</strong> {{orden.entryDate}}</p>
+        <p>
+          <strong>Mecánico Asignado:</strong> {{orden.mechanicName}}</p>
+        <p>
+          <strong>Vehículo:</strong> {{orden.carName}}</p>
+        <p>
+          <strong>Placa:</strong> {{orden.licensePlate}}</p>
+        <p>
+          <strong>Fecha de Recepción:</strong> {{orden.entryDate}}</p>
       </div>
     </div>
     <div class="row">
@@ -353,8 +360,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 col-lg-3"><strong>Cerrar: </strong></div>
-      <div class="col-sm-12 col-lg-9"><button type="button" class="btn btn-primary" (click)="cerrarOrden(orden.repairOrdersID)">Cerrar</button></div>
+      <div class="col-sm-12 col-lg-3">
+        <strong>Cerrar: </strong>
+      </div>
+      <div class="col-sm-12 col-lg-9">
+        <button type="button" class="btn btn-primary" (click)="cerrarOrden(orden.repairOrdersID)">Cerrar</button>
+      </div>
     </div>
   </div>
   <div class="modal-footer">
