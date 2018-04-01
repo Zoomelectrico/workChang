@@ -22,10 +22,17 @@ router.post('/clientHistorical', (req, res, next) => {
             err: err
           });
         } else {
-          res.json({
-            success: true,
-            msg: 'Reporte',
-            csv: csv
+          let filePath = path.join(__dirname, `../temp/client-${req.body.nationalID}.csv`);
+          fs.writeFile(filePath, csv, err => {
+            if(err) {
+              res.json({
+                success: false,
+                msg: err.message,
+                err: err
+              })
+            } else {
+              res.download(filePath, `client-${req.body.nationalID}.csv`);
+            }
           });
         }
       });
@@ -45,20 +52,10 @@ router.post('/mechanicHistorical', (req, res, next) => {
         err: err
       });
     } else {
-      converter.json2csv(data, (err, csv) => {
-        if(err) {
-          res.json({
-            success: false,
-            msg: err.message,
-            err: err
-          });
-        } else {
-          res.json({
-            success: true,
-            msg: 'Reporte',
-            csv: csv
-          });
-        }
+      res.json({
+        success: true,
+        msg: 'Todo Fino',
+        data: data
       });
     }
   });
@@ -73,20 +70,10 @@ router.post('/carHistorical', (req, res, next) => {
         err: err
       });
     } else {
-      converter.json2csv(data, (err, csv) => {
-        if(err) {
-          res.json({
-            success: false,
-            msg: err.message,
-            err: err
-          });
-        } else {
-          res.json({
-            success: true,
-            msg: 'Reporte',
-            csv: csv
-          });
-        }
+      res.json({
+        success: true,
+        msg: 'Todo Fino',
+        data: data
       });
     }
   });
@@ -104,20 +91,10 @@ router.post('/modelHistorical', (req, res, next) => {
         err: err
       });
     } else {
-      converter.json2csv(data, (err, csv) => {
-        if(err) {
-          res.json({
-            success: false,
-            msg: err.message,
-            err: err
-          });
-        } else {
-          res.json({
-            success: true,
-            msg: 'Reporte',
-            csv: csv
-          });
-        }
+      res.json({
+        success: true,
+        msg: 'Todo Fino',
+        data: data
       });
     }
   });
