@@ -22,7 +22,8 @@ app-root {
   
 .custom-alert-danger {
   position: relative;
-  padding: 0px;
+  padding: 1pt;
+  padding-top: 3pt;
   border: 1px solid transparent;
   border-radius: 0px;
   color: #FFFFFF;
@@ -32,7 +33,8 @@ app-root {
 
 .custom-alert-success {
   position: relative;
-  padding: 0px;
+  padding: 1pt;
+  padding-top: 3pt;
   border: 1px solid transparent;
   border-radius: 0px;
   background-color: #155724;

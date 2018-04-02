@@ -31,6 +31,17 @@ export class RegisterComponent implements OnInit {
   }
    
   registrar() {
+
+    if(this.nationalID &&
+  !this.firstName &&
+  !this.lastName &&
+  !this.email&&
+  !this.username&&
+  !this.password&&
+  !this.addressLine1&&
+  !this.addressLine2&&
+  !this.city)
+      {
     if (this.password === this.password2) {
       const user = {
         nationalID: this.nationalID,
@@ -55,6 +66,8 @@ export class RegisterComponent implements OnInit {
       });
     } else {
       this.flash.show('Las contraseñas no coinciden', { cssClass: 'custom-alert-danger', timeout: 3000 });
+    }}else{
+      this.flash.show('Recuerda completar todos los campos correctamente', { cssClass: 'custom-alert-danger', timeout: 3000 });
     }
   }
 }
