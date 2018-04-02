@@ -176,78 +176,88 @@
 <h3 class="text-center text-white">Reportes</h3>
 <div class="container">
   <div class="row justify-content-around invertirColor card-deck">
-    <div class="col-lg-3">
-      <div class="row">
-        <div class="col-12">
-          <h5 class="text-center">Historial Cliente</h5>
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="text-center">
+              <strong>Historial Cliente</strong>
+            </h5>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos los
-          servicio de cada vehículo, descargable en formato csv.</p>
-      </div>
-      <div class="row">
-        <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Cedula cliente" #cedula>
-          <div class="input-group-append">
-            <button class="btn btn-light" type="button" (click)="historicoCliente(cedula.value)">Generar</button>
+        <div class="row">
+          <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos
+            los servicio de cada vehículo, descargable en formato csv.</p>
+        </div>
+        <div class="row">
+          <div class="col input-group input-group-sm mb-3">
+            <input type="text" class="form-control" placeholder="Cedula cliente" #cedula>
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" (click)="historicoCliente(cedula.value)">Generar</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-3">
-      <div class="row">
-        <div class="col-12">
-          <h5 class="text-center">Historial Vehiculo</h5>
+      <div class="col-lg-3">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="text-center">
+              <strong>Historial Vehiculo</strong>
+            </h5>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos los
-          servicio de cada vehículo, descargable en formato csv.</p>
-      </div>
-      <div class="row">
-        <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Placa vehiculo" #placa>
-          <div class="input-group-append">
-            <button class="btn btn-light" (click)="historicoVehiculo(placa.value)" type="button">Generar</button>
+        <div class="row">
+          <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos
+            los servicio de cada vehículo, descargable en formato csv.</p>
+        </div>
+        <div class="row">
+          <div class="col input-group input-group-sm mb-3">
+            <input type="text" class="form-control" placeholder="Placa vehiculo" #placa>
+            <div class="input-group-append">
+              <button class="btn btn-primary" (click)="historicoVehiculo(placa.value)" type="button">Generar</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-3">
-      <div class="row">
-        <div class="col-12">
-          <h5 class="text-center">Historial Mecanico</h5>
+      <div class="col-lg-3">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="text-center">
+              <strong>Historial Mecanico</strong>
+            </h5>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos los
-          servicio de cada vehículo, descargable en formato csv.</p>
-      </div>
-      <div class="row">
-        <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Cedula mecánico" #cedula>
-          <div class="input-group-append">
-            <button class="btn btn-light" type="button" (click)="historicoMecanico(cedula.value)">Generar</button>
+        <div class="row">
+          <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos
+            los servicio de cada vehículo, descargable en formato csv.</p>
+        </div>
+        <div class="row">
+          <div class="col input-group input-group-sm mb-3">
+            <input type="text" class="form-control" placeholder="Cedula mecánico" #cedula>
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" (click)="historicoMecanico(cedula.value)">Generar</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-3">
-      <div class="row">
-        <div class="col-12">
-          <h5 class="text-center">Historial Modelo</h5>
+      <div class="col-lg-3">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="text-center">
+              <strong>Historial Modelo</strong>
+            </h5>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos los
-          servicio de cada vehículo, descargable en formato csv.</p>
-      </div>
-      <div class="row">
-        <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Modelo vehiculo" #modelo>
-          <div class="input-group-append">
-            <button class="btn btn-light" type="button" (click)="historicoModelo(modelo.value)">Generar</button>
+        <div class="row">
+          <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos
+            los servicio de cada vehículo, descargable en formato csv.</p>
+        </div>
+        <div class="row">
+          <div class="col input-group input-group-sm mb-3">
+            <input type="text" class="form-control" placeholder="Modelo vehiculo" #modelo>
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" (click)="historicoModelo(modelo.value)">Generar</button>
+            </div>
           </div>
         </div>
       </div>
@@ -274,7 +284,7 @@
         </div>
       </div>
       <div class="col-lg-3 col-sm-12 m-1 text-right">
-        <a class="btn btn-primary" #descargar>Descargar</a>
+        <a class="btn btn-primary text-white" #descargar>Descargar</a>
       </div>
     </div>
   </div>
@@ -287,7 +297,6 @@
 <br>
 <br>
 <br>
-
 <ng-template #modalFin let-c="close" let-d="dismiss">
   <div class="modal-header text-center">
     <h4 class="modal-title">
@@ -297,7 +306,6 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-
   <div class="modal-body">
     <div class="row">
       <div class="col-sm-12">
@@ -333,9 +341,7 @@
       </div>
     </div>
   </div>
-
 </ng-template>
-
 <ng-template #modalDet let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Detalles de las Orden</h4>

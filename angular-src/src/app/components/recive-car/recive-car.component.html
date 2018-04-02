@@ -5,7 +5,6 @@
     </div>
   </div>
 </section>
-
 <div class="container">
   <div class="row justify-content-around">
     <div class="col-lg-10 fondoBlanco">
@@ -34,21 +33,19 @@
 <br>
 <br>
 <br>
-<br>
 <div class="container" *ngIf="mostrar">
 <div class="row">
   <div class="col-sm-12">
     <h2 class="text-center text-white mt-5">Datos de la Orden de Reparación</h2>
   </div>
 </div>
-
 <div class="container">
   <div class="row justify-content-around">
     <div class="col-lg-10 fondoBlanco">
       <div class="row form-group pl-2">
         <div class="col-lg-4">
           <div class="row ">
-            <label for="mechanicName">Mecánico: </label>
+            <label for="mechanicName"><strong>Mecánico:</strong></label>
           </div>
           <div class="row">
             <input type="text" id="mechanicName" name="mechanicName" readonly class="form-control-plaintext" value="{{rodata.mechanicName}}">
@@ -56,7 +53,7 @@
         </div>
         <div class="col-lg-4 ">
           <div class="row">
-            <label for="carName">Datos de Carro: </label>
+            <label for="carName"><strong>Datos de Carro:</strong></label>
           </div>
           <div class="row">
             <input type="text" id="carName" name="carName" readonly class="form-control-plaintext" value="{{rodata.carName}}">
@@ -64,21 +61,26 @@
         </div>
         <div class="col-lg-4 ">
           <div class="row">
-            <label for="licensePlate">Placa: </label>
+            <label for="licensePlate"><strong>Placa:</strong></label>
           </div>
           <div class="row">
             <input type="text" id="licensePlate" name="licensePlate" readonly class="form-control-plaintext" value="{{rodata.licensePlate}}">
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-sm-12">
-          <h3 class="center-text">Recepción del Vehículo</h3>
+          <h4 class="center-text">Recepción del Vehículo</h4>
         </div>
       </div>
       <form class="row" #formDetails="ngForm" (submit)="aceptarVehiculo()">
         <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 form-group">
+                    <label for="diagnostic">Diagnosctico: </label>
+                    <textarea class="form-control" rows="2" name="diagnostic" [(ngModel)]="diagnostic" [ngModelOptions]="{standalone: true}"></textarea>      
+                  </div>
+            </div>
           <div class="row">
             <div class="col-sm-12 col-lg-6 form-group">
               <label for="front">Detalles Parte Frontal: </label>
@@ -100,19 +102,17 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-12 col-lg-6 form-group">
-              <label for="diagnostic">Diagnosctico: </label>
-              <input type="text" id="diagnostic" name="diagnostic" [(ngModel)]="diagnostic" [ngModelOptions]="{standalone: true}">
-            </div>
+            <div class="col-lg-12">
             <label for="fotoVehiculo">Foto del Vehiculo</label>
             <div class="custom-file" id="fotoVehiculo">
               <input type="file" class="custom-file-input" id="photo" [(ngModel)]="photo" accept=".png, .jpg, .jpeg" name="photo" (change)="onChange($event)">
               <label class="custom-file-label" for="photo">Mi Vehiculo</label>
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-12 text-center form-group">
-              <button class="btn btn-primary" type="submit">Aceptar Vehículo</button>
+          </div>
+          <div class="row mt-3 text-right">
+            <div class="col-sm-12 form-group">
+              <button class="btn btn-primary" type="submit">Aceptar</button>
             </div>
           </div>
         </div>

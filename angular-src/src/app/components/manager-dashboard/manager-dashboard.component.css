@@ -8,8 +8,8 @@ section#welcome {
 }
 
 .invertirColor{
-  background-color: #36393E;
-  color: whitesmoke;
+  background-color: whitesmoke;
+  color: black;
   padding: 20px;
   border-radius: 1%;
 }
