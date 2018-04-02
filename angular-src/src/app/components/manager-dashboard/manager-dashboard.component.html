@@ -1,7 +1,7 @@
 <section id="welcome">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-12 mt-3">
         <h2 class="text-center text-white">Bienvenido {{user.firstName}}</h2>
       </div>
     </div>
@@ -352,34 +352,29 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-sm-12">
-        <p>
-          <strong>Mecánico Asignado:</strong> {{orden.mechanicName}}</p>
-        <p>
-          <strong>Vehículo:</strong> {{orden.carName}}</p>
-        <p>
-          <strong>Placa:</strong> {{orden.licensePlate}}</p>
-        <p>
-          <strong>Fecha de Recepción:</strong> {{orden.entryDate}}</p>
+        <h6>
+          <strong>Mecánico Asignado:</strong> {{orden.mechanicName}}</h6>
+        <h6>
+          <strong>Vehículo:</strong> {{orden.carName}}</h6>
+        <h6>
+          <strong>Placa:</strong> {{orden.licensePlate}}</h6>
+        <h6>
+          <strong>Fecha de Recepción:</strong> {{orden.entryDate}}</h6>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <h4 class="text-center">Respuestos Utilizados</h4>
+        <h4 class="text-center">Respuestos Utilizados:</h4>
         <ul>
           <li *ngFor="let r of orden.replacements">{{r}}</li>
         </ul>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-12 col-lg-3">
-        <strong>Cerrar: </strong>
-      </div>
-      <div class="col-sm-12 col-lg-9">
-        <button type="button" class="btn btn-primary" (click)="cerrarOrden(orden.repairOrdersID)">Cerrar</button>
-      </div>
-    </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    <div class="row text-right">
+      <button type="button" class="btn btn-dark m-1" (click)="cerrarOrden(orden.repairOrdersID)">Cerrar órden</button>
+      <button type="button" class="btn btn-outline-dark m-1" (click)="c('Close click')">Regresar</button>
+    </div>
   </div>
 </ng-template>
