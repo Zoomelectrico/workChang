@@ -45,12 +45,12 @@ const ClientController = {
       where: {
         serial: car.serial
       }
-    }).then(carFin => { 
+    }).then(carFin => {
       if (carFin) {
         carFin.OwnerID = car.OwnerID
         carFin.active = 1;
         carFin.save().then(() => callback(null, carFin))
-        .catch(err => callback(err, null));
+          .catch(err => callback(err, null));
       } else {
         cloudinary.uploader.upload(car.photoLink, result => {
           car.photoLink = result.secure_url;
@@ -64,7 +64,10 @@ const ClientController = {
           });
         });
       }
-    }).catch(err => { console.log('epa 4', err); callback(err, null) });
+    }).catch(err => {
+      console.log('epa 4', err);
+      callback(err, null)
+    });
   },
   getCars: function (ClientID, callback) {
     Car.findAll({
@@ -75,7 +78,7 @@ const ClientController = {
       callback(null, cars);
     }).catch(err => callback(err, null));
   },
-  findByNationalID: function(nationalID, callback) {
+  findByNationalID: function (nationalID, callback) {
     User.findOne({
       where: {
         nationalID: nationalID,
@@ -89,35 +92,40 @@ const ClientController = {
       }
     }).catch(err => callback(err, null));
   },
-  desactiveCars: function(carSerial, callback) {
+  desactiveCars: function (carSerial, callback) {
     Car.findOne({
-      where: {
-        serial: carSerial        
-      }
-    }).then(car => {
-      if (car) {
-        car.active = 0;
-        car.OwnerID = 0;
-        car.save().then(() => {
-          callback(null, car);
-        }).catch(err => callnack(err, null));
-      } else {
-        callback(new Error('No se ha encontrado ningun carro con ese serial'), null);
-      }
-    })
-    .catch(err => {
-
-    })
+        where: {
+          serial: carSerial
+        }
+      }).then(car => {
+        if (car) {
+          car.active = 0;
+          car.OwnerID = 0;
+          car.save().then(() => {
+            Appoiment.destroy({
+              where: {
+                CarID: car.ID,
+                checkout: 0
+              }
+            }).then(affectedRow => {
+              console.log(affectedRow);
+              callback(null, car)
+            }).catch(err => callback(err, null));
+          }).catch(err => callback(err, null));
+        } else {
+          callback(new Error('No se ha encontrado ningun carro con ese serial'), null);
+        }
+      }).catch(err => callback(err, null));
   },
-  getAksedAppointments: function(userID, callback) {
+  getAksedAppointments: function (userID, callback) {
     sequelize.query(
-      "SELECT `appointments`.`ID`, `cars`.`brand`, `cars`.`model`, `cars`.`licensePlate`, if(`appointments`.`checkout` = 0, 'En lista de espera', 'En el taller') AS `estado` FROM `users` "+
-      "INNER JOIN `clients` ON `users`.`ID` = `clients`.`UserID` "+
-      "INNER JOIN `cars` ON `clients`.`ID` = `cars`.`OwnerID` "+
-      "INNER JOIN `appointments` ON `cars`.`ID` = `appointments`.`CarID` "+
+      "SELECT `appointments`.`ID`, `cars`.`brand`, `cars`.`model`, `cars`.`licensePlate`, if(`appointments`.`checkout` = 0, 'En lista de espera', 'En el taller') AS `estado` FROM `users` " +
+      "INNER JOIN `clients` ON `users`.`ID` = `clients`.`UserID` " +
+      "INNER JOIN `cars` ON `clients`.`ID` = `cars`.`OwnerID` " +
+      "INNER JOIN `appointments` ON `cars`.`ID` = `appointments`.`CarID` " +
       "WHERE `clients`.`UserID` = " + userID
     ).spread((data, metada) => {
-      if(data) {
+      if (data) {
         callback(null, data);
       } else {
         callback(new Error('Uppps... Hemos tenido un error en nuestra base de datos', null));

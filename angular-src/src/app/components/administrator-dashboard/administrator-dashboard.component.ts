@@ -119,8 +119,7 @@ export class AdministratorDashboardComponent implements OnInit {
         this.addressLine2 = null;
         this.city = null;
         this.canModificateUser = false;
-        console.log("usuario: " + this.usuarios[0].nationalID + this.usuarios[0].firstName + this.usuarios[0].lastName + this.usuarios[0].type);
-      } else {
+        } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         this.usuarios = [];
       }
@@ -153,7 +152,6 @@ export class AdministratorDashboardComponent implements OnInit {
   getUsuarioByID(){
     if(this.apellidoBusqueda) {
       this.api.getEmpleadoByApellido(this.apellidoBusqueda).subscribe(data => {
-        console.log(data);
         if(data.success) {
           this.usuarios = [];
           this.usuarios.push(data.user);
@@ -169,7 +167,7 @@ export class AdministratorDashboardComponent implements OnInit {
   }
 
   modificarUser(){
-    const photoURL = ''; //Provedor
+    const photoURL = ''; 
     const user = {
       ID: this.userID,
       photoURL: photoURL,
@@ -209,9 +207,9 @@ export class AdministratorDashboardComponent implements OnInit {
   onChange(rol) {
     this.type = rol;
   }
+
   usuarioSelec(user){
     this.usuarioSel = user;
-    console.log("prueba de selec" + this.usuarioSel.nationalID)
     this.userID = this.usuarioSel.ID;
     this.nationalID = this.usuarioSel.nationalID;
     this.firstName = this.usuarioSel.firstName;

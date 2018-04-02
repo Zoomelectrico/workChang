@@ -189,7 +189,7 @@ export class ManagerDashboardComponent implements OnInit {
   }
 
   historicoCliente(nationalID) {
-    this.api.historicoCliente({ nationalID }).subscribe(data => {
+    this.api.historicoCliente({ nationalID: nationalID }).subscribe(data => {
       if(data.success) {
         let blob = new Blob([data.csv], {type: 'text/plain'});
         if(window.navigator.msSaveBlob) {
@@ -197,7 +197,6 @@ export class ManagerDashboardComponent implements OnInit {
         } else {
           this.btn.nativeElement.href = window.URL.createObjectURL(blob);
           this.btn.nativeElement.download = "prueba.csv"
-          console.log('Prueba');
         }
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
