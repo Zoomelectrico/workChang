@@ -117,6 +117,7 @@ export class ClientDashboardComponent implements OnInit {
       this.api.desactivarVehiculo({ carSerial: serial}).subscribe(data => {
         if(data.success) {
           this.resolverVehiculos();
+          this.resolverCitasPedidas();
         } else {
           this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000});
         }

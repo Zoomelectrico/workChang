@@ -23,7 +23,7 @@
                 <div class="row">
                   <div class="col-lg-8 col-sm-12">
                     <form #formUpdate="ngForm">
-                      <input class="form-control" id="userID" type="text" placeholder="Número de ID" [(ngModel)]="userIDSearch" [ngModelOptions]="{standalone: true}">
+                      <input class="form-control" id="userID" type="text" placeholder="Apellido" [(ngModel)]="apellidoBusqueda" [ngModelOptions]="{standalone: true}">
                     </form>
                   </div>
                   <div class="col-lg-4 col-sm-12 text-center">
@@ -45,21 +45,15 @@
                           <th>Nombre</th>
                           <th>Username</th>
                           <th>Correo</th>
-                          <th>Dirección</th>
                           <th>Tipo de usuario</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr *ngFor="let user of usuarios">
-                          <td>{{user.nationalID}}
-                          </td>
-                          <td>{{user.firstName}} {{user.lastName}}
-                          </td>
-                          <td>{{user.username}}
-                          </td>
-                          <td>{{user.email}}
-                          </td>
-                          <td>{{user.addressLine1}} {{user.addressLine2}}, {{user.city}}</td>
+                          <td>{{user.nationalID}}</td>
+                          <td>{{user.firstName}} {{user.lastName}}</td>
+                          <td>{{user.username}}</td>
+                          <td>{{user.email}}</td>
                           <td>{{user.typeShown}}</td>
                         </tr>
                       </tbody>
@@ -125,13 +119,6 @@
                       <div class="col-sm-12 col-lg-6 form-group">
                         <label for="city">Ciudad</label>
                         <input type="text" class="form-control" id="city" [(ngModel)]="city" [ngModelOptions]="{standalone: true}" name="city" placeholder="Caracas">
-                      </div>
-                      <div class="col-sm-12 col-lg-6 form-group">
-                        <label for="jeje">Foto</label>
-                        <div class="custom-file" id="jeje">
-                          <input type="file" class="custom-file-input" id="photo" name="photo" [(ngModel)]="photo" [ngModelOptions]="{standalone: true}">
-                          <label class="custom-file-label" for="photo">Subir Foto</label>
-                        </div>
                       </div>
                     </div>
                     <div class="row">

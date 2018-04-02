@@ -31,7 +31,7 @@ export class AdministratorDashboardComponent implements OnInit {
   private city: string;
   private type: number;
   private photo: any;
-  private userIDSearch: number;
+  private apellidoBusqueda: string;
   // Datos de repuestos
   private partNumber: number;
   private name: string;
@@ -62,7 +62,7 @@ export class AdministratorDashboardComponent implements OnInit {
 
   //RegistrarEmpleado
   registrarEmpleado(content) {
-    const photoURL = ''; //Provedor
+    const photoURL = ''; 
     if (this.password === this.password2) {
       const user = {
         photoURL: photoURL,
@@ -96,7 +96,6 @@ export class AdministratorDashboardComponent implements OnInit {
         }
       })
     } else {
-      // Las contraseñas no coinciden vv
       this.password = null;
       this.password2 = null;
       this.flash.show('Las contraseñas no coinciden', { cssClass: 'custom-alert-danger' });
@@ -105,7 +104,7 @@ export class AdministratorDashboardComponent implements OnInit {
 
   getUsuario(){
     this.api.getUsuariosWorkers().subscribe(data => {
-      this.userIDSearch = null;
+      this.apellidoBusqueda = null;
       if(data.success) {
         this.usuarios = data.users;
         this.convertRol();
@@ -152,19 +151,21 @@ export class AdministratorDashboardComponent implements OnInit {
   }
 
   getUsuarioByID(){
-    this.api.getUsuariosByID({
-      search: this.userIDSearch
-    }, this.busqueda).subscribe(user=> { // Busco el usuario
-      if (user.success) { // Pregunto si tuve exito
-        this.usuarios = []
-        this.usuarios = user.users
-        this.convertRol();
-        console.log("dato1 " + this.usuarios[0].nationalID)        
-        this.userIDSearch = null;
-      } else {
-        this.flash.show(user.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
-      }
-    });
+    if(this.apellidoBusqueda) {
+      this.api.getEmpleadoByApellido(this.apellidoBusqueda).subscribe(data => {
+        console.log(data);
+        if(data.success) {
+          this.usuarios = [];
+          this.usuarios.push(data.user);
+          this.convertRol();
+          this.apellidoBusqueda = null;
+        } else {
+          this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+        }
+      });
+    } else {
+      this.flash.show('El campo de busqueda no puede estar vacio', { cssClass: 'custom-alert-danger', timeout: 3000 });
+    }
   }
 
   modificarUser(){

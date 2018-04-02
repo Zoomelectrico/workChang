@@ -1,3 +1,4 @@
+const OP = require('sequelize').Op;
 const QR = require('qrcode');
 const sequelize = require('../config/database');
 const Appointment = require('../models/Appointment');
@@ -203,6 +204,14 @@ const ManagerController = {
         }).catch(err => callback(err, null));
       }).catch(err => callback(err, null));
     }).catch(err => callback(err, null));
+  },
+  buscarUsuarioApellido: function(apellido, callback) {
+    User.findOne({
+      where: {
+        lastName: { [OP.like]: `%${apellido}%` },
+        type: {[OP.ne]: 1 }
+      }
+    }).then(u => callback(null, u)).catch(err => callback(err, null));
   }
 };
 

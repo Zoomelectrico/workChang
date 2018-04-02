@@ -142,4 +142,22 @@ router.post('/close-order', (req, res, next) => {
   });
 });
 
+router.get('/empleado/:apellido', (req, res, next) => {
+  ManagerController.buscarUsuarioApellido(req.params.apellido, (err, user) => {
+    if(err) {
+      res.json({
+        success: false,
+        msg: err.message,
+        err: err
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'Usuario encontrado',
+        user: user
+      });
+    }
+  })
+});
+
 module.exports = router;

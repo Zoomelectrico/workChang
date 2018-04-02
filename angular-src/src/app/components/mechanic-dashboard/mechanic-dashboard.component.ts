@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { ApiService } from '../../services/api.service';
 
 
@@ -20,7 +21,8 @@ export class MechanicDashboardComponent implements OnInit {
   private resp = [];
   constructor(
     private api: ApiService,
-    private modal: NgbModal
+    private modal: NgbModal,
+    private flash: FlashMessagesService
   ) { }
 
   ngOnInit() {
@@ -34,7 +36,7 @@ export class MechanicDashboardComponent implements OnInit {
         this.ordenes = data.repairs;
         console.log(this.ordenes);
       } else {
-        //this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         this.ordenes = [];
       }
     });
@@ -49,7 +51,7 @@ export class MechanicDashboardComponent implements OnInit {
       if (data.success) {
         this.repuestos = data.replacements
       } else {
-        //Pajita fea :c
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         this.repuestos = [];
       }
     });
@@ -70,13 +72,13 @@ export class MechanicDashboardComponent implements OnInit {
       };
       this.api.actualizarOrden(datos).subscribe(data => {
         if (data.success) {
-          // Pajita Bonita
+          this.flash.show(data.msg, { cssClass: 'custom-alert-success', timeout: 3000 });
         } else {
-          // Pajita Fea
+          this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         }
       });
     } else {
-      // Pajita procedimiento no puede estar vacio
+      this.flash.show('La sección de procedimiento no puede estar vacia', { cssClass: 'custom-alert-danger', timeout: 3000 });
     }
   }
 
@@ -94,19 +96,19 @@ export class MechanicDashboardComponent implements OnInit {
   buscarOrden(id) {
     this.api.getOrdenByID(id).subscribe(data => {
       if (data.success) {
-        this.orden = data.RepairOrder;
+        this.orden = data.RepairOrder[0];
         this.actualizarBtn(this.orden.carData);
         this.diagnostico = this.orden.diagnostic;
-        this.api.getRepuestoModelos(this.orden.carModel).subscribe(data => {
-          if (data.success) {
-            this.repuestos = data.replacements
+        this.api.getRepuestoModelos(this.orden.carModel).subscribe(data2 => {
+          if (data2.success) {
+            this.repuestos = data2.replacements
           } else {
-            //Pajita fea :c
+            this.flash.show(data2.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
             this.repuestos = [];
           }
         });
       } else {
-        // Pajita fea
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         this.orden = {};
       }
     });
@@ -116,7 +118,7 @@ export class MechanicDashboardComponent implements OnInit {
     if (num > 0) {
       this.resp.push({ ID: respID, stock: num });
     } else {
-      // Pajita :s
+      this.flash.show('Por favor ingrese un número mayor a cero', { cssClass: 'custom-alert-danger', timeout: 3000 });
     }
   }
 
@@ -131,8 +133,7 @@ export class MechanicDashboardComponent implements OnInit {
         this.car = data.car;
         this.modal.open(content);
       } else {
-        this.car = {};
-        // Pajita Fea
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     });
   }
