@@ -24,6 +24,8 @@ export class ManagerDashboardComponent implements OnInit {
   private photoURL: string;
   private nationalIDSearch: string;
   private date;
+  private date_inicio;
+  private date_final;
   private cita;
   private mecanico;
   private orden = {};
@@ -196,7 +198,7 @@ export class ManagerDashboardComponent implements OnInit {
           window.navigator.msSaveBlob(blob);
         } else {
           this.btn.nativeElement.href = window.URL.createObjectURL(blob);
-          this.btn.nativeElement.download = "prueba.csv"
+          this.btn.nativeElement.download = `historico-${nationalID}.csv`;
         }
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
@@ -206,13 +208,14 @@ export class ManagerDashboardComponent implements OnInit {
 
   historicoVehiculo(licensePlate) {
     this.api.historicoVehiculo({ licensePlate }).subscribe(data => {
+      console.log(data);
       if(data.success) {
         let blob = new Blob([data.csv], {type: 'text/plain'});
         if(window.navigator.msSaveBlob) {
           window.navigator.msSaveBlob(blob);
         } else {
           this.btn.nativeElement.href = window.URL.createObjectURL(blob);
-          this.btn.nativeElement.download = "reporte.csv"
+          this.btn.nativeElement.download = `historico-${licensePlate}.csv`
         }
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
@@ -221,14 +224,17 @@ export class ManagerDashboardComponent implements OnInit {
   }
 
   historicoMecanico(nationalID) {
-    this.api.historicoVehiculo({ nationalID }).subscribe(data => {
+    let date1 = `${this.date_inicio.year}-${this.date_inicio.month}-${this.date_inicio.day}`;
+    let date2 = `${this.date_final.year}-${this.date_final.month}-${this.date_final.day}`;
+    this.api.historicoMecanico({ nationalID, date1, date2 }).subscribe(data => {
+      console.log(data);
       if(data.success) {
         let blob = new Blob([data.csv], {type: 'text/plain'});
         if(window.navigator.msSaveBlob) {
           window.navigator.msSaveBlob(blob);
         } else {
           this.btn.nativeElement.href = window.URL.createObjectURL(blob);
-          this.btn.nativeElement.download = "reporte.csv"
+          this.btn.nativeElement.download = `historico-mecanico-${nationalID}.csv`
         }
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
@@ -237,14 +243,17 @@ export class ManagerDashboardComponent implements OnInit {
   }
 
   historicoModelo(model) {
-    this.api.historicoVehiculo({ model }).subscribe(data => {
+    let date1 = `${this.date_inicio.year}-${this.date_inicio.month}-${this.date_inicio.day}`;
+    let date2 = `${this.date_final.year}-${this.date_final.month}-${this.date_final.day}`;
+    this.api.historicoModelo({ model, date1, date2 }).subscribe(data => {
+      console.log(data);
       if(data.success) {
         let blob = new Blob([data.csv], {type: 'text/plain'});
         if(window.navigator.msSaveBlob) {
           window.navigator.msSaveBlob(blob);
         } else {
           this.btn.nativeElement.href = window.URL.createObjectURL(blob);
-          this.btn.nativeElement.download = "reporte.csv"
+          this.btn.nativeElement.download = `historico-${model}.csv`
         }
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });

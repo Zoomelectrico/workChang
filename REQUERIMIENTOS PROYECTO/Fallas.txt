@@ -1,13 +1,13 @@
 ---CLIENTE---
-Al desactivar vehiculo con cita no se actualiza "ver citas pedidas" (con f5 si)
+Al desactivar vehiculo con cita no se actualiza "ver citas pedidas" (con f5 si) *
 
 ---GERENTE---
 El navbar no se actualiza automaticamente para el gerente
 
 ---MECANICO---
-Al buscar una orden por numero, tengo undefine
-Al hacer click en "Ver Repuestos" no carga ninguno.
+Al buscar una orden por numero, tengo undefine * 
+Al hacer click en "Ver Repuestos" no carga ninguno. * 
 
 
 ---ADMIN---
-Buscar usuario por id a veces no funciona
+Buscar usuario por id a veces no funciona *
