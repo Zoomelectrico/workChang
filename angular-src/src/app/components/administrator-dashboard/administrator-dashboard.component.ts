@@ -62,6 +62,12 @@ export class AdministratorDashboardComponent implements OnInit {
 
   //RegistrarEmpleado
   registrarEmpleado(content) {
+    if(false
+    
+    ){
+
+
+
     const photoURL = ''; 
     if (this.password === this.password2) {
       const user = {
@@ -100,6 +106,15 @@ export class AdministratorDashboardComponent implements OnInit {
       this.password2 = null;
       this.flash.show('Las contraseñas no coinciden', { cssClass: 'custom-alert-danger' });
     }
+
+  }else{
+    this.flash.show('AJAJAJAJAJ ESTAM ALO MENOR', {cssClass: 'custom-alert-success', timeout: 3000 });
+
+
+  }
+
+
+
   }
 
   getUsuario(){
