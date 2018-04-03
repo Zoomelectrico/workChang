@@ -5,9 +5,6 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
 -- Schema workchang
 -- -----------------------------------------------------
 
@@ -54,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `workchang`.`administrators` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -111,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `workchang`.`clients` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -142,9 +140,10 @@ CREATE TABLE IF NOT EXISTS `workchang`.`repairorders` (
   `exitDate` DATE NULL DEFAULT NULL,
   `AppointmentID` INT(11) NOT NULL,
   `MechanicID` INT(11) NOT NULL,
-  `QRCode` VARCHAR(255) NOT NULL,
+  `QRCode` LONGTEXT NOT NULL COMMENT '\n',
   `diagnostic` LONGTEXT NOT NULL,
   `ready` TINYINT(4) NOT NULL DEFAULT '0',
+  `procedure` LONGTEXT NULL DEFAULT NULL,
   PRIMARY KEY (`ID`),
   INDEX `fk_OrdenRepacion_Cita1_idx` (`AppointmentID` ASC),
   INDEX `fk_OrdenRepacion_Mecanico1_idx` (`MechanicID` ASC),
@@ -159,13 +158,9 @@ CREATE TABLE IF NOT EXISTS `workchang`.`repairorders` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
-ALTER TABLE `workchang`.`repairorders` 
-CHANGE COLUMN `QRCode` `QRCode` LONGTEXT NOT NULL COMMENT '\n' ;
-
-ALTER TABLE `workchang`.`repairorders` 
-ADD COLUMN `procedure` LONGTEXT NULL AFTER `ready`;
 
 -- -----------------------------------------------------
 -- Table `workchang`.`detailsRO`
@@ -183,6 +178,7 @@ CREATE TABLE IF NOT EXISTS `workchang`.`detailsRO` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -200,6 +196,7 @@ CREATE TABLE IF NOT EXISTS `workchang`.`managers` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -216,6 +213,7 @@ CREATE TABLE IF NOT EXISTS `workchang`.`replacements` (
   PRIMARY KEY (`ID`),
   UNIQUE INDEX `nParte_UNIQUE` (`partNumber` ASC))
 ENGINE = InnoDB
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 

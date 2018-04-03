@@ -62,6 +62,7 @@ export class AdministratorDashboardComponent implements OnInit {
 
   //RegistrarEmpleado
   registrarEmpleado(content) {
+<<<<<<< HEAD
     if(content){
       if (this.password === this.password2) {
         const photoURL = ''
@@ -104,6 +105,65 @@ export class AdministratorDashboardComponent implements OnInit {
     }else{
       this.flash.show('AJAJAJAJAJ ESTA MALO MENOR', {cssClass: 'custom-alert-success', timeout: 3000 });
     }
+=======
+    if( this.firstName && this.firstName.length < 45 &&
+      this.lastName && this.lastName.length < 45 &&
+      this.username && this.username.length <20 &&
+      this.email && this.email.length < 255 &&
+      this.password && this.password.length < 255 &&
+      this.addressLine1 && this.addressLine1.length < 45 &&
+      this.addressLine2 && this.addressLine2.length < 45 && 
+      this.city && this.city.length < 45 &&
+      this.nationalID > 0 && this.nationalID < 99999999999
+    ){
+    const photoURL = ''; 
+    if (this.password === this.password2) {
+      const user = {
+        photoURL: photoURL,
+        nationalID: this.nationalID,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        username: this.username,
+        password: this.password,
+        addressLine1: this.addressLine1,
+        addressLine2: this.addressLine2,
+        city: this.city,
+        type: this.type
+      };
+      this.auth.registerUser(user).subscribe(data => {
+        if (data.success) {
+          this.usuarios.push(data.user);
+          this.nationalID = null;
+          this.firstName = null;
+          this.lastName = null;
+          this.email = null;
+          this.username = null; 
+          this.password = null;
+          this.password2 = null; 
+          this.addressLine1 = null;
+          this.addressLine2 = null;
+          this.city = null;
+          this.flash.show(data.msg, {cssClass: 'custom-alert-success', timeout: 3000 });
+        } else {
+          this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+        }
+      })
+    } else {
+      this.password = null;
+      this.password2 = null;
+      this.flash.show('Las contraseñas no coinciden', { cssClass: 'custom-alert-danger' });
+    }
+
+  }else{
+    this.flash.show('Disculpe, recuerde completar todos los campos correctamente. No deje campos en blanco ni exceda el limite de caracteres.', {cssClass: 'custom-alert-danger', timeout: 3000 });
+
+
+  }
+
+
+
+>>>>>>> 16ba72966f69d45acbc10723502daf1dac86dfe3
   }
 
   getUsuario(){
@@ -174,7 +234,9 @@ export class AdministratorDashboardComponent implements OnInit {
   }
 
   modificarUser(){
+
     const photoURL = ''; 
+    if(false){
     const user = {
       ID: this.userID,
       photoURL: photoURL,
@@ -209,6 +271,13 @@ export class AdministratorDashboardComponent implements OnInit {
         this.flash.show(dataUser.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     })
+
+  }else{
+    this.flash.show('Disculpe, recuerde completar todos los campos correctamente. No deje campos en blanco ni exceda el limite de caracteres.', {cssClass: 'custom-alert-danger', timeout: 3000 });
+
+  }
+
+
   }
 
   onChange(rol) {
@@ -232,6 +301,14 @@ export class AdministratorDashboardComponent implements OnInit {
 
   //registrar repuesto
   registrarRepuesto(content){
+
+if(this.partNumber >0 && this.partNumber<99999999999 &&
+  this.name && this.name.length < 45 &&
+  this.brand && this.brand.length < 45 &&
+  this.forModel && this.forModel.length < 255 &&
+  this.inStock>0 && this.inStock < 99999999999 
+){
+
     const replacement = {
       partNumber: this.partNumber,
       name: this.name,
@@ -253,6 +330,13 @@ export class AdministratorDashboardComponent implements OnInit {
         this.flash.show(dataReplacement.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     })
+
+  }else{
+    this.flash.show('Disculpe, recuerde completar todos los campos correctamente. No deje campos en blanco ni exceda el limite de caracteres.', { cssClass: 'custom-alert-danger', timeout: 3000 });
+
+  }
+
+
   }
 
   getRepuesto(){
