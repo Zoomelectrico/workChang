@@ -366,11 +366,19 @@ export class AdministratorDashboardComponent implements OnInit {
         this.brand = replacement.replacement.brand;
         this.forModel = replacement.replacement.forModel;
         this.inStock = replacement.replacement.inStock;
-        this.canModificateRep = true;
       } else {
         this.flash.show(replacement.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     });
+  }
+
+  repuestoSelec(replacement) {
+    this.partNumber = replacement.partNumber;
+    this.name = replacement.name;
+    this.brand = replacement.brand;
+    this.forModel = replacement.forModel;
+    this.inStock = replacement.inStock;
+    this.canModificateRep = true;
   }
 
   modificarRepuesto() {
