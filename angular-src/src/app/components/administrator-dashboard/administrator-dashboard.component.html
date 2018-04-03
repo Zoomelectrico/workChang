@@ -21,9 +21,19 @@
                   </div>
                 </div>
                 <div class="row">
+                  <div class="col-lg-12 col-sm-12">
+                    <select class="form-control mt-1 mb-3 form-control-sm" id="busquedaPor" (change)="claveBusqueda($event.target.value)">
+                      <option>Busqueda por cedula</option>
+                      <option>Busqueda por nombre</option>
+                      <option>Busqueda por usuario</option>
+                      <option>Busqueda por correo</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
                   <div class="col-lg-8 col-sm-12">
                     <form #formUpdate="ngForm">
-                      <input class="form-control" id="userID" type="text" placeholder="Apellido" [(ngModel)]="userIDSearch" [ngModelOptions]="{standalone: true}">
+                      <input class="form-control" id="userID" type="text" placeholder="Clave de busqueda..." [(ngModel)]="userIDSearch" [ngModelOptions]="{standalone: true}">
                     </form>
                   </div>
                   <div class="col-lg-4 col-sm-12 text-center">
@@ -66,7 +76,7 @@
                   </div>
                 </div>
                 <div class="col-sm-12 col-lg-12">
-                  <form #formUpdate="ngForm" (submit)="registrarEmpleado(content)">
+                  <form #formUpdate="ngForm">
                     <div class="row">
                       <div class="col-sm-12 col-lg-6 form-group">
                         <label for="firstName">Nombres</label>
@@ -136,19 +146,12 @@
                     </div>
                     <div class="row">
                       <div class="col-lg-12 col-sm-12 text-right">
-                        <button type="submit" class="btn btn-primary m-1" [disabled]="canModificateUser">Registrar</button>
+                        <button class="btn btn-primary m-1" (click)="registrarEmpleado()" [disabled]="canModificateUser">Registrar</button>
                         <button class="btn btn-primary m-1" (click)="modificarUser()" [disabled]="!canModificateUser">Modificar</button>
                       </div>
                     </div>
                   </form>
                 </div>
-              </div>
-            </div>
-          </ng-template>
-          <ng-template #content let-c="close" let-d="dismiss">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-body">
-                <h4>Operación realizada con éxito</h4>
               </div>
             </div>
           </ng-template>
@@ -170,8 +173,8 @@
                     </form>
                   </div>
                   <div class="col-lg-4 col-sm-12 text-center">
-                    <button class="btn btn-primary m-1" (click)="getRepuestosByPartNumber()">Buscar</button>
-                    <button class="btn btn-primary m-1" (click)="getRepuesto()">Todos los repuestos</button>
+                    <button class="btn btn-primary p-1" (click)="getRepuestosByPartNumber()">Buscar</button>
+                    <button class="btn btn-primary p-1" (click)="getRepuesto()">Todos los repuestos</button>
                   </div>
                 </div>
                 <br>
@@ -238,12 +241,11 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm-6 form-group text-center">
-                      <button class="btn btn-primary" (click)="registrarRepuesto(content)" [disabled]="canModificateRep">Añadir</button>
+                    <div class="col-sm-12 form-group text-right">
+                      <button class="btn btn-primary p-1" (click)="registrarRepuesto(content)" [disabled]="canModificateRep">Añadir</button>
+                      <button class="btn btn-primary p-1" (click)="modificarRepuesto()" [disabled]="!canModificateRep">Modificar</button>
                     </div>
-                    <div class="col-sm-6 form-group text-center">
-                      <button class="btn btn-primary" (click)="modificarRepuesto()" [disabled]="!canModificateRep">Modificar</button>
-                    </div>
+              
                   </div>
                 </form>
               </div>
