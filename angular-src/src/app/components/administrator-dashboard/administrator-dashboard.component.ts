@@ -62,50 +62,6 @@ export class AdministratorDashboardComponent implements OnInit {
 
   //RegistrarEmpleado
   registrarEmpleado(content) {
-<<<<<<< HEAD
-    if(content){
-      if (this.password === this.password2) {
-        const photoURL = ''
-        const user = {
-          photoURL: photoURL,
-          nationalID: this.nationalID,
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          username: this.username,
-          password: this.password,
-          addressLine1: this.addressLine1,
-          addressLine2: this.addressLine2,
-          city: this.city,
-          type: this.type
-        };
-        this.auth.registerUser(user).subscribe(data => {
-          if (data.success) {
-            this.usuarios.push(data.user);
-            this.nationalID = null;
-            this.firstName = null;
-            this.lastName = null;
-            this.email = null;
-            this.username = null; 
-            this.password = null;
-            this.password2 = null; 
-            this.addressLine1 = null;
-            this.addressLine2 = null;
-            this.city = null;
-            this.flash.show(data.msg, {cssClass: 'custom-alert-success', timeout: 3000 });
-          } else {
-            this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
-          }
-        })
-      } else {
-        this.password = null;
-        this.password2 = null;
-        this.flash.show('Las contraseñas no coinciden', { cssClass: 'custom-alert-danger' });
-      }
-    }else{
-      this.flash.show('AJAJAJAJAJ ESTA MALO MENOR', {cssClass: 'custom-alert-success', timeout: 3000 });
-    }
-=======
     if( this.firstName && this.firstName.length < 45 &&
       this.lastName && this.lastName.length < 45 &&
       this.username && this.username.length <20 &&
@@ -157,13 +113,7 @@ export class AdministratorDashboardComponent implements OnInit {
 
   }else{
     this.flash.show('Disculpe, recuerde completar todos los campos correctamente. No deje campos en blanco ni exceda el limite de caracteres.', {cssClass: 'custom-alert-danger', timeout: 3000 });
-
-
   }
-
-
-
->>>>>>> 16ba72966f69d45acbc10723502daf1dac86dfe3
   }
 
   getUsuario(){
@@ -236,7 +186,7 @@ export class AdministratorDashboardComponent implements OnInit {
   modificarUser(){
 
     const photoURL = ''; 
-    if(false){
+    if(true){
     const user = {
       ID: this.userID,
       photoURL: photoURL,
@@ -255,6 +205,7 @@ export class AdministratorDashboardComponent implements OnInit {
       if(dataUser.success){
         this.usuarios = [];
         this.usuarios.push(dataUser.user);
+        this.getUsuario();
         this.flash.show('Usuario modificado con exito', { cssClass:'custom-alert-success', timeout: 3000 });
         this.nationalID = null;
         this.firstName = null;
@@ -273,7 +224,7 @@ export class AdministratorDashboardComponent implements OnInit {
     })
 
   }else{
-    this.flash.show('Disculpe, recuerde completar todos los campos correctamente. No deje campos en blanco ni exceda el limite de caracteres.', {cssClass: 'custom-alert-danger', timeout: 3000 });
+    //this.flash.show('Disculpe, recuerde completar todos los campos correctamente. No deje campos en blanco ni exceda el limite de caracteres.', {cssClass: 'custom-alert-danger', timeout: 3000 });
 
   }
 
