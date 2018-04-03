@@ -1,0 +1,129 @@
+<section class="container mt-4 mb-4">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2 class="text-center text-white mt-5">Recepción de Vehículo</h2>
+    </div>
+  </div>
+</section>
+<div class="container">
+  <div class="row justify-content-around">
+    <div class="col-lg-10 fondoBlanco">
+      <div class="row">
+        <div class="col-lg-6 col-sm-12">
+          <h4>Escaner Código QR:</h4>
+        </div>
+        <div class="col-lg-6 col-sm-12 text-right">
+          <button type="button" class="btn btn-primary" (click)="tomarFoto()">Escanear</button>
+          <button type="button" class="btn btn-primary" (click)="verificarQR()">Verificar</button>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-sm-12 col-lg-6 text-center">
+          <video class="booth" #video [width]="width" [height]="height" autoplay></video>
+        </div>
+        <div class="col-sm-12 col-lg-6 text-center">
+          <canvas #canvas [width]="width" [height]="height"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container" *ngIf="mostrar">
+<div class="row">
+  <div class="col-sm-12">
+    <h2 class="text-center text-white mt-5">Datos de la Orden de Reparación</h2>
+  </div>
+</div>
+<div class="container">
+  <div class="row justify-content-around">
+    <div class="col-lg-10 fondoBlanco">
+      <div class="row form-group pl-2">
+        <div class="col-lg-4">
+          <div class="row ">
+            <label for="mechanicName"><strong>Mecánico:</strong></label>
+          </div>
+          <div class="row">
+            <input type="text" id="mechanicName" name="mechanicName" readonly class="form-control-plaintext" value="{{rodata.mechanicName}}">
+          </div>
+        </div>
+        <div class="col-lg-4 ">
+          <div class="row">
+            <label for="carName"><strong>Datos de Carro:</strong></label>
+          </div>
+          <div class="row">
+            <input type="text" id="carName" name="carName" readonly class="form-control-plaintext" value="{{rodata.carName}}">
+          </div>
+        </div>
+        <div class="col-lg-4 ">
+          <div class="row">
+            <label for="licensePlate"><strong>Placa:</strong></label>
+          </div>
+          <div class="row">
+            <input type="text" id="licensePlate" name="licensePlate" readonly class="form-control-plaintext" value="{{rodata.licensePlate}}">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <h4 class="center-text">Recepción del Vehículo</h4>
+        </div>
+      </div>
+      <form class="row" #formDetails="ngForm" (submit)="aceptarVehiculo()">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 form-group">
+                    <label for="diagnostic">Diagnosctico: </label>
+                    <textarea class="form-control" rows="2" name="diagnostic" [(ngModel)]="diagnostic" [ngModelOptions]="{standalone: true}"></textarea>      
+                  </div>
+            </div>
+          <div class="row">
+            <div class="col-sm-12 col-lg-6 form-group">
+              <label for="front">Detalles Parte Frontal: </label>
+              <textarea class="form-control" id="front" rows="2" name="front" [(ngModel)]="front" [ngModelOptions]="{standalone: true}"></textarea>
+            </div>
+            <div class="col-sm-12 col-lg-6 form-group">
+              <label for="back">Detalles Parte Posterior: </label>
+              <textarea class="form-control" id="back" rows="2" name="back" [(ngModel)]="back" [ngModelOptions]="{standalone: true}"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-lg-6 form-group">
+              <label for="right">Detalles Parte Lat. Derecho: </label>
+              <textarea class="form-control" id="right" rows="2" name="right" [(ngModel)]="right" [ngModelOptions]="{standalone: true}"></textarea>
+            </div>
+            <div class="col-sm-12 col-lg-6 form-group">
+              <label for="left">Detalles Parte Lat. Izquierdo: </label>
+              <textarea class="form-control" id="left" rows="2" name="lefy" [(ngModel)]="left" [ngModelOptions]="{standalone: true}"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+            <label for="fotoVehiculo">Foto del Vehiculo</label>
+            <div class="custom-file" id="fotoVehiculo">
+              <input type="file" class="custom-file-input" id="photo" [(ngModel)]="photo" accept=".png, .jpg, .jpeg" name="photo" (change)="onChange($event)">
+              <label class="custom-file-label" for="photo">Mi Vehiculo</label>
+            </div>
+          </div>
+          </div>
+          <div class="row mt-3 text-right">
+            <div class="col-sm-12 form-group">
+              <button class="btn btn-primary" type="submit">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</div>

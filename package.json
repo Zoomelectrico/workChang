@@ -14,17 +14,18 @@
     "cookie-parser": "*",
     "cors": "*",
     "debug": "*",
-    "express": "*",
-    "json2csv": "^3.11.5",
-    "jsonwebtoken": "^8.1.1",
-    "moment": "^2.20.1",
+    "express": "^4.16.3",
+    "json-2-csv": "^2.2.0",
+    "jsonwebtoken": "^8.2.0",
+    "moment": "^2.21.0",
     "morgan": "*",
-    "mysql2": "^1.5.2",
-    "nodemailer": "*",
+    "mysql2": "^1.5.3",
+    "nodemailer": "^4.6.3",
     "passport": "*",
-    "passport-jwt": "*",
+    "passport-jwt": "^4.0.0",
     "qrcode": "*",
-    "sequelize": "^4.33.4",
+    "request": "^2.85.0",
+    "sequelize": "^4.37.4",
     "serve-favicon": "*"
   },
   "repository": {
@@ -45,7 +46,7 @@
   },
   "homepage": "https://github.com/Zoomelectrico/workChang#readme",
   "devDependencies": {
-    "@angular/cli": "^1.6.8",
-    "eslint": "^4.17.0"
+    "@angular/cli": "^1.7.3",
+    "eslint": "^4.19.1"
   }
 }

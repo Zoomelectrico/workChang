@@ -63,11 +63,8 @@ router.post('/order-details', (req, res, next) => {
 });
 
 router.post('/create-RepairOrder', (req, res, next) => {
-  const entryDate = moment({
-    y: req.body.entryDate.year,
-    M: req.body.entryDate.month,
-    d: req.body.entryDate.day
-  });
+  const entryDate = (req.body.entryDate.year).toString()+'-'+(req.body.entryDate.month).toString()+'-'+(req.body.entryDate.day).toString(); 
+  console.log(entryDate);
   const MechanicID = req.body.MechanicID;
   const AppointmentID = req.body.AppointmentID;
   ManagerController.introduceRepairOrder(entryDate, MechanicID, AppointmentID, (err, repairOrder) => {
@@ -102,6 +99,65 @@ router.get('/available-mechanics', (req, res, next) => {
       });
     }
   });
+});
+
+router.post('/receive-car', (req, res, next) => {
+  const roid = req.body.repairOrderID;
+  const det = req.body.details;
+  const photo = req.body.photo;
+  const diag = req.body.diagnostic;
+  ManagerController.receiveCar(roid, det, photo, diag, (err, detailsro)=> {
+    if(err) {
+      res.json({
+        success: false,
+        msg: err.message,
+        err: err
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'Vehículo Recibido',
+        detailsRO: detailsro
+      });
+    }
+  });
+});
+
+router.post('/close-order', (req, res, next) => {
+  let exitDate = `${req.body.exitDate.year}-${req.body.exitDate.month}-${req.body.exitDate.day}`;
+  ManagerController.cerrarOrden(req.body.id, exitDate, (err, ro) => {
+    if(err) {
+      res.json({
+        success: false,
+        msg: err.message,
+        err: err
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'Orden cerrada con Exito',
+        RepairOrder: ro
+      });
+    }
+  });
+});
+
+router.get('/empleado/:apellido', (req, res, next) => {
+  ManagerController.buscarUsuarioApellido(req.params.apellido, (err, user) => {
+    if(err) {
+      res.json({
+        success: false,
+        msg: err.message,
+        err: err
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'Usuario encontrado',
+        user: user
+      });
+    }
+  })
 });
 
 module.exports = router;

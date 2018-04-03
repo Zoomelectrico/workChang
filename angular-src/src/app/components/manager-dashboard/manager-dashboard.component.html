@@ -1,13 +1,12 @@
 <section id="welcome">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-12 mt-3">
         <h2 class="text-center text-white">Bienvenido {{user.firstName}}</h2>
       </div>
     </div>
   </div>
 </section>
-
 <h3 class="text-center text-white">Ordenes Reparación</h3>
 <div class="container">
   <div class="row justify-content-around">
@@ -45,7 +44,7 @@
                     </form>
                   </td>
                   <td>
-                    <button type="button" class="btn btn-dark" (click)="openFinOrden(modalFin, cita)">Admitir</button>
+                    <button type="button" class="btn btn-primary" (click)="openFinOrden(modalFin, cita)">Admitir</button>
                   </td>
                 </tr>
               </tbody>
@@ -69,7 +68,7 @@
                   <td>{{orden.carName}}</td>
                   <td>{{orden.carLicensePlate}}</td>
                   <td class="text-center">
-                    <button type="button" class="btn btn-dark" (click)="openDetOrden(modalDet, orden)">Ver detalles</button>
+                    <button type="button" class="btn btn-primary" (click)="openDetOrden(modalDet, orden)">Ver detalles</button>
                   </td>
                 </tr>
               </tbody>
@@ -80,7 +79,6 @@
     </div>
   </div>
 </div>
-
 <br>
 <br>
 <br>
@@ -89,7 +87,6 @@
 <br>
 <br>
 <br>
-
 <h3 class="text-center text-white">Modificar Cliente</h3>
 <div class="container">
   <div class="row justify-content-around">
@@ -104,16 +101,14 @@
           <input type="text" class="form-control" id="nationalIDSearch" [(ngModel)]="nationalIDSearch" name="nationalIDSearch" placeholder="11222333">
         </div>
         <div class="col-lg-2 text-right">
-          <button (click)="buscarCedula()" class="btn btn-dark">Buscar</button>
+          <button (click)="buscarCedula()" class="btn btn-primary">Buscar</button>
         </div>
       </div>
-
       <div class="row">
         <div class="col-lg-12 mt-3">
           <h4>Datos cliente:</h4>
         </div>
       </div>
-
       <form #formUpdate="ngForm" (submit)="modificarDatosUsuario()">
         <div class="row">
           <div class="col-sm-12 col-lg-6 form-group">
@@ -163,18 +158,13 @@
         </div>
         <div class="row">
           <div class="col-sm-12 text-center">
-            <button type="submit" class="btn btn-dark">Modificar</button>
+            <button type="submit" class="btn btn-primary">Modificar</button>
           </div>
         </div>
       </form>
-
-
-
     </div>
   </div>
 </div>
-
-
 <br>
 <br>
 <br>
@@ -183,89 +173,122 @@
 <br>
 <br>
 <br>
-
 <h3 class="text-center text-white">Reportes</h3>
 <div class="container">
   <div class="row justify-content-around invertirColor card-deck">
-    <div class="col-lg-3">
-      <div class="row">
-        <div class="col-12">
-          <h5 class="text-center">Historial Cliente</h5>
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="text-center">
+              <strong>Historial Cliente</strong>
+            </h5>
+          </div>
+        </div>
+        <div class="row">
+          <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos
+            los servicio de cada vehículo, descargable en formato csv.</p>
+        </div>
+        <div class="row">
+          <div class="col input-group input-group-sm mb-3">
+            <input type="text" class="form-control" placeholder="Cedula cliente" #cedula>
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" (click)="historicoCliente(cedula.value)">Generar</button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos los
-          servicio de cada vehículo, descargable en formato csv.</p>
+      <div class="col-lg-3">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="text-center">
+              <strong>Historial Vehiculo</strong>
+            </h5>
+          </div>
+        </div>
+        <div class="row">
+          <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos
+            los servicio de cada vehículo, descargable en formato csv.</p>
+        </div>
+        <div class="row">
+          <div class="col input-group input-group-sm mb-3">
+            <input type="text" class="form-control" placeholder="Placa vehiculo" #placa>
+            <div class="input-group-append">
+              <button class="btn btn-primary" (click)="historicoVehiculo(placa.value)" type="button">Generar</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="row">
-        <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Cedula cliente..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-light" type="button">Generar</button>
+      <div class="col-lg-3">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="text-center">
+              <strong>Historial Mecanico</strong>
+            </h5>
+          </div>
+        </div>
+        <div class="row">
+          <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos
+            los servicio de cada vehículo, descargable en formato csv.</p>
+        </div>
+        <div class="row">
+          <div class="col input-group input-group-sm mb-3">
+            <input type="text" class="form-control" placeholder="Cedula mecánico" #cedulaMec>
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" (click)="historicoMecanico(cedulaMec.value)">Generar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="text-center">
+              <strong>Historial Modelo</strong>
+            </h5>
+          </div>
+        </div>
+        <div class="row">
+          <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos
+            los servicio de cada vehículo, descargable en formato csv.</p>
+        </div>
+        <div class="row">
+          <div class="col input-group input-group-sm mb-3">
+            <input type="text" class="form-control" placeholder="Modelo vehiculo" #modelo>
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" (click)="historicoModelo(modelo.value)">Generar</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-3">
-      <div class="row">
-        <div class="col-12">
-          <h5 class="text-center">Historial Vehiculo</h5>
-        </div>
-      </div>
-      <div class="row">
-        <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos los
-          servicio de cada vehículo, descargable en formato csv.</p>
-      </div>
-      <div class="row">
-        <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Placa vehiculo..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <div class="row">
+      <div class="col-lg-4 col-sm-12 m-1 text-right">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="date_inicio" name="rangoI" ngbDatepicker #dinicio="ngbDatepicker">
           <div class="input-group-append">
-            <button class="btn btn-light" type="button">Generar</button>
+            <button class="btn btn-outline-secondary" (click)="dinicio.toggle()" type="button">
+              X
+            </button>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-3">
-      <div class="row">
-        <div class="col-12">
-          <h5 class="text-center">Historial Mecanico</h5>
-        </div>
-      </div>
-      <div class="row">
-        <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos los
-          servicio de cada vehículo, descargable en formato csv.</p>
-      </div>
-      <div class="row">
-        <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Cedula mecánico..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <div class="col-lg-4 col-sm-12 m-1 text-right">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="date_final" ngbDatepicker #dfinal="ngbDatepicker" name="rangoF">
           <div class="input-group-append">
-            <button class="btn btn-light" type="button">Generar</button>
+            <button class="btn btn-outline-secondary" (click)="dfinal.toggle()" type="button">
+              X
+            </button>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-3">
-      <div class="row">
-        <div class="col-12">
-          <h5 class="text-center">Historial Modelo</h5>
-        </div>
-      </div>
-      <div class="row">
-        <p class="text-center">Este módulo del programa buscará todos los vehículos de un determinado cliente y generará un reporte con todos los
-          servicio de cada vehículo, descargable en formato csv.</p>
-      </div>
-      <div class="row">
-        <div class="col input-group input-group-sm mb-3">
-          <input type="text" class="form-control" placeholder="Modelo vehiculo..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-light" type="button">Generar</button>
-          </div>
-        </div>
+      <div class="col-lg-3 col-sm-12 m-1 text-right">
+        <a class="btn btn-primary text-white" #descargar>Descargar</a>
       </div>
     </div>
   </div>
 </div>
-
 <br>
 <br>
 <br>
@@ -274,10 +297,11 @@
 <br>
 <br>
 <br>
-
 <ng-template #modalFin let-c="close" let-d="dismiss">
   <div class="modal-header text-center">
-    <h4 class="modal-title">Finalizar Orden de reparación</h4>
+    <h4 class="modal-title">
+      <strong>Admision y asignacion de mecánico</strong>
+    </h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -287,16 +311,16 @@
       <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-12">
-            <p>
-              <strong>Marca: </strong>{{cita.brand}}</p>
-            <p>
-              <strong>Modelo: </strong>{{cita.model}}</p>
-            <p>
-              <strong>Placa: </strong>{{cita.licensePlate}}</p>
+            <h5>
+              <strong>Marca: </strong>{{cita.brand}}</h5>
+            <h6>
+              <strong>Modelo: </strong>{{cita.model}}</h6>
+            <h6>
+              <strong>Placa: </strong>{{cita.licensePlate}}</h6>
           </div>
           <div class="col-sm-12">
-            <p>
-              <strong>Fecha: </strong>{{date.year}}-{{date.month}}-{{date.day}}</p>
+            <h6>
+              <strong>Fecha: </strong>{{date.year}}-{{date.month}}-{{date.day}}</h6>
           </div>
         </div>
         <hr>
@@ -308,19 +332,16 @@
           </div>
         </div>
         <hr>
-        <div class="row">
+        <div class="row text-right">
           <div class="col-sm-12">
-            <button type="button" class="btn btn-outline-dark" (click)="generarOrdenReparacion()">Enviar</button>
+            <button type="button" class="btn btn-dark" (click)="generarOrdenReparacion(modalFin)">Asignar</button>
+            <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Regresar</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
-  </div>
 </ng-template>
-
 <ng-template #modalDet let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Detalles de las Orden</h4>
@@ -331,15 +352,19 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-sm-12">
-        <p><strong>Mecánico Asignado:</strong> {{orden.mechanicName}}</p>
-        <p><strong>Vehículo:</strong> {{orden.carName}}</p>
-        <p><strong>Placa:</strong> {{orden.licensePlate}}</p>
-        <p><strong>Fecha de Recepción:</strong> {{orden.entryDate}}</p>
+        <h6>
+          <strong>Mecánico Asignado:</strong> {{orden.mechanicName}}</h6>
+        <h6>
+          <strong>Vehículo:</strong> {{orden.carName}}</h6>
+        <h6>
+          <strong>Placa:</strong> {{orden.licensePlate}}</h6>
+        <h6>
+          <strong>Fecha de Recepción:</strong> {{orden.entryDate}}</h6>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <h4 class="text-center">Respuestos Utilizados</h4>
+        <h4 class="text-center">Respuestos Utilizados:</h4>
         <ul>
           <li *ngFor="let r of orden.replacements">{{r}}</li>
         </ul>
@@ -347,6 +372,9 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    <div class="row text-right">
+      <button type="button" class="btn btn-dark m-1" (click)="cerrarOrden(orden.repairOrdersID)">Cerrar órden</button>
+      <button type="button" class="btn btn-outline-dark m-1" (click)="c('Close click')">Regresar</button>
+    </div>
   </div>
 </ng-template>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -10,15 +10,10 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./manager-dashboard.component.css']
 })
 export class ManagerDashboardComponent implements OnInit {
-  // Los datos del usuario
   private user: any;
-  // Los datos de las citas pautadas
   private colaEspera = [];
-  // Ordenes de esperas activas
   private ordenesActivas = [];
-  // Lista de Mecánicos Disponibles
   private mecanicos = [];
-  // Modificar Datos del cliente
   private firstName: string;
   private lastName: string;
   private nationalID: number;
@@ -27,14 +22,14 @@ export class ManagerDashboardComponent implements OnInit {
   private addressLine2: string;
   private city: string;
   private photoURL: string;
-  // Cedula para realizar la busqueda
   private nationalIDSearch: string;
-  // Datos para formalizar citas
   private date;
+  private date_inicio;
+  private date_final;
   private cita;
   private mecanico;
-  // Datos de la Orden 
   private orden = {};
+  @ViewChild('descargar') btn;
 
   constructor(
     private api: ApiService,
@@ -78,6 +73,7 @@ export class ManagerDashboardComponent implements OnInit {
     }).subscribe(data => {
       if (data.success) {
         this.orden = data.detalles
+        console.log(this.orden);
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
@@ -99,7 +95,7 @@ export class ManagerDashboardComponent implements OnInit {
     
   }
 
-  generarOrdenReparacion() {
+  generarOrdenReparacion(content) {
     const orden = {
       entryDate: this.date,
       MechanicID: this.mecanico,
@@ -114,6 +110,7 @@ export class ManagerDashboardComponent implements OnInit {
         this.api.getOrdenesAbiertas().subscribe(data => {
           if(data.success) {
             this.ordenesActivas = data.activesOrders;
+            this.modalService.open(content).close();
           } else {
             this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 5000 })
           }
@@ -162,6 +159,104 @@ export class ManagerDashboardComponent implements OnInit {
         this.flash.show(data.msg);
       } else {
         this.flash.show(data.msg);
+      }
+    });
+  }
+
+  cerrarOrden(ordenID) {
+    console.log(ordenID);
+    let d = new Date(Date.now());
+    const datos = {
+      id: ordenID,
+      exitDate: {
+        year: d.getFullYear(),
+        month: d.getMonth()+1,
+        day: d.getDay()
+      }
+    }
+    this.api.cerrarOrden(datos).subscribe(data => {
+      console.log(data);
+      if(data.success){
+        this.api.getOrdenesAbiertas().subscribe(data => {
+          if(data.success) {
+            this.ordenesActivas = data.activesOrders;
+          } else {
+            this.ordenesActivas = [];
+          }
+        });
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+      }
+    });
+  }
+
+  historicoCliente(nationalID) {
+    this.api.historicoCliente({ nationalID: nationalID }).subscribe(data => {
+      if(data.success) {
+        let blob = new Blob([data.csv], {type: 'text/plain'});
+        if(window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(blob);
+        } else {
+          this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+          this.btn.nativeElement.download = `historico-${nationalID}.csv`;
+        }
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+      }
+    });
+  }
+
+  historicoVehiculo(licensePlate) {
+    this.api.historicoVehiculo({ licensePlate }).subscribe(data => {
+      console.log(data);
+      if(data.success) {
+        let blob = new Blob([data.csv], {type: 'text/plain'});
+        if(window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(blob);
+        } else {
+          this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+          this.btn.nativeElement.download = `historico-${licensePlate}.csv`
+        }
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+      }
+    });
+  }
+
+  historicoMecanico(nationalID) {
+    let date1 = `${this.date_inicio.year}-${this.date_inicio.month}-${this.date_inicio.day}`;
+    let date2 = `${this.date_final.year}-${this.date_final.month}-${this.date_final.day}`;
+    this.api.historicoMecanico({ nationalID, date1, date2 }).subscribe(data => {
+      console.log(data);
+      if(data.success) {
+        let blob = new Blob([data.csv], {type: 'text/plain'});
+        if(window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(blob);
+        } else {
+          this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+          this.btn.nativeElement.download = `historico-mecanico-${nationalID}.csv`
+        }
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+      }
+    });
+  }
+
+  historicoModelo(model) {
+    let date1 = `${this.date_inicio.year}-${this.date_inicio.month}-${this.date_inicio.day}`;
+    let date2 = `${this.date_final.year}-${this.date_final.month}-${this.date_final.day}`;
+    this.api.historicoModelo({ model, date1, date2 }).subscribe(data => {
+      console.log(data);
+      if(data.success) {
+        let blob = new Blob([data.csv], {type: 'text/plain'});
+        if(window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(blob);
+        } else {
+          this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+          this.btn.nativeElement.download = `historico-${model}.csv`
+        }
+      } else {
+        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     });
   }

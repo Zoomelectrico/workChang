@@ -6,7 +6,7 @@ const sequelize = require('./database');
 module.exports = function(passport) {
   let opts = {};
   opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-  opts.secretOrKey = 'yoursecret';
+  opts.secretOrKey = '$2a$15$CqGgN2CMjfAvQ.vXUzUWFujqUKUmYZNX4TWrSWYCiJouerR/WIKfe';
   passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
     User.findById(jwt_payload.ID)
       .then((err, user) => {

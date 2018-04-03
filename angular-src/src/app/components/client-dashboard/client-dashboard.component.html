@@ -12,7 +12,7 @@
     <div class="row justify-content-around">
       <div class="col-lg-10 fondoBlanco">
         <ngb-tabset type="pills" justify="justified">
-          <ngb-tab title="Registrar Vehiculo">
+          <ngb-tab title="Registrar Vehiculo" class="btn btn-dark">
             <ng-template ngbTabContent>
               <div class="row justify-content-around">
                 <div class="col-sm-12">
@@ -42,17 +42,30 @@
                         <label for="serial">Serial de Motor</label>
                         <input type="text" class="form-control" id="serial" [(ngModel)]="serial" name="serial" placeholder="ABC123DEF456">
                       </div>
+
+
+
+
                       <div class="col-sm-12 col-lg-6 form-group">
+                  
                         <label for="fotoVehiculo">Foto del Vehiculo</label>
+
                         <div class="custom-file" id="fotoVehiculo">
-                          <input type="file" class="custom-file-input" id="customFile">
-                          <label class="custom-file-label" for="customFile">Mi equipo</label>
+                          
+                          <input type="file" class="custom-file-input" id="photo" [(ngModel)]="photo" accept=".png, .jpg, .jpeg" name="photo" (change)="onChange($event)">
+                          <label class="custom-file-label" for="photo">Mi Vehiculo</label>
                         </div>
+
+
                       </div>
+
+
+
+
                     </div>
                     <div class="row">
                       <div class="col-sm-12 text-center">
-                        <button type="submit" class="btn btn-dark text-center">Registrar</button>
+                        <button type="submit" class="btn btn-primary text-center">Registrar</button>
                       </div>
                     </div>
                   </form>
@@ -85,10 +98,11 @@
                           </small>
                         </div>
                         <div class="col-lg-6 text-right">
-                          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-dark" (click)="pedirCita(serial.textContent)">Pedir cita</button>
-                            <button type="button" class="btn btn-dark" (click)="verHistorial(serial.textContent)">Historial</button>
-                            <button type="button" class="btn btn-secondary" (click)="desactivar(serial.textContent)">Desactivar</button>
+                          <div class="btn-group btn-group-sm" role="group">
+                            <button type="button" class="btn btn-outline-dark" (click)="verVehiculo(serial.textContent, modalCarro)">Ver</button>
+                            <button type="button" class="btn btn-outline-dark" (click)="pedirCita(serial.textContent)">Pedir cita</button>
+                            <button type="button" class="btn btn-outline-dark" (click)="verHistorial(serial.textContent)">Historial</button>
+                            <button type="button" class="btn btn-outline-primary" (click)="desactivar(serial.textContent)">Desactivar</button>
                           </div>
                         </div>
                       </div>
@@ -115,7 +129,7 @@
                       <td>{{cita.licensePlate}}</td>
                       <td>{{cita.brand}}</td>
                       <td>{{cita.model}}</td>
-                      <td>{{cita.estado}}</td>  
+                      <td>{{cita.estado}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -127,6 +141,44 @@
     </div>
   </div>
 </section>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<ng-template #modalCarro let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title"><strong>Vehículo</strong></h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <img src="{{car.photoLink}}" alt="car-photo" class="img-thumbnail" height="200px" width="auto">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <h5>
+          <strong>Marca</strong> {{car.brand}}</h5>
+        <h6>
+          <strong>Modelo:</strong> {{car.model}}</h6>
+        <h6>
+          <strong>Placa:</strong> {{car.licensePlate}}</h6>
+        <h6>
+          <strong>Serial:</strong> {{car.serial}}</h6>
+        <h6>
+          <strong>Año:</strong> {{car.year}}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
 <br>
 <br>
 <br>

@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/User');
 const UserController = require('../controllers/UserController');
+const EmailController = require('../controllers/EmailController');
 
 router.post('/register', (req, res, next) => {
   const user = {
@@ -22,7 +23,7 @@ router.post('/register', (req, res, next) => {
     if (err) {
       res.json({success: false, msg: err.message });
     } else {
-      res.json({success: true, msg: 'El usuario ha sido creado de manera exitosa'});
+      res.json({success: true, msg: 'El usuario ha sido creado de manera exitosa'});   
     }
   });
 });
@@ -91,7 +92,7 @@ router.get('/get-workers', (req, res, next) => {
 });
 
 router.post('/searchUsersByID', (req, res, next) => {
-  UserController.searchUser(req.body.userID, (err, users) => {
+  UserController.searchUser(req.body.search, (err, users) => {
     if (err) {
       res.json({ success: false, msg: err.message, err: err})
     } else {
@@ -100,6 +101,67 @@ router.post('/searchUsersByID', (req, res, next) => {
         msg: 'Usuarios encontrados',
         users: users
       });
+    }
+  });
+});
+
+router.post('/searchUsersByNationalID', (req, res, next) => {
+  UserController.searchUserByNationalID(req.body.search, (err, users) => {
+    if (err) {
+      res.json({ success: false, msg: err.message, err: err})
+    } else {
+      res.json({
+        success: true,
+        msg: 'Usuarios encontrados',
+        users: users
+      });
+      console.log("en user funciona");
+    }
+  });
+});
+
+router.post('/searchUsersByName', (req, res, next) => {
+  UserController.searchUserByName(req.body.search, (err, users) => {
+    if (err) {
+      res.json({ success: false, msg: err.message, err: err})
+      console.log("It doesnt work in user");
+    } else {
+      res.json({
+        success: true,
+        msg: 'Usuarios encontrados',
+        users: users
+      });
+      console.log("It works in user");
+    }
+  });
+});
+
+router.post('/searchUsersByUsername', (req, res, next) => {
+  UserController.searchUserByUsername(req.body.search, (err, users) => {
+    if (err) {
+      res.json({ success: false, msg: err.message, err: err})
+    } else {
+      res.json({
+        success: true,
+        msg: 'Usuarios encontrados',
+        users: users
+      });
+    }
+  });
+});
+
+router.post('/searchUsersByEmail', (req, res, next) => {
+  UserController.searchUserByEmail(req.body.search, (err, users) => {
+    if (err) {
+      res.json({ success: false, msg: err.message, err: err})
+      console.log('no esta funcionando en user')
+    } else {
+      res.json({
+        success: true,
+        msg: 'Usuarios encontrados',
+        users: users
+      });
+      console.log('esta funcionando en user')
     }
   });
 });
