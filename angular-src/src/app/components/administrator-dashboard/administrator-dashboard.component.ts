@@ -31,7 +31,7 @@ export class AdministratorDashboardComponent implements OnInit {
   private city: string;
   private type: number;
   private photo: any;
-  private apellidoBusqueda: string;
+  private userIDSearch: number;
   // Datos de repuestos
   private partNumber: number;
   private name: string;
@@ -62,64 +62,53 @@ export class AdministratorDashboardComponent implements OnInit {
 
   //RegistrarEmpleado
   registrarEmpleado(content) {
-    if(false
-    
-    ){
-
-
-
-    const photoURL = ''; 
-    if (this.password === this.password2) {
-      const user = {
-        photoURL: photoURL,
-        nationalID: this.nationalID,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        username: this.username,
-        password: this.password,
-        addressLine1: this.addressLine1,
-        addressLine2: this.addressLine2,
-        city: this.city,
-        type: this.type
-      };
-      this.auth.registerUser(user).subscribe(data => {
-        if (data.success) {
-          this.usuarios.push(data.user);
-          this.nationalID = null;
-          this.firstName = null;
-          this.lastName = null;
-          this.email = null;
-          this.username = null; 
-          this.password = null;
-          this.password2 = null; 
-          this.addressLine1 = null;
-          this.addressLine2 = null;
-          this.city = null;
-          this.flash.show(data.msg, {cssClass: 'custom-alert-success', timeout: 3000 });
-        } else {
-          this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
-        }
-      })
-    } else {
-      this.password = null;
-      this.password2 = null;
-      this.flash.show('Las contraseñas no coinciden', { cssClass: 'custom-alert-danger' });
+    if(content){
+      if (this.password === this.password2) {
+        const photoURL = ''
+        const user = {
+          photoURL: photoURL,
+          nationalID: this.nationalID,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          username: this.username,
+          password: this.password,
+          addressLine1: this.addressLine1,
+          addressLine2: this.addressLine2,
+          city: this.city,
+          type: this.type
+        };
+        this.auth.registerUser(user).subscribe(data => {
+          if (data.success) {
+            this.usuarios.push(data.user);
+            this.nationalID = null;
+            this.firstName = null;
+            this.lastName = null;
+            this.email = null;
+            this.username = null; 
+            this.password = null;
+            this.password2 = null; 
+            this.addressLine1 = null;
+            this.addressLine2 = null;
+            this.city = null;
+            this.flash.show(data.msg, {cssClass: 'custom-alert-success', timeout: 3000 });
+          } else {
+            this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+          }
+        })
+      } else {
+        this.password = null;
+        this.password2 = null;
+        this.flash.show('Las contraseñas no coinciden', { cssClass: 'custom-alert-danger' });
+      }
+    }else{
+      this.flash.show('AJAJAJAJAJ ESTA MALO MENOR', {cssClass: 'custom-alert-success', timeout: 3000 });
     }
-
-  }else{
-    this.flash.show('AJAJAJAJAJ ESTAM ALO MENOR', {cssClass: 'custom-alert-success', timeout: 3000 });
-
-
-  }
-
-
-
   }
 
   getUsuario(){
     this.api.getUsuariosWorkers().subscribe(data => {
-      this.apellidoBusqueda = null;
+      this.userIDSearch = null;
       if(data.success) {
         this.usuarios = data.users;
         this.convertRol();
@@ -165,13 +154,16 @@ export class AdministratorDashboardComponent implements OnInit {
   }
 
   getUsuarioByID(){
-    if(this.apellidoBusqueda) {
-      this.api.getEmpleadoByApellido(this.apellidoBusqueda).subscribe(data => {
+    if(this.userIDSearch) {
+      this.api.getUsuariosByID({
+        search: this.userIDSearch
+      }, this.busqueda).subscribe(data => {
         if(data.success) {
           this.usuarios = [];
-          this.usuarios.push(data.user);
+          this.usuarios = data.users;
+          console.log(this.usuarios[1].nationalID)
           this.convertRol();
-          this.apellidoBusqueda = null;
+          this.userIDSearch = null;
         } else {
           this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         }
