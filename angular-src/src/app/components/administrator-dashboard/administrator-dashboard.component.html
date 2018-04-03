@@ -23,7 +23,7 @@
                 <div class="row">
                   <div class="col-lg-8 col-sm-12">
                     <form #formUpdate="ngForm">
-                      <input class="form-control" id="userID" type="text" placeholder="Apellido" [(ngModel)]="apellidoBusqueda" [ngModelOptions]="{standalone: true}">
+                      <input class="form-control" id="userID" type="text" placeholder="Apellido del usuario..." [(ngModel)]="apellidoBusqueda" [ngModelOptions]="{standalone: true}">
                     </form>
                   </div>
                   <div class="col-lg-4 col-sm-12 text-center">
@@ -120,14 +120,14 @@
                         <label for="city">Ciudad</label>
                         <input type="text" class="form-control" id="city" [(ngModel)]="city" [ngModelOptions]="{standalone: true}" name="city" placeholder="Caracas">
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-sm-12 col-lg-6 form-group">
                         <label for="nationalID">Cédula</label>
                         <input type="text" class="form-control" id="nationalID" [(ngModel)]="nationalID" [ngModelOptions]="{standalone: true}" name="nationalID"
                           placeholder="1000">
                       </div>
-                      <div class="col-sm-12 col-lg-6 form-group">
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 col-lg-12 form-group">
                         <label for="rolAsignado">Rol</label>
                         <select class="form-control" id="rolAsignado" required (change)="onChange($event.target.value)">
                           <option *ngFor="let rol of roles" [value]="rol.type">{{rol.nombre}}</option>

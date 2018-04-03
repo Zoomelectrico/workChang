@@ -62,6 +62,16 @@ export class AdministratorDashboardComponent implements OnInit {
 
   //RegistrarEmpleado
   registrarEmpleado(content) {
+    if( this.firstName && this.firstName.length < 45 &&
+      this.lastName && this.lastName.length < 45 &&
+      this.username && this.username.length <20 &&
+      this.email && this.email.length < 255 &&
+      this.password && this.password.length < 255 &&
+      this.addressLine1 && this.addressLine1.length < 45 &&
+      this.addressLine2 && this.addressLine2.length < 45 && 
+      this.city && this.city.length < 45 &&
+      this.nationalID > 0 && this.nationalID < 99999999999
+    ){
     const photoURL = ''; 
     if (this.password === this.password2) {
       const user = {
@@ -100,6 +110,15 @@ export class AdministratorDashboardComponent implements OnInit {
       this.password2 = null;
       this.flash.show('Las contraseñas no coinciden', { cssClass: 'custom-alert-danger' });
     }
+
+  }else{
+    this.flash.show('Disculpe, recuerde completar todos los campos correctamente. No deje campos en blanco ni exceda el limite de caracteres.', {cssClass: 'custom-alert-danger', timeout: 3000 });
+
+
+  }
+
+
+
   }
 
   getUsuario(){
@@ -167,7 +186,9 @@ export class AdministratorDashboardComponent implements OnInit {
   }
 
   modificarUser(){
+
     const photoURL = ''; 
+    if(false){
     const user = {
       ID: this.userID,
       photoURL: photoURL,
@@ -202,6 +223,13 @@ export class AdministratorDashboardComponent implements OnInit {
         this.flash.show(dataUser.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     })
+
+  }else{
+    this.flash.show('Disculpe, recuerde completar todos los campos correctamente. No deje campos en blanco ni exceda el limite de caracteres.', {cssClass: 'custom-alert-danger', timeout: 3000 });
+
+  }
+
+
   }
 
   onChange(rol) {
@@ -225,6 +253,14 @@ export class AdministratorDashboardComponent implements OnInit {
 
   //registrar repuesto
   registrarRepuesto(content){
+
+if(this.partNumber >0 && this.partNumber<99999999999 &&
+  this.name && this.name.length < 45 &&
+  this.brand && this.brand.length < 45 &&
+  this.forModel && this.forModel.length < 255 &&
+  this.inStock>0 && this.inStock < 99999999999 
+){
+
     const replacement = {
       partNumber: this.partNumber,
       name: this.name,
@@ -246,6 +282,13 @@ export class AdministratorDashboardComponent implements OnInit {
         this.flash.show(dataReplacement.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     })
+
+  }else{
+    this.flash.show('Disculpe, recuerde completar todos los campos correctamente. No deje campos en blanco ni exceda el limite de caracteres.', { cssClass: 'custom-alert-danger', timeout: 3000 });
+
+  }
+
+
   }
 
   getRepuesto(){
