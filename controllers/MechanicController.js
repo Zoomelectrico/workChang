@@ -100,17 +100,44 @@ const MechanicController = {
           }
         }).then(generics => {
           let r = [];
-          replacements.forEach((replacement, i) => {
-            r.push(replacement);
-            if (i >= replacements.length -1) {
+          if(replacements){
+            replacements.forEach((replacement, i) => {
+              console.log("en replacements funciona");
+              r.push(replacement);
+              console.log("en replacements push funciona");
+            });
+            console.log("continua");
+            if(generics){
+              console.log("en generics funciona 1");
               generics.forEach((g, j) => {
+                console.log("en generics funciona2");
+                r.push(g);
+                if(j === generics.length - 1) {
+                  console.log("en generics funciona3");
+                  callback(null, r);
+                }
+                console.log("en generics funciona4");
+              });
+            } else {
+              console.log("en generics no funciona");
+              callback(null, r);
+            }
+            console.log("en generics no funciona2");
+          } else {
+            if(generics){
+              generics.forEach((g, j) => {
+                console.log("en generics funciona");
                 r.push(g);
                 if(j === generics.length - 1) {
                   callback(null, r);
                 }
               });
+            }else {
+              console.log("en generics no funciona");
+              callback(null, r)
             }
-          });
+          }
+          
         }).catch(err => callback(err, null));
       }).catch(err => callback(err, null));
     }
