@@ -28,6 +28,27 @@ const ClientController = {
       }).catch(err => callback(err, null));
     }).catch(err => callback(err, null));
   },
+  modifyData: function (user, callback) {
+        User.findOne({
+          where: {
+            ID: user.ID
+          }
+        }).then(userFin => {
+          if (userFin) { 
+            userFin.update({
+              nationalID: user.nationalID,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
+              addressLine1: user.addressLine1,
+              addressLine2: user.addressLine2,
+              city: user.city,
+            }).then(userFin => {callback(null, userFin)}).catch(err => callback(new Error('Que Dios proteja el servidor porque no sabemos que estamos haciendo'), null)); // Llama al callback
+          } else {
+            callback(new Error('Que intentas rick no hay nadie con ese username :s'), null); // No hay ese repuesto
+          }
+        }).catch(err => callback(err, null));
+      },
   register: function (userID, callback) {
     Client.create({
       User: UserID
@@ -123,7 +144,7 @@ const ClientController = {
       "INNER JOIN `clients` ON `users`.`ID` = `clients`.`UserID` " +
       "INNER JOIN `cars` ON `clients`.`ID` = `cars`.`OwnerID` " +
       "INNER JOIN `appointments` ON `cars`.`ID` = `appointments`.`CarID` " +
-      "WHERE `clients`.`UserID` = " + userID
+      "WHERE `clients`.`UserID` = " +  userID
     ).spread((data, metada) => {
       if (data) {
         callback(null, data);

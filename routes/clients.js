@@ -2,6 +2,33 @@ const express = require('express');
 const router = express.Router();
 const ClientController = require('../controllers/ClientController');
 
+router.post('/modify', (req, res, next) => { 
+    const user = {
+      ID: req.body.ID,
+      nationalID: req.body.nationalID,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      addressLine1: req.body.addressLine1,
+      addressLine2: req.body.addressLine2,
+      city: req.body.city,
+    };
+    ClientController.modifyData(user, (err, user) => {
+      if (err) {
+        res.json({
+          success: false,
+          msg: err.message
+        });
+      } else {
+        res.json({
+          success: true,
+          msg: 'Modificación del usuario correcta',
+          user: user
+        });
+      }
+    })
+  });
+
 router.post('/CarRegister', (req, res, next) => {
   const carData = {
     "brand": req.body.brand,
