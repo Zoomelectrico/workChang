@@ -324,7 +324,7 @@ export class AdministratorDashboardComponent implements OnInit {
           this.brand = null;
           this.forModel = null;
           this.inStock = null;
-          this.flash.show('Repuesto', { cssClass: '', timeout: 3000 });
+          
         } else {
           this.flash.show(dataReplacement.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         }

@@ -82,6 +82,9 @@ export class ReciveCarComponent implements OnInit {
   }
 
   aceptarVehiculo() {
+    
+    if(this.diagnostic && this.front && this.back && this.left && this.right
+    ){
     const detalles = 
     `Detalles parete delantera: ${this.front}
       Detalles parte trasera: ${this.back}
@@ -104,10 +107,16 @@ export class ReciveCarComponent implements OnInit {
         this.photoLink = '';
         this.diagnostic = '';
         this.router.navigate(['/manager'])
+        
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     });
+
+
+  }else{
+    this.flash.show('Disculpe, recuerde completar todos los campos correctamente. No deje campos en blanco ni exceda el limite de caracteres.', { cssClass: 'custom-alert-danger', timeout: 3000 });
+  }
   }
 }
  
