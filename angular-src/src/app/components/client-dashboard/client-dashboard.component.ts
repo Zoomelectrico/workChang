@@ -118,13 +118,9 @@ export class ClientDashboardComponent implements OnInit {
           this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         }
       });
-
     } else {
       this.flash.show('Disculpe, recuerde completar todos los campos correctamente. No deje campos en blanco ni exceda el limite de caracteres.', { cssClass: 'custom-alert-danger', timeout: 3000 });
     }
-
-
-
   }
 
   desactivar(serial) {
