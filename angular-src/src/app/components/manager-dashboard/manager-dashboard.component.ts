@@ -193,74 +193,107 @@ export class ManagerDashboardComponent implements OnInit {
   }
 
   historicoCliente(nationalID) {
-    this.api.historicoCliente({ nationalID: nationalID }).subscribe(data => {
-      if (data.success) {
-        let blob = new Blob([data.csv], { type: 'text/plain' });
-        if (window.navigator.msSaveBlob) {
-          window.navigator.msSaveBlob(blob);
+
+    if(nationalID){
+
+      this.api.historicoCliente({ nationalID: nationalID }).subscribe(data => {
+        if (data.success) {
+          let blob = new Blob([data.csv], { type: 'text/plain' });
+          if (window.navigator.msSaveBlob) {
+            window.navigator.msSaveBlob(blob);
+          } else {
+            this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+            this.btn.nativeElement.download = `historico-${nationalID}.csv`;
+          }
         } else {
-          this.btn.nativeElement.href = window.URL.createObjectURL(blob);
-          this.btn.nativeElement.download = `historico-${nationalID}.csv`;
+          this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         }
-      } else {
-        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
-      }
-    });
+      });
+      this.flash.show('Ya puede descargar el archivo .CSV', { cssClass: 'custom-alert-success', timeout: 3000 });
+    } else {
+      this.flash.show('Debe indicar la cedula del cliente', { cssClass: 'custom-alert-danger', timeout: 3000 });
+
+
+    }
+
+
   }
 
   historicoVehiculo(licensePlate) {
-    this.api.historicoVehiculo({ licensePlate }).subscribe(data => {
-      console.log(data);
-      if (data.success) {
-        let blob = new Blob([data.csv], { type: 'text/plain' });
-        if (window.navigator.msSaveBlob) {
-          window.navigator.msSaveBlob(blob);
+
+    if(licensePlate){
+      this.api.historicoVehiculo({ licensePlate }).subscribe(data => {
+        console.log(data);
+        if (data.success) {
+          let blob = new Blob([data.csv], { type: 'text/plain' });
+          if (window.navigator.msSaveBlob) {
+            window.navigator.msSaveBlob(blob);
+          } else {
+            this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+            this.btn.nativeElement.download = `historico-${licensePlate}.csv`
+          }
         } else {
-          this.btn.nativeElement.href = window.URL.createObjectURL(blob);
-          this.btn.nativeElement.download = `historico-${licensePlate}.csv`
+          this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         }
-      } else {
-        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
-      }
-    });
+      });
+      this.flash.show('Ya puede descargar el archivo .CSV', { cssClass: 'custom-alert-success', timeout: 3000 });
+    }else{
+      this.flash.show('Debe indicar la placa del vehiculo', { cssClass: 'custom-alert-danger', timeout: 3000 });
+    }
+
   }
 
   historicoMecanico(nationalID) {
-    let date1 = `${this.date_inicio.year}-${this.date_inicio.month}-${this.date_inicio.day}`;
-    let date2 = `${this.date_final.year}-${this.date_final.month}-${this.date_final.day}`;
-    this.api.historicoMecanico({ nationalID, date1, date2 }).subscribe(data => {
-      console.log(data);
-      if (data.success) {
-        let blob = new Blob([data.csv], { type: 'text/plain' });
-        if (window.navigator.msSaveBlob) {
-          window.navigator.msSaveBlob(blob);
-        } else {
-          this.btn.nativeElement.href = window.URL.createObjectURL(blob);
-          this.btn.nativeElement.download = `historico-mecanico-${nationalID}.csv`
-        }
+
+if(nationalID && this.date_inicio && this.date_final){
+  let date1 = `${this.date_inicio.year}-${this.date_inicio.month}-${this.date_inicio.day}`;
+  let date2 = `${this.date_final.year}-${this.date_final.month}-${this.date_final.day}`;
+  this.api.historicoMecanico({ nationalID, date1, date2 }).subscribe(data => {
+    console.log(data);
+    if (data.success) {
+      let blob = new Blob([data.csv], { type: 'text/plain' });
+      if (window.navigator.msSaveBlob) {
+        window.navigator.msSaveBlob(blob);
       } else {
-        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+        this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+        this.btn.nativeElement.download = `historico-mecanico-${nationalID}.csv`
       }
-    });
+    } else {
+      this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+    }
+  });
+  this.flash.show('Ya puede descargar el archivo .CSV', { cssClass: 'custom-alert-success', timeout: 3000 });
+}else{
+  this.flash.show('Debe indicar la cedula del mecanico y el rango de fechas', { cssClass: 'custom-alert-danger', timeout: 3000 });
+}
+
   }
 
   historicoModelo(model) {
-    let date1 = `${this.date_inicio.year}-${this.date_inicio.month}-${this.date_inicio.day}`;
-    let date2 = `${this.date_final.year}-${this.date_final.month}-${this.date_final.day}`;
-    this.api.historicoModelo({ model, date1, date2 }).subscribe(data => {
-      console.log(data);
-      if (data.success) {
-        let blob = new Blob([data.csv], { type: 'text/plain' });
-        if (window.navigator.msSaveBlob) {
-          window.navigator.msSaveBlob(blob);
-        } else {
-          this.btn.nativeElement.href = window.URL.createObjectURL(blob);
-          this.btn.nativeElement.download = `historico-${model}.csv`
-        }
+
+if (model && this.date_inicio && this.date_final){
+  let date1 = `${this.date_inicio.year}-${this.date_inicio.month}-${this.date_inicio.day}`;
+  let date2 = `${this.date_final.year}-${this.date_final.month}-${this.date_final.day}`;
+  this.api.historicoModelo({ model, date1, date2 }).subscribe(data => {
+    console.log(data);
+    if (data.success) {
+      let blob = new Blob([data.csv], { type: 'text/plain' });
+      if (window.navigator.msSaveBlob) {
+        window.navigator.msSaveBlob(blob);
       } else {
-        this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+        this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+        this.btn.nativeElement.download = `historico-${model}.csv`
       }
-    });
+    } else {
+      this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+    }
+  });
+  this.flash.show('Ya puede descargar el archivo .CSV', { cssClass: 'custom-alert-success', timeout: 3000 });
+}else{
+  this.flash.show('Debe indicar el modelo de vehiculo y un rango de fechas', { cssClass: 'custom-alert-danger', timeout: 3000 });
+}
+
+
   }
 
 }
