@@ -1,64 +1,123 @@
-<section id="welcome">
+<section>
+  <br>
   <div class="container">
-    <div class="row">
-      <h1>WorkChang</h1>
-    </div>
-  </div>
-</section>
-<section class="container" id="about">
-  <div class="row">
-    <div class="col-sm-12">
-      <h2 class="text-center">Acerca de Nosotros</h2>
-    </div>
-  </div>
-  <div class="row justify-content-around ">
-    <div class="col-sm-12 col-lg-4 text-center">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">¿Quienes somos?</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-12 col-lg-4 text-center">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">¿Qué Hacemos?</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
+    <div class="row mt-5">
+      <div class="col-sm-12">
+        <h1 class="text-center text-white">¡Bienvenido a tu taller WorkChang!</h1>
       </div>
     </div>
   </div>
-</section>
-<section id="contact">
+  <br>
+  <br>
+  <br>
   <div class="container">
+    <div class="row justify-content-around">
+      <div class="col-lg-12 col-sm-12 fondoBlanco ">
+        <div class="row text-center p-3">
+          <h5>Usted confia su vehículo a
+            <strong>WorkChang</strong>, porque además de ser unos de los talleres más modernos del país, cumplimos con todos los
+            estándares de calidad. Contamos con un servicio integrado de repuestos, con profesionales calificados, por lo
+            que le garantizamos cubrir todas sus espectativas de calidad.
+          </h5>
+        </div>
+        <div class="row text-center">
+          <div class="col-12">
+            <a role="button" class="btn btn-dark btn-lg mt-3" routerLink="/client/register">¡Registrate ahora!</a>
+            <p class="mt-3 text-center" routerLink="/login">Ya estoy registrado.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <section class="text-black p-4 bg-white">
+    <div class="container text-black">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3 class="text-center text-black">
+            <strong>Acerca de nosotros</strong>
+          </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-sm-12">
+          <div class="row">
+            <div class="col-12">
+              <h5 class="text-center">¿Quiénes somos?</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <p class="text-center">Somos una empresa dedicada a prestar sevicios de calidad, buscando siempre el confort de nuestros clientes,
+                dándoles la seguridad y confianza para dejar en nuestras manos un bien tan preciado como es su vehículo.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+          <div class="row">
+            <div class="col-sm-12">
+              <h5 class="text-center">¿Qué nos caracteriza?</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <p class="text-center">Poseemos las más avanzadas tecnologías y personal altamente capacitado que te garantiza que tu vehículo está
+                en buenas manos. Además, te acercamos al servicio de tu vehículo con nuestra plataforma de gestión de servicio
+                con el que podrás visualizar el estado de reparación donde quiera que estés.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-sm-12">
-        <h2 class="text-center">Contáctanos</h2>
+        <h3 class="text-center text-black">
+          <strong>Contáctanos</strong>
+        </h3>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-sm-12 col-md-6">
-        <form>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="johndoe@example.com">
-          </div>
-          <div class="form-group">
-            <label for="name">Nombre</label>
-            <input type="text" class="form-control" id="name" placeholder="John Doe">
-          </div>
-          <div class="form-group">
-            <label for="mensaje">Mensaje</label>
-            <textarea class="form-control" id="mensaje" rows="3"></textarea>
-          </div>
-          <div class="text-center">
-            <a href="" class="btn btn-primary">Enviar</a>
-          </div> 
-        </form>
+    <div class="row">
+      <div class="container">
+        <div class="row justify-content-around">
+          <form class="col-lg-8" #contact="ngForm" (submit)="contactar()">
+            <div class="row">
+              <div class="col-sm-12">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"
+                  placeholder="Tu correo">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 mt-2">
+                <label for="name">Nombre</label>
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Tu nombre...">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 mt-2">
+                <label for="mensaje">Mensaje</label>
+                <textarea class="form-control" id="msg" name="msg" [(ngModel)]="msg" [ngModelOptions]="{standalone: true}" rows="3" placeholder="Explicanos lo que deseas... !"></textarea>
+              </div>
+            </div>
+            <div class="row text-right">
+              <div class="col-sm-12 mt-2">
+                <button class="btn btn-dark" type="submit">Enviar</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>

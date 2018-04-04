@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
 * {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 300;
 }
 
@@ -20,3 +20,26 @@ app-root {
   margin-top: 56px;
 }
   
+.custom-alert-danger {
+  position: relative;
+  color: whitesmoke;
+  background-color: firebrick;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.custom-alert-success {
+  position: relative;
+  background-color: #155724;
+  color: whitesmoke;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+}
+
+#top {
+  position: fixed;
+  top: 100;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+}

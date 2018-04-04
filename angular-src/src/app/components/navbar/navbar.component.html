@@ -1,21 +1,31 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" routerLink="/">WorkChang</a>
+<nav class="navbar navbar-expand navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">
+              <img src="../assets/logo_workchang.png" width="142px" height="38px"  alt="">
+          </a>
+        </div>
+      </div>
+
   <div class="collapse navbar-collapse">
     <ul *ngIf="!auth.isLogged()" class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login">Login</a>
+        <a class="nav-link" routerLink="/login">Ingresar</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/client/register">Registro</a>
+        <a class="nav-link" routerLink="/client/register">Registrar</a>
       </li>
     </ul>
     <ul *ngIf="auth.isLogged()" class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item"><a class="nav-link" href="" (click)="logOut()">Logout</a></li>
+      <li class="nav-item"><a class="nav-link" href="" (click)="logOut()">Salir</a></li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/Client" *ngIf="isClient()">Dashboard</a>
-        <a class="nav-link" routerLink="/Manager" *ngIf="isManager()">Dashboard</a>
-        <a class="nav-link" routerLink="/Mechanic" *ngIf="isMechanic()">Dashboard</a>
-        <a class="nav-link" routerLink="/Admin" *ngIf="isAdmin()">Dashboard</a>
+        <a class="nav-link" routerLink="/client" *ngIf="isClient()">Dashboard</a>
+        <a class="nav-link" routerLink="/manager" *ngIf="isManager()">Dashboard</a>
+        <a class="nav-link" routerLink="/mechanic" *ngIf="isMechanic()">Dashboard</a>
+        <a class="nav-link" routerLink="/admin" *ngIf="isAdmin()">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/manager/receive-car" *ngIf="isManager()">Recibir Vehículo</a>
       </li>
     </ul>
 

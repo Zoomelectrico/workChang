@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -14,11 +15,12 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private flash: FlashMessagesService
   ) { }
 
   ngOnInit() {
-  
+
   }
 
   login() {
@@ -26,32 +28,34 @@ export class LoginComponent implements OnInit {
       username: this.username,
       password: this.password
     }
-
-    this.auth.login(credentials).subscribe(data => {
-      if (data.success) {
-        this.auth.storeUserData(data.token, data.user);
-        switch(data.user.type) {
-          case 1:
-            this.router.navigate(['/client']);
-            break;
-          case 2:
-            this.router.navigate(['/gerente']);
-            break;
-          case 3:
-            this.router.navigate(['/']); //Mecanico
-            break;
-          case 4:
-            this.router.navigate(['/']); // Administrador
-            break;
-          default:
-            this.router.navigate(['/']);
+    if (!credentials.username) {
+      this.flash.show("Recuerde completar todos los campos", { cssClass: 'custom-alert-danger', timeout: 3000 });
+    }
+    else {
+      this.auth.login(credentials).subscribe(data => {
+        if (data.success) {
+          this.auth.storeUserData(data.token, data.user);
+          switch (data.user.type) {
+            case 1:
+              this.router.navigate(['/client']);
+              break;
+            case 2:
+              this.router.navigate(['/manager']);
+              break;
+            case 3:
+              this.router.navigate(['/mechanic']);
+              break;
+            case 4:
+              this.router.navigate(['/admin']);
+              break;
+            default:
+              this.router.navigate(['/']);
+          }
+        } else {
+          this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+          this.router.navigate(['/login']);
         }
-        
-      } else {
-        this.router.navigate(['/login']);
-      } 
-    });
+      });
+    }
   }
-
 }
-  

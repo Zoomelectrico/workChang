@@ -1,3 +1,192 @@
-<p>
-  mechanic-dashboard works!
-</p>
+<section>
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h2 class="text-center text-white mt-5">Bienvenido {{user.firstName}}</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <h3 class="text-center text-white mt-3">Mis Ordenes Asignadas</h3>
+  <div class="container">
+    <div class="row justify-content-around">
+      <div class="col-lg-10 col-sm-12 fondoBlanco">
+        <div class="table-responsive">
+          <table class="table table-hover table-striped table-light">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Orden No.</th>
+                <th scope="col">Vehiculo</th>
+                <th scope="col">Fecha Asignacion</th>
+                <th scope="col">Ver Orden</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let orden of ordenes">
+                <td>{{orden.ID}}</td>
+                <td>{{orden.carData}}</td>
+                <td>{{orden.entryDate}}</td>
+                <td>
+                  <button type="button" class="btn btn-primary" (click)="verOrden(orden.ID)">Ver Orden</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <h3 class="text-center text-white">Orden de Reparación</h3>
+  <div class="container">
+    <div class="row justify-content-around">
+      <div class="col-lg-10 col-sm-12 fondoBlanco">
+        <form class="row p-1" #buscar="ngForm">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-lg-12">
+                <h4>Cargar orden:</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-10 col-sm-12 p-1">
+                <input class="form-control" id="searchOrder" type="text" placeholder="Numero de orden..." #idOrden>
+              </div>
+              <div class="col-lg-2 text-center col-sm-12 p-1">
+                <button type="button" class="btn btn-primary" (click)="buscarOrden(idOrden.value)">Buscar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <form class="row mt-2" #orden="ngForm" (submit)="actulizarOrden()">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-lg-6 col-sm-6 text-left">
+                <h4>Detalles orden:</h4>
+              </div>
+              <div class="col-sm-12 col-lg-6 text-center">
+                <button type="button" class="btn btn-block btn-outline-primary" #btnCarro (click)="verCarro(modalCarro)">No has cargado ninguna orden</button>
+              </div>
+            </div>
+            <div class="form-group row mt-3">
+              <label for="diagnostico" class="col-sm-2 col-form-label">Diagnostico:</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" value="{{orden.diagnostic}}" name="diagnostico" id="diagnostico"
+                  [(ngModel)]="diagnostico" [ngModelOptions]="{ standalone: true }">
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-lg-12">
+                <label for="procedimiento">Procedimiento:</label>
+                <textarea class="form-control" name="procedimiento" id="procedimiento" [(ngModel)]="procedimiento" [ngModelOptions]="{ standalone: true }"
+                  aria-label="With textarea"></textarea>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-lg-12 col-sm-12">
+                <ul class="list-group list-group-flush" *ngFor="let r of orden.replacementData">
+                  <li class="list-group-item">{{r}}</li>
+                </ul>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-lg-12 col-sm-12 text-right">
+                <button type="button" class="btn btn-primary" (click)="verRepuestos(content)">Ver Repuestos</button>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-sm-12 text-right">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button type="submit" class="btn btn-dark">Actualizar Orden</button>
+                  <button type="button" class="btn btn-secondary" (click)="cerrarOrden()">Marcar Culminada</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+</section>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Repuestos</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Marca</th>
+          <th scope="col">para Modelos</th>
+          <th scope="col">Usar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rep of repuestos">
+          <td>{{rep.name}}</td>
+          <td>{{rep.brand}}</td>
+          <td>{{rep.forModel}}</td>
+          <td>
+            <input #cant type="text" style="max-width: 150px;" class="form-control">
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary" (click)="agregar(rep.ID, cant.value)">Agregar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+<ng-template #modalCarro let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">
+      <strong>Vehículo:</strong>
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <img src="{{car.photoLink}}" alt="car-photo" class="img-thumbnail" height="200px" width="auto">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-sm-12">
+        <h6>
+          <strong>Marca</strong> {{car.brand}}</h6>
+        <h6>
+          <strong>Modelo:</strong> {{car.model}}</h6>
+        <h6>
+          <strong>Placa:</strong> {{car.licensePlate}}</h6>
+        <h6>
+          <strong>Serial:</strong> {{car.serial}}</h6>
+        <h6>
+          <strong>Año:</strong> {{car.year}}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>

@@ -3,12 +3,16 @@ const dbconfig = require('../config/database');
 
 const sequelize = dbconfig;
 
-const Appointment = sequelize.define('Appointments', {
+const Appointment = sequelize.define('appointments', {
   ID: {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true
+  },
+  checkout: {
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
   CarID: {
     type: Sequelize.INTEGER,

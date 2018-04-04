@@ -3,7 +3,7 @@ const dbconfig = require('../config/database');
 
 const sequelize = dbconfig;
 
-const RepairOrder = sequelize.define('RepairOrders', {
+const RepairOrder = sequelize.define('repairorders', {
   ID: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -11,7 +11,7 @@ const RepairOrder = sequelize.define('RepairOrders', {
     autoIncrement: true
   },
   entryDate: {
-    type: Sequelize.DATEONLY,
+    type: Sequelize.DATEONLY, 
     allowNull: false
   },
   exitDate: {
@@ -25,10 +25,22 @@ const RepairOrder = sequelize.define('RepairOrders', {
   AppointmentID: {
     type: Sequelize.INTEGER,
     allowNull: false 
+  }, 
+  diagnostic: {
+    type: Sequelize.TEXT,
+    allowNull: false
   },
   QRCode: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false
+  },
+  ready: {
+    type: Sequelize.TINYINT,
+    allowNull: false
+  }, 
+  procedure: {
+    type: Sequelize.TEXT,
+    allowNull: true
   }
 }, { timestamps: false, freezeTableName: true });
 
