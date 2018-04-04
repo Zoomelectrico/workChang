@@ -1,84 +1,102 @@
-<section id="welcome">
+
   <div class="container">
-    <div class="row">
+    <div class="row pt-5">
       <div class="col-sm-12 mt-3">
         <h2 class="text-center text-white">Bienvenido {{user.firstName}}</h2>
       </div>
     </div>
   </div>
-</section>
+
 <h3 class="text-center text-white">Ordenes Reparación</h3>
+
 <div class="container">
-  <div class="row justify-content-around">
-    <div class="col-lg-10 fondoBlanco">
-      <ngb-tabset type="pills" justify="justified">
-        <ngb-tab title="En Espera">
-          <ng-template ngbTabContent>
-            <table class="table">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Marca</th>
-                  <th scope="col">Modelo</th>
-                  <th scope="col">Placa</th>
-                  <th scope="col">Fecha</th>
-                  <th scope="col">Admitir</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let cita of colaEspera">
-                  <td>{{cita.brand}}</td>
-                  <td>{{cita.model}}</td>
-                  <td #licensePlate>{{cita.licensePlate}}</td>
-                  <td>
-                    <form class="form-inline">
-                      <div class="form-group">
-                        <div class="input-group">
-                          <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker">
-                          <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-                              X
-                            </button>
+    <div class="row justify-content-around">
+      <div class="col-lg-10 fondoBlanco">
+        <ngb-tabset type="pills" justify="justified">
+          <ngb-tab title="En Espera">
+            <ng-template ngbTabContent>
+              <table class="table table-responsive-md">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Placa</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Admitir</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cita of colaEspera">
+                    <td>{{cita.brand}}</td>
+                    <td>{{cita.model}}</td>
+                    <td #licensePlate>{{cita.licensePlate}}</td>
+                    <td>
+                      <form class="form-inline">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                X
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </form>
-                  </td>
-                  <td>
-                    <button type="button" class="btn btn-primary" (click)="openFinOrden(modalFin, cita)">Admitir</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </ng-template>
-        </ngb-tab>
-        <ngb-tab title="En Curso">
-          <ng-template ngbTabContent>
-            <table class="table">
-              <thead class="thead-dark">
-                <tr>
-                  <th>Mecánico Asignado</th>
-                  <th>Vehículo</th>
-                  <th>Placa</th>
-                  <th>Detalles</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let orden of ordenesActivas">
-                  <td>{{orden.mechanicName}}</td>
-                  <td>{{orden.carName}}</td>
-                  <td>{{orden.carLicensePlate}}</td>
-                  <td class="text-center">
-                    <button type="button" class="btn btn-primary" (click)="openDetOrden(modalDet, orden)">Ver detalles</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </ng-template>
-        </ngb-tab>
-      </ngb-tabset>
+                      </form>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-primary" (click)="openFinOrden(modalFin, cita)">Admitir</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-template>
+          </ngb-tab>
+  
+  
+  
+  
+  
+          <ngb-tab title="En Curso">
+  
+            <ng-template ngbTabContent>
+               
+              <table class="table table-responsive-md">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Mecánico Asignado</th>
+                    <th>Vehículo</th>
+                    <th>Placa</th>
+                    <th>Detalles</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let orden of ordenesActivas">
+                    <td>{{orden.mechanicName}}</td>
+                    <td>{{orden.carName}}</td>
+                    <td>{{orden.carLicensePlate}}</td>
+                    <td class="text-center">
+                      <button type="button" class="btn btn-primary" (click)="openDetOrden(modalDet, orden)">Ver detalles</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </ng-template>
+  
+  
+  
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
     </div>
   </div>
-</div>
+
+
+
+
+
+
 <br>
 <br>
 <br>

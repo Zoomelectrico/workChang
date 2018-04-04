@@ -29,6 +29,8 @@ export class ManagerDashboardComponent implements OnInit {
   private cita;
   private mecanico;
   private orden = {};
+
+
   @ViewChild('descargar') btn;
 
   constructor(
@@ -40,7 +42,7 @@ export class ManagerDashboardComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.api.getCitasActivas().subscribe(data => {
-      if(data.success) {
+      if (data.success) {
         this.colaEspera = data.appointments;
       } else {
         this.flash.show(data.msg);
@@ -48,7 +50,7 @@ export class ManagerDashboardComponent implements OnInit {
       }
     });
     this.api.getOrdenesAbiertas().subscribe(data => {
-      if(data.success) {
+      if (data.success) {
         this.ordenesActivas = data.activesOrders;
       } else {
         this.ordenesActivas = [];
@@ -64,7 +66,7 @@ export class ManagerDashboardComponent implements OnInit {
     });
   }
 
-  openDetOrden (content, orden) {
+  openDetOrden(content, orden) {
     this.orden = {};
     this.api.verDetallesReparacion({
       "repairOrderID": orden.ID,
@@ -80,19 +82,19 @@ export class ManagerDashboardComponent implements OnInit {
     });
     this.modalService.open(content, { windowClass: 'dark-modal' });
   }
-  
+
   onChange(mecanicoID) {
     this.mecanico = mecanicoID;
   }
 
-  openFinOrden (content, cita) {
+  openFinOrden(content, cita) {
     if (this.date) {
       this.cita = cita;
       this.modalService.open(content, { windowClass: 'dark-modal' });
+
     } else {
-      this.flash.show('No ha Seleccionado una fecha', { cssClass: 'custom-alert-danger', timeout: 3000 })
+      this.flash.show('Debe seleccionar una fecha primero', { cssClass: 'custom-alert-danger', timeout: 3000 });
     }
-    
   }
 
   generarOrdenReparacion(content) {
@@ -105,10 +107,10 @@ export class ManagerDashboardComponent implements OnInit {
       if (data.success) {
         const appointmentID = data.repairOrder.AppointmentID;
         const i = this.colaEspera.findIndex(element => element.ID === appointmentID);
-        const vecAppointment = this.colaEspera.slice(i, i+1);
-        this.colaEspera = this.colaEspera.slice(i,i+1);
+        const vecAppointment = this.colaEspera.slice(i, i + 1);
+        this.colaEspera = this.colaEspera.slice(i, i + 1);
         this.api.getOrdenesAbiertas().subscribe(data => {
-          if(data.success) {
+          if (data.success) {
             this.ordenesActivas = data.activesOrders;
             this.modalService.open(content).close();
           } else {
@@ -170,15 +172,15 @@ export class ManagerDashboardComponent implements OnInit {
       id: ordenID,
       exitDate: {
         year: d.getFullYear(),
-        month: d.getMonth()+1,
+        month: d.getMonth() + 1,
         day: d.getDay()
       }
     }
     this.api.cerrarOrden(datos).subscribe(data => {
       console.log(data);
-      if(data.success){
+      if (data.success) {
         this.api.getOrdenesAbiertas().subscribe(data => {
-          if(data.success) {
+          if (data.success) {
             this.ordenesActivas = data.activesOrders;
           } else {
             this.ordenesActivas = [];
@@ -192,9 +194,9 @@ export class ManagerDashboardComponent implements OnInit {
 
   historicoCliente(nationalID) {
     this.api.historicoCliente({ nationalID: nationalID }).subscribe(data => {
-      if(data.success) {
-        let blob = new Blob([data.csv], {type: 'text/plain'});
-        if(window.navigator.msSaveBlob) {
+      if (data.success) {
+        let blob = new Blob([data.csv], { type: 'text/plain' });
+        if (window.navigator.msSaveBlob) {
           window.navigator.msSaveBlob(blob);
         } else {
           this.btn.nativeElement.href = window.URL.createObjectURL(blob);
@@ -209,9 +211,9 @@ export class ManagerDashboardComponent implements OnInit {
   historicoVehiculo(licensePlate) {
     this.api.historicoVehiculo({ licensePlate }).subscribe(data => {
       console.log(data);
-      if(data.success) {
-        let blob = new Blob([data.csv], {type: 'text/plain'});
-        if(window.navigator.msSaveBlob) {
+      if (data.success) {
+        let blob = new Blob([data.csv], { type: 'text/plain' });
+        if (window.navigator.msSaveBlob) {
           window.navigator.msSaveBlob(blob);
         } else {
           this.btn.nativeElement.href = window.URL.createObjectURL(blob);
@@ -228,9 +230,9 @@ export class ManagerDashboardComponent implements OnInit {
     let date2 = `${this.date_final.year}-${this.date_final.month}-${this.date_final.day}`;
     this.api.historicoMecanico({ nationalID, date1, date2 }).subscribe(data => {
       console.log(data);
-      if(data.success) {
-        let blob = new Blob([data.csv], {type: 'text/plain'});
-        if(window.navigator.msSaveBlob) {
+      if (data.success) {
+        let blob = new Blob([data.csv], { type: 'text/plain' });
+        if (window.navigator.msSaveBlob) {
           window.navigator.msSaveBlob(blob);
         } else {
           this.btn.nativeElement.href = window.URL.createObjectURL(blob);
@@ -247,9 +249,9 @@ export class ManagerDashboardComponent implements OnInit {
     let date2 = `${this.date_final.year}-${this.date_final.month}-${this.date_final.day}`;
     this.api.historicoModelo({ model, date1, date2 }).subscribe(data => {
       console.log(data);
-      if(data.success) {
-        let blob = new Blob([data.csv], {type: 'text/plain'});
-        if(window.navigator.msSaveBlob) {
+      if (data.success) {
+        let blob = new Blob([data.csv], { type: 'text/plain' });
+        if (window.navigator.msSaveBlob) {
           window.navigator.msSaveBlob(blob);
         } else {
           this.btn.nativeElement.href = window.URL.createObjectURL(blob);

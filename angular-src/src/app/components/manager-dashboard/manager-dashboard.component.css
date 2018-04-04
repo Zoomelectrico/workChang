@@ -1,6 +1,4 @@
-section#welcome {
-  padding: 2rem;
-}
+
 .fondoBlanco{
   background-color: rgba(255, 255, 255, 0.7);
   padding: 20px;
@@ -22,6 +20,7 @@ section#welcome {
 }
 .custom-day.focused {
   background-color: #e6e6e6;
+
 }
 .custom-day.range, .custom-day:hover {
   background-color: rgb(2, 117, 216);
