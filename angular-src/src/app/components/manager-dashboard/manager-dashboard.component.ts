@@ -14,6 +14,7 @@ export class ManagerDashboardComponent implements OnInit {
   private colaEspera = [];
   private ordenesActivas = [];
   private mecanicos = [];
+  private ID;
   private firstName: string;
   private lastName: string;
   private nationalID: number;
@@ -128,6 +129,7 @@ export class ManagerDashboardComponent implements OnInit {
     }).subscribe(data => {
       console.log(data);
       if (data.success) {
+        this.ID = data.user.ID;
         this.firstName = data.user.firstName;
         this.lastName = data.user.lastName;
         this.nationalID = data.user.nationalID;
@@ -145,6 +147,7 @@ export class ManagerDashboardComponent implements OnInit {
 
   modificarDatosUsuario() {
     const cliente = {
+      ID: this.ID,
       firstName: this.firstName,
       lastName: this.lastName,
       nationalID: this.nationalID,
@@ -154,7 +157,7 @@ export class ManagerDashboardComponent implements OnInit {
       city: this.city,
       photoURL: this.photoURL
     };
-    this.api.modificarDatosCliente(cliente).subscribe(data => {
+    this.api.modificarDatosCliente (cliente).subscribe(data => {
       if (data.success) {
         this.flash.show(data.msg);
       } else {

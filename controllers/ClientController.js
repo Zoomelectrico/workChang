@@ -40,6 +40,27 @@ const ClientController = {
         .catch(err => callback(err, null));
     });
   },
+  modifyData: function (user, callback) {
+    User.findOne({
+      where: {
+        ID: user.ID
+      }
+    }).then(userFin => {
+      if (userFin) { 
+        userFin.update({
+          nationalID: user.nationalID,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          addressLine1: user.addressLine1,
+          addressLine2: user.addressLine2,
+          city: user.city,
+        }).then(userFin => {callback(null, userFin)}).catch(err => callback(new Error('Que Dios proteja el servidor porque no sabemos que estamos haciendo'), null)); // Llama al callback
+      } else {
+        callback(new Error('Que intentas rick no hay nadie con ese username :s'), null); // No hay ese repuesto
+      }
+    }).catch(err => callback(err, null));
+  },
   carRegister: function (car, callback) {
     Car.findOne({
       where: {
