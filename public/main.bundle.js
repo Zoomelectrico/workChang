@@ -2043,235 +2043,235 @@ var ApiService = /** @class */ (function () {
     ApiService.prototype.getUsuariosWorkers = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('/User/get-workers', { headers: headers })
+        return this.http.get('User/get-workers', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.getUsuariosByID = function (search, type) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
         if (type == 'ID') {
-            return this.http.post('/User/searchUsersByID', search, { headers: headers })
+            return this.http.post('User/searchUsersByID', search, { headers: headers })
                 .map(function (res) { return res.json(); });
         }
         else if (type == 'nationalID') {
-            return this.http.post('/User/searchUsersByNationalID', search, { headers: headers })
+            return this.http.post('User/searchUsersByNationalID', search, { headers: headers })
                 .map(function (res) { return res.json(); });
         }
         else if (type == 'name') {
-            return this.http.post('/User/searchUsersByName', search, { headers: headers })
+            return this.http.post('User/searchUsersByName', search, { headers: headers })
                 .map(function (res) { return res.json(); });
         }
         else if (type == 'username') {
-            return this.http.post('/User/searchUsersByUsername', search, { headers: headers })
+            return this.http.post('User/searchUsersByUsername', search, { headers: headers })
                 .map(function (res) { return res.json(); });
         }
         else if (type == 'email') {
-            return this.http.post('/User/searchUsersByEmail', search, { headers: headers })
+            return this.http.post('User/searchUsersByEmail', search, { headers: headers })
                 .map(function (res) { return res.json(); });
         }
     };
     ApiService.prototype.getUsuariosByNationalID = function (userID) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/User/searchUsersByID', userID, { headers: headers })
+        return this.http.post('User/searchUsersByID', userID, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.modificarDatosUsuario = function (usuario) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/User/modify-User', usuario, { headers: headers })
+        return this.http.post('User/modify-User', usuario, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.buscarCliente = function (userID) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/User/searchClient', userID, { headers: headers })
+        return this.http.post('User/searchClient', userID, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.registrarCarro = function (car) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Client/CarRegister', car, { headers: headers })
+        return this.http.post('Client/CarRegister', car, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.pedirCita = function (cita) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Client/askAppoiment', cita, { headers: headers })
+        return this.http.post('Client/askAppoiment', cita, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.buscarCarros = function (OwnerID) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Client/Cars', OwnerID, { headers: headers })
+        return this.http.post('Client/Cars', OwnerID, { headers: headers })
             .map(function (res) { return res.json().cars.filter(function (car) { return car.active == 1; }); });
     };
     ApiService.prototype.buscarClientePorCedula = function (cedula) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Client/search-nationalID', cedula, { headers: headers })
+        return this.http.post('Client/search-nationalID', cedula, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.modificarDatosCliente = function (cliente) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Client/modify', cliente, { headers: headers })
+        return this.http.post('Client/modify', cliente, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.getCitasActivas = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('/Manager/appointments', { headers: headers })
+        return this.http.get('Manager/appointments', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.getOrdenesAbiertas = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('/Manager/actives-orders', { headers: headers })
+        return this.http.get('Manager/actives-orders', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.buscarMecanico = function (userID) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/User/searchMechanic', userID, { headers: headers })
+        return this.http.post('User/searchMechanic', userID, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.registrarRepuesto = function (replacement) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Admin/new-Replacement', replacement, { headers: headers })
+        return this.http.post('Admin/new-Replacement', replacement, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.getRepuestos = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('/Admin/replacements', { headers: headers })
+        return this.http.get('Admin/replacements', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.getRepuestosByPartNumber = function (partNumber) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Admin/searchByPartNumber', partNumber, { headers: headers })
+        return this.http.post('Admin/searchByPartNumber', partNumber, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.modificarRepuesto = function (replacement) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Admin/modify-Replacement', replacement, { headers: headers })
+        return this.http.post('Admin/modify-Replacement', replacement, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.getMecanicosDisponibles = function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('/Manager/available-mechanics', { headers: headers })
+        return this.http.get('Manager/available-mechanics', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.nuevaOrdenReparacion = function (orden) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Manager/create-RepairOrder', orden, { headers: headers })
+        return this.http.post('Manager/create-RepairOrder', orden, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.getOrdenes = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Mechanic/repair-orders', user, { headers: headers })
+        return this.http.post('Mechanic/repair-orders', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.desactivarVehiculo = function (serial) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Client/desactive-cars', serial, { headers: headers })
+        return this.http.post('Client/desactive-cars', serial, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.getCitasPedidas = function (userID) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get("/Client/all-appoiments/" + userID, { headers: headers })
+        return this.http.get("Client/all-appoiments/" + userID, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.verDetallesReparacion = function (ids) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Manager/order-details', ids, { headers: headers })
+        return this.http.post('Manager/order-details', ids, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.recibirVehiculo = function (detalles) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Manager/receive-car', detalles, { headers: headers })
+        return this.http.post('Manager/receive-car', detalles, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.contactEmail = function (email) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Email/contact', email, { headers: headers })
+        return this.http.post('Email/contact', email, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.getRepuestoModelos = function (model) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get("/Mechanic/replacements/" + model, { headers: headers })
+        return this.http.get("Mechanic/replacements/" + model, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.actualizarOrden = function (datos) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Mechanic/change-order', datos, { headers: headers })
+        return this.http.post('Mechanic/change-order', datos, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.cerrarOrdenMecanico = function (id) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/Mechanic/close-order', id, { headers: headers })
+        return this.http.post('Mechanic/close-order', id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.getOrdenByID = function (id) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get("/Mechanic/order/" + id, { headers: headers })
+        return this.http.get("Mechanic/order/" + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.cerrarOrden = function (data) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post("/Manager/close-order", data, { headers: headers })
+        return this.http.post("Manager/close-order", data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.historicoCliente = function (data) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post("/Reports/clientHistorical", data, { headers: headers })
+        return this.http.post("Reports/clientHistorical", data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.historicoVehiculo = function (data) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post("/Reports/carHistorical", data, { headers: headers })
+        return this.http.post("Reports/carHistorical", data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.historicoMecanico = function (data) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post("/Reports/mechanicHistorical", data, { headers: headers })
+        return this.http.post("Reports/mechanicHistorical", data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.historicoModelo = function (data) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post("/Reports/modelHistorical", data, { headers: headers })
+        return this.http.post("Reports/modelHistorical", data, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.getCarBySerial = function (serial) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get("/Mechanic/car/" + serial, { headers: headers })
+        return this.http.get("Mechanic/car/" + serial, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService.prototype.getEmpleadoByApellido = function (apellido) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get("/Manager/empleado/" + apellido, { headers: headers })
+        return this.http.get("Manager/empleado/" + apellido, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     ApiService = __decorate([
@@ -2315,13 +2315,13 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.registerUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/User/register', user, { headers: headers })
+        return this.http.post('User/register', user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.login = function (credentials) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/User/auth', credentials, { headers: headers })
+        return this.http.post('User/auth', credentials, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getProfile = function () {
@@ -2435,7 +2435,7 @@ var QrcodeService = /** @class */ (function () {
     QrcodeService.prototype.guardarQR = function (qr) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('/qr', { qr: qr }, { headers: headers })
+        return this.http.post('qr', { qr: qr }, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     QrcodeService = __decorate([
