@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ApiService } from '../../services/api.service';
@@ -26,6 +26,7 @@ export class ClientDashboardComponent implements OnInit {
   // vector de citas
   private citas = [];
 
+  @ViewChild('descargar') btn;
 
   constructor(
     private api: ApiService,
@@ -81,7 +82,7 @@ export class ClientDashboardComponent implements OnInit {
       this.brand.length < 45 && this.brand &&
       this.model.length < 45 && this.model &&
       this.year>0 && this.year<3000 &&
-      this.licensePlate.length < 7 && this.licensePlate &&
+      this.licensePlate.length <= 7 && this.licensePlate.length >= 6 && this.licensePlate &&
       this.serial.length<255 && this.serial    
     ){
         const car = {
@@ -136,6 +137,30 @@ export class ClientDashboardComponent implements OnInit {
     } else {
       this.flash.show('Upsss... Hemos tenido un error :(', { cssClass: 'custom-alert-danger' })
     }
+  }
+
+  historicoVehiculo(licensePlate) {
+    console.log(licensePlate);
+    if(licensePlate){
+      this.api.historicoVehiculo({ licensePlate }).subscribe(data => {
+        console.log(data);
+        if (data.success) {
+          let blob = new Blob([data.csv], { type: 'text/plain' });
+          if (window.navigator.msSaveBlob) {
+            window.navigator.msSaveBlob(blob);
+          } else {
+            this.btn.nativeElement.href = window.URL.createObjectURL(blob);
+            this.btn.nativeElement.download = `historico-${licensePlate}.csv`
+          }
+        } else {
+          this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
+        }
+      });
+      this.flash.show('Ya puede descargar el archivo .CSV', { cssClass: 'custom-alert-success', timeout: 3000 });
+    }else{
+      this.flash.show('Debe indicar la placa del vehiculo', { cssClass: 'custom-alert-danger', timeout: 3000 });
+    }
+
   }
 
   verHistorial(serial) {
