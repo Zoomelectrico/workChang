@@ -3,6 +3,7 @@ Al desactivar vehiculo con cita no se actualiza "ver citas pedidas" (con f5 si) 
 
 ---GERENTE---
 El navbar no se actualiza automaticamente para el gerente
+Al admitir un vehiculo la lista de espera deja de mostrar el resto de vehiculos en espera (al actualizar la pagina si los muestra)
 
 ---MECANICO---
 Al buscar una orden por numero, tengo undefine * 

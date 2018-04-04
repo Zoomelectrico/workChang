@@ -81,7 +81,7 @@ export class ClientDashboardComponent implements OnInit {
       this.brand.length < 45 && this.brand &&
       this.model.length < 45 && this.model &&
       this.year>0 && this.year<3000 &&
-      this.licensePlate.length < 7 && this.licensePlate &&
+      this.licensePlate.length <= 7 && this.licensePlate &&
       this.serial.length<255 && this.serial    
     ){
         const car = {

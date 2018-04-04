@@ -38,9 +38,11 @@ export class ManagerDashboardComponent implements OnInit {
     private api: ApiService,
     private modalService: NgbModal,
     private flash: FlashMessagesService
+    
   ) { }
 
   ngOnInit() {
+    
     this.user = JSON.parse(localStorage.getItem('user'));
     this.api.getCitasActivas().subscribe(data => {
       if (data.success) {
