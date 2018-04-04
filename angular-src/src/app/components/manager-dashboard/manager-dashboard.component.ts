@@ -189,6 +189,7 @@ export class ManagerDashboardComponent implements OnInit {
             this.ordenesActivas = [];
           }
         });
+        this.flash.show('Orden cerrada satisfactoriamente', { cssClass: 'custom-alert-success', timeout: 3000 });
       } else {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
