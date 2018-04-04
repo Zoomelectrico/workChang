@@ -15,20 +15,16 @@
   background-size: cover;
 }
 
-#botontab {
-  border-bottom-color: red;
-  color-interpolation-filters: red;
-  background-color: red;
-  border-block-end-color: red;
-  border-block-start-color: red;
-  border-color: red;
-  caret-color: red;
-  flood-color: red;
-  -moz-border-bottom-colors: red;
-  -moz-text-decoration-color: red;
-}
-
 .img-thumbnail{
   height: 250px;
   width: auto;
+}
+#down {
+  position: sticky;
+  bottom: 0%;
+  width: 100%;
+}
+.down1{
+  background-color: #007AFF;
+  border-radius: 5px;
 }

@@ -97,7 +97,7 @@
                             <button type="button" class="btn btn-outline-dark" (click)="verVehiculo(serial.textContent, modalCarro)">Ver</button>
                             <button type="button" class="btn btn-outline-dark" (click)="pedirCita(serial.textContent)">Pedir cita</button>
                             <button type="button" class="btn btn-outline-dark" (click)="historicoVehiculo(carro.licensePlate)">Historial</button>
-                            <a class="btn btn-primary text-white" #descargar>Descargar</a>
+                            
                             <button type="button" class="btn btn-outline-primary" (click)="desactivar(serial.textContent)">Desactivar</button>
                           </div>
                         </div>
@@ -181,3 +181,10 @@
 <br>
 <br>
 <br>
+
+<div *ngIf="divDescargas" id="down">
+<div class="down1 text-white m-2 p-2 text-center">
+      <h6>Su archivo se ha generado correctamente: </h6>
+      <a class="btn btn-outline-light text-white" #descargar (click)="alternarDiv(false)">Descargar</a>
+</div>
+</div>

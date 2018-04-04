@@ -22,21 +22,28 @@ app-root {
   
 .custom-alert-danger {
   position: relative;
-  color: whitesmoke;
-  background-color: firebrick;
+  top: 10px;
+  height:55px;
   text-align: center;
-  font-family: 'Quicksand', sans-serif;
+  color: whitesmoke;
+  background-color: brown;
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.19);
+
 }
 
 .custom-alert-success {
   position: relative;
-  background-color: #155724;
-  color: whitesmoke;
+  top: 10px;
+  height:55px;
   text-align: center;
-  font-family: 'Quicksand', sans-serif;
+  color: whitesmoke;
+  background-color: #007AFF;
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.19);
 }
 
 #top {
+
+
   position: fixed;
   top: 100;
   left: 0;

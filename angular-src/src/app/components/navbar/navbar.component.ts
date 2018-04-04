@@ -26,6 +26,15 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  ngAfterContentChecked(){
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user === null) {
+      this.type = 0;
+    } else {
+      this.type = user.type
+    }
+  }
+
   isClient(){
     return this.type === 1;
   }

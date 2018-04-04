@@ -35,10 +35,9 @@ export class LoginComponent implements OnInit {
       this.auth.login(credentials).subscribe(data => {
         if (data.success) {
           this.auth.storeUserData(data.token, data.user);
-          this.flash.show('¡Bienvenido de nuevo! '+this.username.toUpperCase(), { cssClass: 'custom-alert-success', timeout: 3000 });
+          this.flash.show('¡Bienvenido de nuevo! ' + this.username.toUpperCase(), { cssClass: 'custom-alert-success', timeout: 3000 });
           switch (data.user.type) {
             case 1:
-
               this.router.navigate(['/client']);
               break;
             case 2:
@@ -48,11 +47,11 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/mechanic']);
               break;
             case 4:
-            this.router.navigate(['/admin']);
+              this.router.navigate(['/admin']);
               break;
             default:
               this.router.navigate(['/']);
-              
+
           }
         } else {
           this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });

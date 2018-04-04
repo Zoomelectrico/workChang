@@ -25,18 +25,25 @@ export class ClientDashboardComponent implements OnInit {
   private vehiculos = [];
   // vector de citas
   private citas = [];
-
+  // Para interfaz
+  private divDescargas: boolean;
   @ViewChild('descargar') btn;
 
   constructor(
     private api: ApiService,
     private flash: FlashMessagesService,
     private img: UploadImgService,
-    private modal: NgbModal
+    private modal: NgbModal    
   ) {
   }
-
-  ngOnInit() {
+/*
+  ngAfterContentChecked(){
+    this.user = JSON.parse(localStorage.getItem('user')); // Guardo los datos del usuario
+    this.resolverVehiculos();
+    this.resolverCitasPedidas();
+  }
+*/
+  ngOnInit() {  
     this.user = JSON.parse(localStorage.getItem('user')); // Guardo los datos del usuario
     this.resolverVehiculos();
     this.resolverCitasPedidas();
@@ -156,7 +163,7 @@ export class ClientDashboardComponent implements OnInit {
           this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
         }
       });
-      this.flash.show('Ya puede descargar el archivo .CSV', { cssClass: 'custom-alert-success', timeout: 3000 });
+      this.alternarDiv(true);      
     }else{
       this.flash.show('Debe indicar la placa del vehiculo', { cssClass: 'custom-alert-danger', timeout: 3000 });
     }
@@ -192,6 +199,10 @@ export class ClientDashboardComponent implements OnInit {
     let i = this.vehiculos.findIndex(c => c.serial === serial);
     this.car = this.vehiculos[i];
     this.modal.open(content);
+  }
+
+  alternarDiv(estado){
+    this.divDescargas = estado;
   }
 
 }
