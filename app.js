@@ -26,7 +26,7 @@ const qr = require('./routes/qr');
 const email = require('./routes/email');
 const mechanic = require('./routes/mechanics');
 
-const port = 3000;
+const port = proccess.env.PORT || 8080;
 
 //set static Folder
 app.use(express.static(path.join(__dirname, 'public')));
