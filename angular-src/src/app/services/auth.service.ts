@@ -18,14 +18,14 @@ export class AuthService {
   registerUser(user) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('User/register', user, { headers: headers })
+    return this.http.post('http://localhost:3000/User/register', user, { headers: headers })
       .map(res => res.json());
   }
 
   login(credentials) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('User/auth', credentials, { headers: headers })
+    return this.http.post('http://localhost:3000/User/auth', credentials, { headers: headers })
       .map(res => res.json());
   }
 

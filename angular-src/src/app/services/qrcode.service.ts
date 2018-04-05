@@ -12,7 +12,7 @@ export class QrcodeService {
   guardarQR(qr){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('qr',{ qr: qr } ,{ headers: headers })
+    return this.http.post('http://localhost:3000/qr',{ qr: qr } ,{ headers: headers })
       .map(res => res.json());
   }
 
