@@ -4,6 +4,8 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { ApiService } from '../../services/api.service';
 import { UploadImgService } from '../../services/upload-img.service';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-client-dashboard',
   templateUrl: './client-dashboard.component.html',
@@ -33,7 +35,8 @@ export class ClientDashboardComponent implements OnInit {
     private api: ApiService,
     private flash: FlashMessagesService,
     private img: UploadImgService,
-    private modal: NgbModal    
+    private modal: NgbModal,
+    private router: Router    
   ) {
   }
 /*
@@ -47,6 +50,13 @@ export class ClientDashboardComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user')); // Guardo los datos del usuario
     this.resolverVehiculos();
     this.resolverCitasPedidas();
+    this.correspond(this.user);
+  }
+
+  correspond(user){
+    if(user.type !== 1){
+      this.router.navigate(['/']);
+    }
   }
 
   // Funciones utilizadas Varias veces

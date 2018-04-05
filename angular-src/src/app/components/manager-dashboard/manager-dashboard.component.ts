@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { ApiService } from '../../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manager-dashboard',
@@ -37,13 +38,14 @@ export class ManagerDashboardComponent implements OnInit {
   constructor(
     private api: ApiService,
     private modalService: NgbModal,
-    private flash: FlashMessagesService
-    
+    private flash: FlashMessagesService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.correspond(this.user)
     this.api.getCitasActivas().subscribe(data => {
       if (data.success) {
         this.colaEspera = data.appointments;
@@ -67,6 +69,12 @@ export class ManagerDashboardComponent implements OnInit {
         this.flash.show(data.msg, { cssClass: 'custom-alert-danger', timeout: 3000 });
       }
     });
+  }
+
+  correspond(user){
+    if(user.type !== 2){
+      this.router.navigate(['/']);
+    }
   }
 
   openDetOrden(content, orden) {

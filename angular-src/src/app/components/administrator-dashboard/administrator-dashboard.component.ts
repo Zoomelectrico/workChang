@@ -3,6 +3,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-administrator-dashboard',
@@ -50,7 +51,8 @@ export class AdministratorDashboardComponent implements OnInit {
     private auth: AuthService,
     private api: ApiService,
     private modalService: NgbModal,
-    private flash: FlashMessagesService
+    private flash: FlashMessagesService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -58,6 +60,13 @@ export class AdministratorDashboardComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.getRepuesto();
     this.getUsuario();
+    //this.correspond(this.user);
+  }
+
+  correspond(user){
+    if(user.type != 4){
+      this.router.navigate(['/']);
+    }
   }
 
   //RegistrarEmpleado
