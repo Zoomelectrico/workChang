@@ -5,20 +5,22 @@ const Mechanic = require('../models/Mechanic');
 const RepairOrder = require('../models/RepairOrder');
 const User = require('../models/User');
 const Replacement = require('../models/Replacement');
-const RepairsReplacement = require('../models/RepairsReplacement'); 
+const RepairsReplacement = require('../models/RepairsReplacement');
 const Car = require('../models/Car');
 
 const MechanicController = {
-  getMecanicosLibres: function (callback) {
-    Mechanic.findAll().then(mechanics => {
-      let users = [];
-      mechanics.forEach((mechanic, i) => {
-        User.findById(mechanic.UserID).then(user => {
+  getMecanicosLibres: async function (callback) {
+    try {
+      let mechanics = await Mechanic.findAll();
+      if (mechanics) {
+        let users = [];
+        mechanics.forEach(async (mechanic, i) => {
+          const user = await User.findById(mechanic.UserID);
           if (user) {
             const data = {
               mechanicID: mechanic.ID,
               userID: user.ID,
-              nombre: user.firstName + ' ' + user.lastName,
+              nombre: `${user.firstName} ${user.lastName}`,
               email: user.email
             }
             users.push(data);
@@ -26,15 +28,19 @@ const MechanicController = {
           if (i === mechanics.length - 1) {
             callback(null, users);
           }
-        }).catch(err => callback(new Error(), null));
-      });
-    }).catch(err => callback(new Error(), null));
+        });
+      } else {
+        callback(new Error(''), null);
+      }
+    } catch (e) {
+      callback(e, null);
+    }
   },
   getOrdenesReparacion: function (userID, callback) {
     sequelize.query(
       "SELECT `repairorders`.`ID` AS `ID`" +
-      ",`cars`.`model` AS `carModel`"+
-      ",`cars`.`serial` AS `serial`"+
+      ",`cars`.`model` AS `carModel`" +
+      ",`cars`.`serial` AS `serial`" +
       ",`repairorders`.`entryDate`" +
       ",CONCAT(`cars`.`brand`, ' ', `cars`.`model`, ' ', `cars`.`year`, ', placa: ', `cars`.`licensePlate`) AS `carData` " +
       ",`repairorders`.`diagnostic` " +
@@ -77,19 +83,20 @@ const MechanicController = {
       }
     });
   },
-  getRepuestos: function (model, callback) {
+  getRepuestos: async function (model, callback) {
     if (model) {
-      Replacement.findAll({
-        where: {
-          inStock: {
-            [OP.gt]: 0
-          },
-          forModel: {
-            [OP.like]: `%${model}%`
+      try {
+        let replacements = await Replacement.findAll({
+          where: {
+            inStock: {
+              [OP.gt]: 0
+            },
+            forModel: {
+              [OP.like]: `%${model}%`
+            }
           }
-        }
-      }).then(replacements => {
-        Replacement.findAll({
+        });
+        let generics = await Replacement.findAll({
           where: {
             inStock: {
               [OP.gt]: 0
@@ -98,27 +105,36 @@ const MechanicController = {
               [OP.like]: `todos`
             }
           }
-        }).then(generics => {
+        });
+        if (generics && replacements) {
           let r = [];
           replacements.forEach((replacement, i) => {
             r.push(replacement);
-            if (i >= replacements.length -1) {
+            if (i >= replacements.length - 1) {
               generics.forEach((g, j) => {
                 r.push(g);
-                if(j === generics.length - 1) {
+                if (j === generics.length - 1) {
                   callback(null, r);
                 }
               });
             }
           });
-        }).catch(err => callback(err, null));
-      }).catch(err => callback(err, null));
+        } else {
+          if (generics) {
+            callback(null, generics);
+          } else {
+            callback(null, replacements);
+          }
+        }
+      } catch (e) {
+        callback(e, null);
+      }
     }
-  }, 
-  getOrdenByID: function(id, callback) {
+  },
+  getOrdenByID: function (id, callback) {
     sequelize.query(
       "SELECT `repairorders`.`ID` AS `ID`" +
-      ",`cars`.`model` AS `carModel`"+
+      ",`cars`.`model` AS `carModel`" +
       ",`repairorders`.`entryDate`" +
       ",CONCAT(`cars`.`brand`, ' ', `cars`.`model`, ' ', `cars`.`year`, ', placa: ', `cars`.`licensePlate`) AS `carData` " +
       ",`repairorders`.`diagnostic` " +
@@ -161,41 +177,51 @@ const MechanicController = {
       }
     });
   },
-  actualizarOrden: function(id, orden, callback) {
-    RepairOrder.findById(id).then(ro => {
+  actualizarOrden: async function (id, orden, callback) {
+    try {
+      let ro = await RepairOrder.findById(id);
       ro.procedure = orden.procedure;
-      ro.save().then(() => {
-        orden.replacements.forEach((r, i) => {
-          RepairsReplacement.create({ RepairOrder: ro.ID, Replacement: r.ID }).then(rr => {
-            Replacement.findById(r.ID).then(rep => {
-              rep.inStock -= r.stock;
-              rep.save().then(() => {
-                if(i === orden.replacements.length - 1) {
-                  callback(null);
-                }
-              }).catch(err => callback(err)); 
-            }).catch(err => callback(err));
-          }).catch(err => callback(err)); 
-        });
-      }).catch(err => callback(err));
-    }).catch(err => callback(err));
+      await ro.save();
+      orden.replacements.forEach(async (r, i) => {
+        try {
+          let rr = await RepairsReplacement.create({
+            RepairOrder: ro.ID,
+            Replacement: r.ID
+          });
+          let rep = await Replacement.findById(r.ID);
+          rep.inStock -= r.stock;
+          await rep.save();
+          if (i === orden.replacements.length - 1) callback(null);
+        } catch (e2) {
+          callback(e2);
+        }
+      });
+    } catch (e) {
+      callback(e);
+    }
   },
-  cerrarOrden: function(id, callback) {
-    RepairOrder.findById(id).then(ro => {
+  cerrarOrden: async function (id, callback) {
+    try {
+      let ro = await RepairOrder.findById(id);
       ro.ready = 1;
-      ro.save().then(() => {
-        callback(null);
-      }).catch(err => callback(err));
-    }).catch(err => callback(err));
+      await ro.save();
+      callback(null);  
+    } catch (e) {
+      callback(e);
+    }
   },
-  getCarroBySerial(serial, callback) {
-    Car.findOne({
-      where: {
-        serial: serial
-      }
-    }).then(car => {
-      callback(null, car);
-    }).catch(err => callback(err, null));
+  getCarroBySerial: async function(serial, callback) {
+    try {
+      let car = await Car.findOne({
+        where: {
+          serial: serial
+        }
+      });
+      if(car) callback(null, car);
+      callback(new Error('NO tuvimos exito'), null);
+    } catch (e) {
+      callback(e, null);
+    }
   }
 };
 

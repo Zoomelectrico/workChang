@@ -9,216 +9,343 @@ const sequelize = require('../config/database');
 const Op = Sequelize.Op;
 
 const UserController = {
-  registerUser: function (user, callback) {
-    User.findOne({
-      where: {
-        username: user.username
-      }
-    }).then(userFin => {
-      if (userFin) {
+  registerUser: async function (user, callback) {
+    try {
+      let uFinded = await User.findOne({
+        where: {
+          username: user.username
+        }
+      });
+      if (uFinded) {
         callback(new Error('... Se mas original, ese username ya es de alguien'), null);
       } else {
-        bcrypt.genSalt(10, (err, salt) => {
-          if (err) { 
-            callback(new Error('Upps... Tu contraseña es demasiado poderosa para nosotros :('), null); 
+        bcrypt.genSalt(15, (err, salt) => {
+          if (err) {
+            callback(new Error('Upps... Tu contraseña es demasiado poderosa para nosotros :('), null);
           } else {
-            bcrypt.hash(user.password, salt, (err, hash) => {
+            bcrypt.hash(user.password, salt, async (err, hash) => {
               if (err) {
                 callback(new Error('Upps... Algo ha salido horrible'), null);
               } else {
-                user.password = hash;
-                User.create(user).then(user => {
-                  if (user) {
-                    const type = parseInt(user.type);
+                try {
+                  user.password = hash;
+                  let udb = await User.create(user)
+                  if (udb) {
+                    const type = parseInt(udb.type);
                     switch (type) {
                       case 1:
-                        Client.create({
-                            UserID: user.ID
-                          }).then(client => callback(null, user))
-                          .catch(err => {
-                            // TODO: Eliminar al Usuario
-                            callback(new Error('Nos hemos equivocado en algo :('), null)
+                        try {
+                          await Client.create({
+                            User: udb.ID
                           });
+                          callback(null, udb);
+                        } catch (e3) {
+                          try {
+                            await User.destroy({
+                              where: {
+                                User: udb.ID
+                              }
+                            });
+                            callback(e3, null);
+                          } catch (e4) {
+                            callback(e4, null);
+                          }
+                        }
                         break;
                       case 2:
-                        Manager.create({
-                            UserID: user.ID
-                          }).then(manager => callback(null, user))
-                          .catch(err => {
-                            // TODO: Eliminar al Usuario
-                            callback(new Error('Nos hemos equivocado en algo :('), null)
+                        try {
+                          await Manager.create({
+                            User: udb.ID
                           });
+                          callback(null, udb);
+                        } catch (e3) {
+                          try {
+                            await User.destroy({
+                              where: {
+                                User: udb.ID
+                              }
+                            });
+                            callback(e3, null);
+                          } catch (e4) {
+                            callback(e4, null);
+                          }
+                        }
                         break;
                       case 3:
-                        Mechanic.create({
-                            UserID: user.ID
-                          }).then(mechanic => callback(null, user))
-                          .catch(err => {
-                            // TODO: Eliminar al Usuario
-                            callback(new Error('Nos hemos equivocado en algo :('), null)
+                        try {
+                          await Mechanic.create({
+                            User: udb.ID
                           });
+                          callback(null, udb);
+                        } catch (e3) {
+                          try {
+                            await User.destroy({
+                              where: {
+                                User: udb.ID
+                              }
+                            });
+                            callback(e3, null);
+                          } catch (e4) {
+                            callback(e4, null);
+                          }
+                        }
                         break;
                       case 4:
-                        Administrator.create({
-                            UserID: user.ID
-                          }).then(administrator => callback(null, user))
-                          .catch(err => {
-                            // TODO: Eliminar al Usuario
-                            callback(new Error('Nos hemos equivocado en algo :('), null)
+                        try {
+                          Administrator.create({
+                            User: udb.ID
                           });
+                          callback(null, udb);
+                        } catch (e3) {
+                          try {
+                            await User.destroy({
+                              where: {
+                                User: udb.ID
+                              }
+                            });
+                            callback(e3, null);
+                          } catch (e4) {
+                            callback(e4, null);
+                          }
+                        }
                         break;
                       default:
-                        callback(new Error('OH MAI GOSH QUE PASO'), null);
+                        callback(new Error('OH MI GOSH... QUE PASO'), null);
                     }
                   } else {
-                    callback(new Error('Uppps... Fallamos y no pudimos hacer nada :('), null);
+                    callback(new Error('Hemos tenido un problema para registrar ese usuario'), null);
                   }
-                }).catch(err => callback(new Error('Estem... La cosa exploto'), null));
+                } catch (e2) {
+                  callback(e2, null);
+                }
               }
             });
           }
         });
       }
-    }).catch(err => callback(err, null));
+    } catch (e) {
+      callback(e, null);
+    }
   },
   comparePassword: function (password, hash, callback) {
     bcrypt.compare(password, hash, (err, isMatch) => {
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, isMatch);
-      }
+      if (err) callback(err, null);
+      callback(null, isMatch);
     });
   },
-  searchClient: function (userID, callback) {
-    Client.findOne({
+  searchClient: async function (userID, callback) {
+    try {
+      let c = await Client.findOne({
         where: {
           UserID: userID
         }
-      }).then(client => callback(null, client))
-      .catch(err => callback(err, null));
+      });
+      if (c) callback(null, c);
+      callback(new Error('No hemos encontrado un Usuario de este tipo'), null);
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  searchManager: function (userID, callback) {
-    Manager.findOne({
+  searchManager: async function (userID, callback) {
+    try {
+      let m = Manager.findOne({
         where: {
-          userID: userID
+          UserID: userID
         }
-      }).then(manager => callback(null, manager))
-      .catch(err => callback(err, null));
+      });
+      if (m) callback(null, m);
+      callback(new Error('No hemos encontrado a ningun usuario de este tipo'), null);
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  searchMechanic: function (userID, callback) {
-    Mechanic.findOne({
+  searchMechanic: async function (userID, callback) {
+    try {
+      let m = await Mechanic.findOne({
         where: {
-          userID: userID
+          UserID: userID
         }
-      }).then(mechanic => callback(null, mechanic))
-      .catch(err => callback(err, null));
+      });
+      if (m) callback(null, m);
+      callback(new Error('No hemos encontrado a ningun usuario de este tipo'), null);
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  searchAdministrator: function (userID, callback) {
-    Administrator.findOne({
+  searchAdministrator: async function (userID, callback) {
+    try {
+      let a = await Administrator.findOne({
         where: {
-          userID: userID
+          UserID: userID
         }
-      }).then(administrator => callback(null, administrator))
-      .catch(err => callback(err, null));
+      });
+      if (a) callback(null, a);
+      callback(new Error('No hemos encontrado a ningun usuario de este tipo'), null);
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  getAllWorkers: function(callback) {
-    User.findAll({
-      where: {
-        [Op.or]: [{type: 2}, {type:3}, {type: 4}] 
-      }
-    })
-    .then(users => callback(null, users))
-    .catch(err => callback(err, users));
+  getAllWorkers: async function (callback) {
+    try {
+      let workers = await User.findAll({
+        where: {
+          [Op.or]: [{
+            type: 2
+          }, {
+            type: 3
+          }, {
+            type: 4
+          }]
+        }
+      });
+      if (workers) callback(null, workers);
+      callback(new Error('No tuvimos exito en la busqueda'), null);
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  searchUser: function (userID, callback) {
-    User.findOne({
+  searchUser: async function (userID, callback) {
+    try {
+      let user = await User.findOne({
         where: {
           ID: userID,
-          [Op.or]: [{type: 2}, {type:3}, {type: 4}]
+          [Op.or]: [{
+            type: 2
+          }, {
+            type: 3
+          }, {
+            type: 4
+          }]
         }
-      }).then(user => callback(null, user))
-      .catch(err => callback(err, null));
+      });
+      if (user) callback(null, user);
+      callback(new Error('No tuvimos exito'), null);
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  searchUserByNationalID: function (nationalID, callback) {
-    User.findAll({
+  searchUserByNationalID: async function (nationalID, callback) {
+    try {
+      let users = await User.findAll({
         where: {
-          nationalID: {[Op.like]: '%'+nationalID+'%'},
-          [Op.or]: [{type: 2}, {type:3}, {type: 4}]
+          nationalID: {
+            [Op.like]: '%' + nationalID + '%'
+          },
+          [Op.or]: [{
+            type: 2
+          }, {
+            type: 3
+          }, {
+            type: 4
+          }]
         }
-      }).then(user => callback(null, user))
-      .catch(err => callback(err, null));
+      })
+      if (users) callback(null, users);
+      callback(new Error('NO tuvimos exito'), null);
+    } catch (e) {
+
+    }
   },
-  searchUserByUsername: function (username, callback) {
-    User.findAll({
+  searchUserByUsername: async function (username, callback) {
+    try {
+      let users = await User.findAll({
         where: {
-          username: {[Op.like]: '%'+username+'%'},
-          [Op.or]: [{type: 2}, {type:3}, {type: 4}]
+          username: {
+            [Op.like]: '%' + username + '%'
+          },
+          [Op.or]: [{
+            type: 2
+          }, {
+            type: 3
+          }, {
+            type: 4
+          }]
         }
-      }).then(user => callback(null, user))
-      .catch(err => callback(err, null));
+      });
+      if (users) callback(null, users);
+      callback(new Error('No tuvimos exito'), null);
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  searchUserByName: function (name, callback) {
-    User.findAll({
+  searchUserByName: async function (name, callback) {
+    try {
+      let users = await User.findAll({
         where: {
           type: {
-            [Op.or]: [2,3,4]
+            [Op.or]: [2, 3, 4]
           },
-          [Op.or]:[{firstName: {
-              [Op.like]: '%'+name+'%'
-            }},
-            {lastName: {
-              [Op.like]: '%'+name+'%'
-            }}
-          ]          
+          [Op.or]: [{
+              firstName: {
+                [Op.like]: '%' + name + '%'
+              }
+            },
+            {
+              lastName: {
+                [Op.like]: '%' + name + '%'
+              }
+            }
+          ]
         }
-      }).then(user => callback(null, user))
-      .catch(err => callback(err, null));
+      })
+      if (users) callback(null, users);
+      callback(new Error('No tuvimos exito'), null);
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  /*
-  searchUserByName: function (name, callback) {
-    sequelize.query(
-      'SELECT * FROM users WHERE (firstName LIKE "%' + name +'%" OR lastName LIKE "%' + name + '%")' +
-      'AND type != 1'
-    ).spread((data, metada) => {
-      if (data) {
-        callback(null, data);
-      } else {
-        callback(new Error('Uppps... Hemos tenido error en nuestra Base de datos'), null);
-      }
-    });
-  },*/
-  searchUserByEmail: function (email, callback) {
-    User.findAll({
+  searchUserByEmail: async function (email, callback) {
+    try {
+      let users = await User.findAll({
         where: {
-          email: {[Op.like]: '%'+email+'%'},
-          [Op.or]: [{type: 2}, {type:3}, {type: 4}]
+          email: {
+            [Op.like]: '%' + email + '%'
+          },
+          [Op.or]: [{
+            type: 2
+          }, {
+            type: 3
+          }, {
+            type: 4
+          }]
         }
-      }).then(user => callback(null, user))
-      .catch(err => callback(err, null));
+      });
+      if (users) callback(null, users);
+      callback(new Error('NO tuvimos exito'), null);
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  modifyData: function (user, callback) {
-    User.findOne({
-      where: {
-        ID: user.ID
-      }
-    }).then(userFin => {
-      if (userFin) { 
-        userFin.update({
-          nationalID: user.nationalID,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          username: user.username,
-          addressLine1: user.addressLine1,
-          addressLine2: user.addressLine2,
-          city: user.city,
-          type: user.type
-        }).then(userFin => {callback(null, userFin)}).catch(err => callback(new Error('Que Dios proteja el servidor porque no sabemos que estamos haciendo'), null)); // Llama al callback
+  modifyData: async function (user, callback) {
+    try {
+      let u = await User.findOne({
+        where: {
+          ID: user.ID
+        }
+      });
+      if (u) {
+        try {
+          await u.update({
+            nationalID: user.nationalID,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            username: user.username,
+            addressLine1: user.addressLine1,
+            addressLine2: user.addressLine2,
+            city: user.city,
+            type: user.type
+          });
+        } catch (e2) {
+          callback(e2, null);
+        }
+        callback(null, u);
       } else {
-        callback(new Error('Que intentas rick no hay nadie con ese username :s'), null); // No hay ese repuesto
+        callback(new Error('Que Dios proteja el servidor porque no sabemos que estamos haciendo'), null);
       }
-    }).catch(err => callback(err, null));
+    } catch (e) {
+      callback(e, null)
+    }
   }
 };
 

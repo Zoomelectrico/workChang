@@ -83,135 +83,124 @@ const ManagerController = {
       }
     })
   },
-  introduceRepairOrder: function (entryDate, MechanicID, AppointmentID, callback) {
-    RepairOrder.create({
-      entryDate: entryDate,
-      MechanicID: MechanicID,
-      AppointmentID: AppointmentID,
-      QRCode: '',
-      ready: 0,
-      diagnostic: '',
-      procedure: ''
-    }).then(repairOrder => {
-      if (repairOrder) {
-        Appointment.findById(repairOrder.AppointmentID).then(appointment => {
-          appointment.checkout = 1;
-          appointment.save().then(() => {
+  introduceRepairOrder: async function (entryDate, MechanicID, AppointmentID, callback) {
+    try {
+      let ro = await RepairOrder.create({
+        entryDate: entryDate,
+        MechanicID: MechanicID,
+        AppointmentID: AppointmentID,
+        QRCode: '',
+        ready: 0,
+        diagnostic: '',
+        procedure: ''
+      });
+      if (ro) {
+        try {
+          let a = await Appointment.findById(repairOrder.AppointmentID);
+          a.checkout = 1;
+          try {
+            await a.save();
             const opts = {
               errorCorrectionLevel: 'H',
               type: 'image/png'
             };
-            QR.toDataURL((repairOrder.ID).toString(), opts, (err, url) => {
+            QR.toDataURL((ro.ID).toString(), opts, (err, url) => {
               if (err) {
-                callback(new Error(''), null);
+                callback(err, null);
               } else {
-                cloudinary.uploader.upload(url, result => {
+                cloudinary.uploader.upload(url, async (result) => {
                   if (result) {
-                    repairOrder.QRCode = result.secure_url;
-                    repairOrder.save().then(() => {
-                      Car.findById(appointment.CarID).then(car => {
-                        Client.findById(car.OwnerID).then(client => {
-                          User.findById(client.UserID).then(user => {
-                            let carData = `${car.brand} ${car.model} ${car.year} | ${car.licensePlate}`;
-                            email.repairOrderEmail(user.firstName, user.email, carData, repairOrder.entryDate, repairOrder.QRCode, (err, info) => {
-                              if (err) {
-                                callback(err, null);
-                              } else {
-                                callback(null, repairOrder);
-                              }
-                            });
-                          }).catch(err => callback(err, null));
-                        }).catch(err => callback(err, null));
-                      }).catch(err => callback(err, null));
-                    }).catch(err => callback(err, null));
+                    try {
+                      ro.QRCode = result.secure_url;
+                      await ro.save();
+                      try {
+                        const car = await Car.findById(a.CarID);
+                        const client = await Client.findById(car.OwnerID);
+                        const user = await User.findById(client.UserID);
+                        let carData = `${car.brand} ${car.model} ${car.year} | ${car.licensePlate}`;
+                        email.repairOrderEmail(user.firstName, user.email, carData, ro.entryDate, ro.QRCode, (err, info) => {
+                          if (err) callback(err, null);
+                          callback(null, ro);
+                        });
+                      } catch (e5) {
+                        callback(e5, null);
+                      }
+                    } catch (e4) {
+                      callback(e4, null);
+                    }
                   } else {
-                    callback(err, null);
+                    callback(new Error(''))
                   }
                 });
               }
             });
-          }).catch(err => callback(new Error('Nuestro Sistema esta teniendo dificultades intente más tarde'), null));
-        }).catch(err => callback(new Error('Nuestro Sistema esta teniendo dificultades intente más tarde'), null));
+          } catch (e3) {
+            callback(e3, null);
+          }
+        } catch (e2) {
+          callback(e2, null);
+        }
       } else {
-        callback(new Error('Hemos tenido un falla para registrar esta orden'), null)
+        callback(new Error(''), null);
       }
-    }).catch(err => callback(err, null));
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  receiveCar: function (repairOrderID, details, photo, diagnostic, callback) {
-    console.log(diagnostic);
-    console.log(1);
-    RepairOrder.findById(repairOrderID).then(repairOrder => {
-      console.log(2);
-      if (repairOrder) {
-        console.log(3);
-        if (repairOrder.exitDate) {
-          console.log(4);
+  receiveCar: async function (repairOrderID, details, photo, diagnostic, callback) {
+    try {
+      let ro = await RepairOrder.findById(repairOrderID);
+      if (ro) {
+        if (ro.exitDate) {
           callback(new Error('No lo se rick eso esta cerrado...'), null);
         } else {
-          console.log(5);
-          cloudinary.uploader.upload(photo, result => {
-            console.log(6);
+          cloudinary.uploader.upload(photo, async (result) => {
             if (result) {
-              console.log(7);
-              repairOrder.diagnostic = diagnostic;
-              console.log(8);
-              repairOrder.save().then(() => {
-                console.log(8.1);
-                detailsRO.create({
+              try {
+                ro.diagnostic = diagnostic;
+                await ro.save();
+                let d = await detailsRO.create({
                   photoURL: result.secure_url,
                   details: details,
                   repairorderID: repairOrder.ID
-                }).then(detailsro => {
-                  console.log(9);
-                  if (detailsro) {
-                    console.log(10);
-                    callback(null, detailsro);
-                  } else {
-                    console.log(11);
-                    callback(new Error('No se pudieron guardar los detalles'), null)
-                  }
-                }).catch(err => callback(err, null));
-              }).catch(err => callback(err, null));
+                });
+                if (d) callback(null, d);
+                callback(new Error(''), null);
+              } catch (e2) {
+                callback(e2, null);
+              }
             } else {
-              callback(new Error('Tuvimos un error subiendo la foto, vuelva a intentar'), null);
+              callback(new Error(''), null);
             }
           });
         }
       } else {
-        callback(new Error('Eso no parece ser una orden de nuestro taller :s'), null)
+        callback(new Error(''), null);
       }
-    });
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  cerrarOrden: function (id, exitDate, callback) {
-    RepairOrder.findById(id).then(ro => {
+  cerrarOrden: async function (id, exitDate, callback) {
+    try {
+      let ro = await RepairOrder.findById(id);
       ro.exitDate = exitDate;
-      ro.save().then(() => {
-        Appointment.findById(ro.AppointmentID).then(a => {
-          Car.findById(a.CarID).then(c => {
-            Client.findById(c.OwnerID).then(client => {
-              User.findById(client.UserID).then(u => {
-                let carData = `${c.brand} ${c.model} ${c.year} | ${c.licensePlate}`;
-                email.notificacionOrdenCerrada(u.firstName, u.email, carData, (err, info) => {
-                  if(err) {
-                    callback(err, null);
-                  } else {
-                    callback(null, ro);
-                  }
-                });
-              }).catch(err => callback(err, null));
-            }).catch(err => callback(err, null));
-          }).catch(err => callback(err, null));
-        }).catch(err => callback(err, null));
-      }).catch(err => callback(err, null));
-    }).catch(err => callback(err, null));
-  },
-  buscarUsuarioApellido: function(apellido, callback) {
-    User.findOne({
-      where: {
-        lastName: { [OP.like]: `%${apellido}%` },
-        type: {[OP.ne]: 1 }
-      }
-    }).then(u => callback(null, u)).catch(err => callback(err, null));
+      await ro.save();
+      const a = await Appointment.findById(ro.AppointmentID);
+      const c = await Car.findById(a.CarID);
+      const client = await Client.findById(c.OwnerID);
+      const u = await User.findById(client.UserID);
+      let carData = `${c.brand} ${c.model} ${c.year} | ${c.licensePlate}`;
+      email.notificacionOrdenCerrada(u.firstName, u.email, carData, (err, info) => {
+        if (err) {
+          callback(err, null);
+        } else {
+          callback(null, ro);
+        }
+      });
+    } catch (e) {
+      callback(e, null);
+    }
   }
 };
 

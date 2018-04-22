@@ -6,116 +6,162 @@ const Car = require('../models/Car');
 const Appoiment = require('../models/Appointment');
 
 const ClientController = {
-  askAppoiment: function (serial, callback) {
-    Car.findOne({
-      where: {
-        serial: serial
-      }
-    }).then(car => {
-      Appoiment.findOne({
+  askAppoiment: async function (serial, callback) {
+    try {
+      let car = await Car.findOne({
         where: {
-          CarID: car.ID
+          serial: serial
         }
-      }).then(appoiment => {
-        if (appoiment) {
-          callback(new Error('Este vehículo ya tiene un cita activa'), null);
-        } else {
-          Appoiment.create({
-            checkout: 0,
-            CarID: car.ID
-          }).then(appoiment2 => callback(null, appoiment2)).catch(err => callback(err, null));
-        }
-      }).catch(err => callback(err, null));
-    }).catch(err => callback(err, null));
-  },
-  register: function (userID, callback) {
-    Client.create({
-      User: UserID
-    }).then(() => {
-      Client.findOne({
-          where: {
-            User: UserID
-          }
-        }).then(client => callback(null, client))
-        .catch(err => callback(err, null));
-    });
-  },
-  carRegister: function (car, callback) {
-    Car.findOne({
-      where: {
-        serial: car.serial
-      }
-    }).then(carFin => {
-      if (carFin) {
-        carFin.OwnerID = car.OwnerID
-        carFin.active = 1;
-        carFin.save().then(() => callback(null, carFin))
-          .catch(err => callback(err, null));
-      } else {
-        cloudinary.uploader.upload(car.photoLink, result => {
-          car.photoLink = result.secure_url;
-          Car.create(car).then(() => {
-            Car.findOne({
-                where: {
-                  serial: car.serial
-                }
-              }).then(car => callback(null, car))
-              .catch(err => callback(err, null));
+      });
+      if (car) {
+        try {
+          let appointment = await Appoiment.findOne({
+            where: {
+              CarID: car.ID
+            }
           });
+          if (appoiment) {
+            callback(new Error('Este vehículo ya tiene un cita activa'), null);
+          } else {
+            try {
+              let appoiment2 = await Appoiment.create({
+                checkout: 0,
+                CarID: car.ID
+              });
+              callback(null, appoiment2);
+            } catch (e3) {
+              callback(e3, null);
+            }
+          }
+        } catch (e2) {
+          callback(e2, null);
+        }
+      } else {
+        callback(new Error('No existe ningun carro registrado con este serial'));
+      }
+    } catch (e) {
+      callback(e, null);
+    }
+  },
+  register: async function (User, callback) {
+    try {
+      await Client.create({
+        User
+      });
+      let client = await Client.findOne({
+        where: {
+          User: UserID
+        }
+      });
+      if (client) {
+        callback(null, client);
+      } else {
+        callback(new Error('Ocurrio un error registrado al cliente'));
+      }
+    } catch (e) {
+      callback(e, null);
+    }
+  },
+  carRegister: async function (car, callback) {
+    try {
+      let c = await Car.findOne({
+        where: {
+          serial: car.serial
+        }
+      });
+      if (c) {
+        const bool = (c.serial === car.serial) &&
+          (c.licensePlate === car.licensePlate) && (c.model === car.model) &&
+          (c.brand === car.brand) && (c.year === car.year);
+        if (bool) {
+          c.OwnerID = car.OwnerID;
+          c.active = 1;
+          try {
+            await c.save();
+            callback(null, c);
+          } catch (e2) {
+            callback(e2, null);
+          }
+        } else {
+          callback(new Error('Usted esta registrando un vehículo con datos erroneos'))
+        }
+      } else {
+        cloudinary.uploader.upload(car.photoLink, async (result) => {
+          car.photoLink = result.secure_url;
+          try {
+            await Car.create(car);
+            let c2 = await Car.findOne({
+              where: {
+                serial: car.serial
+              }
+            });
+            callback(null, c2);
+          } catch (e3) {
+            callback(e3, null);
+          }
         });
       }
-    }).catch(err => {
-      console.log('epa 4', err);
-      callback(err, null)
-    });
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  getCars: function (ClientID, callback) {
-    Car.findAll({
-      where: {
-        OwnerID: ClientID
-      }
-    }).then(cars => {
+  getCars: async function (ClientID, callback) {
+    try {
+      let cars = await Car.findAll({
+        where: {
+          OwnerID: ClientID
+        }
+      });
       callback(null, cars);
-    }).catch(err => callback(err, null));
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  findByNationalID: function (nationalID, callback) {
-    User.findOne({
-      where: {
-        nationalID: nationalID,
-        type: 1
-      }
-    }).then(user => {
-      if (user) {
-        callback(null, user)
+  findByNationalID: async function (nationalID, callback) {
+    try {
+      let u = await User.findOne({
+        where: {
+          nationalID: nationalID,
+          type: 1
+        }
+      });
+      if (u) {
+        callback(null, u);
       } else {
         callback(new Error('No existe ningun usuario registrado con ese numero de cedula'), null);
       }
-    }).catch(err => callback(err, null));
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  desactiveCars: function (carSerial, callback) {
-    Car.findOne({
+  desactiveCars: async function (carSerial, callback) {
+    try {
+      let car = Car.findOne({
         where: {
           serial: carSerial
         }
-      }).then(car => {
-        if (car) {
-          car.active = 0;
-          car.OwnerID = 0;
-          car.save().then(() => {
-            Appoiment.destroy({
-              where: {
-                CarID: car.ID,
-                checkout: 0
-              }
-            }).then(affectedRow => {
-              console.log(affectedRow);
-              callback(null, car)
-            }).catch(err => callback(err, null));
-          }).catch(err => callback(err, null));
-        } else {
-          callback(new Error('No se ha encontrado ningun carro con ese serial'), null);
+      });
+      if (car) {
+        car.active = 0;
+        car.OwnerID = 0;
+        try {
+          await car.save();
+          let ar = await Appoiment.destroy({
+            where: {
+              CarID: car.ID,
+              checkout: 0
+            }
+          });
+          callback(null, car);
+        } catch(e2) {
+          callback(e2, null);
         }
-      }).catch(err => callback(err, null));
+      } else {
+        callback(new Error('No se ha encontrado ningun carro con ese serial'), null);
+      }
+    } catch (e) {
+      callback(e, null);
+    }
   },
   getAksedAppointments: function (userID, callback) {
     sequelize.query(

@@ -1,79 +1,100 @@
 const Replacement = require('../models/Replacement');
 const User = require('../models/User');
-const Appointment = require('../models/Appointment');
-const Car = require('../models/Car');
-const RepairOrder = require('../models/RepairOrder');
 
 const AdministratorController = {
-  getAllReplacements: function(callback) {
-    Replacement.findAll()
-    .then(replacements => callback(null, replacements))
-    .catch(err => callback(err, replacements));
+  getAllReplacements: async function (callback) {
+    try {
+      let replacements = await Replacement.findAll();
+      callback(null, replacements);
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  insertReplacement: function(replacement, callback) {
-    Replacement.findOne({
-      where: {
-        partNumber: replacement.partNumber
-      }
-    }).then(replacementFin => {
-      if (replacementFin) {
+  insertReplacement: async function (replacement, callback) {
+    try {
+      let r = await Replacement.findOne({
+        where: {
+          partNumber: replacement.partNumber
+        }
+      });
+      if (r) {
         callback(new Error('Ya existe un Repuesto con ese numero de parte'), null);
       } else {
-        Replacement.create(replacement)
-        .then(replacement => callback(null, replacement))
-        .catch(err => callback(err, null));
+        let rep = await Replacement.create(replacement);
+        callback(null, rep);
       }
-    })
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  searchReplacementByPartNumber: function(partNumber, callback) {
-    Replacement.findOne({
-      where: {
-        partNumber: partNumber
-      }
-    }).then( replacement => {
-      if (replacement) {
-        callback(null, replacement)
+  searchReplacementByPartNumber: async function (partNumber, callback) {
+    try {
+      let r = await Replacement.findOne({
+        where: {
+          partNumber: partNumber
+        }
+      });
+      if (r) {
+        callback(null, r);
       } else {
         callback(new Error('No existe ningun repuesto registrado con ese numero de parte'), null);
       }
-    }).catch(err => callback(err, null)); 
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  modifyReplacement: function (replacement, callback) {
-    Replacement.findOne({
-      where: {
-        partNumber: replacement.partNumber
-      }
-    }).then(replacementBD  => { // Busca el repuesto con el numero de parte
-      if (replacementBD) { // Si existe el repuesto
-        replacementBD.update({
-          name: replacement.name,
-          brand: replacement.brand,
-          inStock: replacement.inStock,
-          forModel: replacement.forModel
-        }).then(replacementBD => {callback(null, replacementBD)}).catch(err => callback(err, null)); // Llama al callback
+  modifyReplacement: async function (replacement, callback) {
+    try {
+      let r = await Replacement.findOne({
+        where: {
+          partNumber: replacement.partNumber
+        }
+      });
+      if (r) {
+        try {
+          let rModify = await r.update({
+            name: replacement.name,
+            brand: replacement.brand,
+            inStock: replacement.inStock,
+            forModel: replacement.forModel
+          });
+          callback(null, rModify);
+        } catch (e2) {
+          callback(e2, null);
+        }
       } else {
-        callback(new Error('No hay repuestos registrados con ese número de parte'), null); // No hay ese repuesto
+        callback(new Error('No hay repuestos registrados con ese número de parte'), null);
       }
-    }).catch(err => {callback(err, null)}); // Error de la base de datos
+    } catch (e) {
+      callback(e, null);
+    }
   },
-  changeRole: function (nationalID, newRole, callback) {
-    User.findAll({
-      where: {
-        nationalID: nationalID
-      }
-    }).then(users  => { // Busca a todos los usuarios con esa cedula "Pueden ser varios"
-      if (users) { // Si hay usuarios
-        users.forEach(user => { // Recorre el vector
-          if (user.type !== 1) { // Todas aquellas cuentas que no sean de clientes pueden ser cambiadas
-            user.update({ // Cambia el tipo de cuenta
-              type: newRole
-            }).then(() => callback(null, user)).catch(err => callback(err, null)); // Llama al callback
+  changeRole: async function (nationalID, newRole, callback) {
+    try {
+      let users = await User.findAll({
+        where: {
+          nationalID: nationalID
+        }
+      });
+      if (users) {
+        users.forEach(async (user) => {
+          if (user.type !== 1) {
+            try {
+              let u = await user.update({ // Cambia el tipo de cuenta
+                type: newRole
+              });
+              callback(null, u);
+            } catch (e2) {
+              callback(e2, null);
+            }
           }
-        })
+        });
       } else {
-        callback(new Error('No hay usuarios registrados con esa Cédula de Identidad'), null); // No hay nadie con esa cedula
+        callback(new Error('No hay usuarios registrados con esa Cédula de Identidad'), null);
       }
-    }).catch(err => callback(err,null)); // Error de la base de datos
+    } catch (e) {
+      callback(e, null);
+    }
   }
 };
 
